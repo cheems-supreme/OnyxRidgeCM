@@ -1,0 +1,8 @@
+<resources>
+    <!-- Added 10/23/20 -->
+    <string name="app_name">OnyxRidge</string>
+
+    <string name="login_email_hint">Email address</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_button_text">Login</string>
+</resources>

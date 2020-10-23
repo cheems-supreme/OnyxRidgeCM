@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "317462186388",
+    "firebase_url": "https://onyxridgecm.firebaseio.com",
+    "project_id": "onyxridgecm",
+    "storage_bucket": "onyxridgecm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:317462186388:android:de51d1cff8956327896781",
+        "android_client_info": {
+          "package_name": "com.icecrown.onyxridgecm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "317462186388-fa9g0f4c8ccvvngjrqa3i5nsu2fatui9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.icecrown.onyxridgecm",
+            "certificate_hash": "c5af1a189d56953e7abc69d8a7e6443505803f76"
+          }
+        },
+        {
+          "client_id": "317462186388-jjtlvnos7jqmsps40v30i39d9v79pd1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5-imJaZYJujoTaYHuwQ9NwgD3weQ3IxE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "317462186388-jjtlvnos7jqmsps40v30i39d9v79pd1f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
