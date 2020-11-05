@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filter_menu_option"
+        android:enabled="true"
+        android:icon="@drawable/ic_filter_content"
+        android:title="@string/filter_content"
+        />
+    <item
+        android:id="@+id/sort_menu_option"
+        android:enabled="true"
+        android:icon="@drawable/ic_sort_content"
+        android:title="@string/sort_content"/>
+</menu>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dir_tv"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingStart="35dp"
+    android:paddingEnd="0sp"
+    android:textSize="30sp"
+    />

@@ -1,8 +1,49 @@
 <resources>
-    <!-- Added 10/23/20 -->
-    <string name="app_name">OnyxRidge</string>
 
-    <string name="login_email_hint">Email address</string>
-    <string name="login_password_hint">Password</string>
+    <string name="app_name">OnyxRidge</string>
     <string name="login_button_text">Login</string>
+
+    <!-- MENU TITLES -->
+    <string name="main_menu">Main menu</string>
+    <string name="browse_reports">Browse Reports</string>
+    <string name="browse_photos">Browse Photos</string>
+    <string name="settings_and_help">Settings/Help</string>
+
+    <!-- GENERAL TEXT -->
+        <!-- BROWSE CONTENT TEXT -->
+        <string name="project_title">Project:</string>
+        <string name="filter_content">Filter</string>
+        <string name="sort_content">Sort</string>
+        <string name="no_project_chosen">No project chosen</string>
+        <!-- RECYCLERVIEW CONTENT TEXT -->
+        <string name="date_of_content">Date of content: </string>
+        <string name="document_written_by">Written by: </string>
+        <!-- MAIN MENU CARD TEXT -->
+        <string name="generate_yearly_report_title">Generate Yearly Report</string>
+        <string name="generate_report_by_month">Generate Report by Month</string>
+
+    <!-- SUCCESS MESSAGES -->
+        <!-- LOGIN SUCCESS MESSAGES -->
+        <string name="login_succeeded">Login successful!</string>
+
+    <!-- ERROR MESSAGES -->
+        <!-- LOGIN ERROR MESSAGES -->
+        <string name="email_not_entered">You must enter an email</string>
+        <string name="email_not_correct">This email is not associated with an account</string>
+        <string name="password_not_entered">You must enter a password</string>
+        <string name="password_not_correct">Your password is not correct</string>
+        <string name="login_failed_creds">Login failed, please check credentials</string>
+        <string name="login_failed_admin">Login failed, contact administration</string>
+        <!-- LOADING RESOURCES FROM FIREBASE ERRORS -->
+        <string name="projects_not_found">No projects found</string>
+        <string name="projects_not_loaded">Projects cannot be loaded</string>
+        <string name="no_documents_found">No documents to show</string>
+
+    <!-- EDIT TEXT HINTS -->
+        <!-- LOGIN HINTS -->
+        <string name="login_password_hint">Password</string>
+        <string name="login_email_hint">Email address</string>
+
+    <!-- ACCESSIBILITY TEXT -->
+    <string name="accessibility_generate_yearly_icon">Generate yearly report icon</string>
 </resources>

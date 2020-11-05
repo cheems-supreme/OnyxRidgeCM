@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_dashboard"
+        android:title="@string/main_menu"/>
+    <item
+        android:id="@+id/browse_reports_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_reports_menu"
+        android:title="@string/browse_reports"/>
+    <item
+        android:id="@+id/browse_photos_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_images_menu"
+        android:title="@string/browse_photos"/>
+    <item
+        android:id="@+id/settings_and_help_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_help_menu"
+        android:title="@string/settings_and_help"/>
+
+</menu>
