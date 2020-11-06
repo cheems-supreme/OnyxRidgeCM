@@ -25,6 +25,8 @@
         <string name="generate_report_by_month_cv_title">Generate Report by Month</string>
         <string name="create_new_report_cv_title">Create a New Report</string>
         <string name="upload_existing_report_cv_title">Upload an Existing Report</string>
+        <string name="take_new_photo_cv_title">Take New Photo</string>
+        <string name="generate_report_of_accidents_cv_title">Generate Report of Accidents</string>
 
         <!-- CREATE REPORT TEMPLATE FIELDS -->
         <string name="job_name_title">Job Name: </string>
@@ -107,5 +109,8 @@
     <string name="accessibility_generate_monthly_report_icon">Generate monthly report icon</string>
     <string name="accessibility_create_new_report_icon">Create new report</string>
     <string name="accessibility_upload_existing_report_icon">Upload existing report</string>
+    <string name="accessibility_take_new_photo_icon">Take new photo</string>
+    <string name="accessibility_upload_existing_photo_icon">Upload existing photo</string>
+    <string name="accessibility_generate_report_of_accidents">Generate report of accidents photo</string>
 
 </resources>

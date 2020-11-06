@@ -57,7 +57,7 @@
   - Changed anonymous listeners and methods to lambdas.
 - Added the `WorkSeries` classes from last draft
 
-# 11/6/2020 Changes
+# 11/6/2020 Changes, Section 1
 - Added `ic_images_menu.png` files; somehow, they were deleted (or moved)
 - Edited `MainContentActivity.java`
   - Changed `popBackStack()` loop to just once (program won't go beyond one on the backstack)
@@ -82,3 +82,11 @@
   - Removed unused instance singleton
 - Edited `BrowseReportsFragment.java`
   - Made a method into a lambda
+
+# 11/6/2020 Changes, Section 2
+- Added string resources
+- Added custom icons for main menu content card views
+- Edited `fragment_main_menu.xml`
+  - Added a card view to generate an accident report
+  - Added card views for uploading new and existing photos
+  - Added separators to divide content
