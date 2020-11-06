@@ -9,6 +9,14 @@
 //
 // Purpose: Used for main menu logic, such as generating monthly
 //          and yearly reports based on project.
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/6/2020
+// - R.O.
+// - DETAILS:
+//      - Changed lambdas to expression lambdas
+//      - Converted certain variables from class to local
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -26,9 +34,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.icecrown.onyxridgecm.R;
 
 public class MainMenuFragment extends Fragment {
-    private MaterialCardView createNewReportCardView;
-    private MaterialCardView uploadExistingReportCardView;
-    private MainMenuFragment singleton = this;
+    private final MainMenuFragment singleton = this;
     private FragmentManager manager;
 
     @Nullable
@@ -38,15 +44,11 @@ public class MainMenuFragment extends Fragment {
 
         manager = getActivity().getSupportFragmentManager();
 
-        createNewReportCardView = v.findViewById(R.id.create_new_report_card_view);
-        createNewReportCardView.setOnClickListener(v1 -> {
-            manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateNewReportFragment()).addToBackStack(null).commit();
-        });
+        MaterialCardView createNewReportCardView = v.findViewById(R.id.create_new_report_card_view);
+        createNewReportCardView.setOnClickListener(v1 -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateNewReportFragment()).addToBackStack(null).commit());
 
-        uploadExistingReportCardView = v.findViewById(R.id.upload_existing_report_card_view);
-        uploadExistingReportCardView.setOnClickListener(v1 -> {
-            manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new UploadExistingReportFragment()).addToBackStack(null).commit();
-        });
+        MaterialCardView uploadExistingReportCardView = v.findViewById(R.id.upload_existing_report_card_view);
+        uploadExistingReportCardView.setOnClickListener(v1 -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new UploadExistingReportFragment()).addToBackStack(null).commit());
 
 
         return v;

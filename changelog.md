@@ -56,3 +56,29 @@
 - Edited `LoginFragment.java`
   - Changed anonymous listeners and methods to lambdas.
 - Added the `WorkSeries` classes from last draft
+
+# 11/6/2020 Changes
+- Added `ic_images_menu.png` files; somehow, they were deleted (or moved)
+- Edited `MainContentActivity.java`
+  - Changed `popBackStack()` loop to just once (program won't go beyond one on the backstack)
+  - Commented out `onBackPressed(...)` to allow code to compile
+  - Changed switch statement that handles changing fragments on bottom nav click to if/else if
+    chain; see file update log
+- Edited `CreateNewReportFragment.java`
+  - Removed unused variable and imports
+  - Added variable to reduce calls to a static method
+  - Added check to see if backstack is -1 (empty) in `onComplete(...)` method for file upload,
+    which ensure that the program won't try to pop the backstack when it's empty (the user exited
+    the fragment, and thus popped the backstack, before upload was complete)
+  - Simplified an if/else statement
+- Edited `LoginFragment.java`
+  - Changed anonymous methods/classes to lambdas
+  - made certain variables final
+  - Removed unused imports
+- Edited `MainMenuFragment.java`
+  - Changed some lambdas to expression lambdas
+  - Converted certain variables from class to local
+- Edited `SelectProjectFragment.java`
+  - Removed unused instance singleton
+- Edited `BrowseReportsFragment.java`
+  - Made a method into a lambda
