@@ -40,3 +40,19 @@
   - Menus for users to navigate the app and select filtering and sorting for documents and photos
 - Added colors
 - Edited both night and light themes
+
+# 11/5/2020 Changes
+- Added more drawables
+- Added string resourcs
+- Edited `MainContentActivity.java`
+  - Added catch to remove transactions on backstack until -1 (empty) or baseline menu
+  - Began adding a way to confirm signout when user hits back on main menu
+- Added `CreateNewReportFragment.java`
+  - Handles logic to create a new report and upload it to Firebase Storage instance
+  - Different from first draft's; have a dropdown that displays menus (loaded when fragment is created
+  - in same manner as SelectProjectMenu
+- Edited `fragment_main_menu.xml`
+- Added `fragment_create_new_report.xml` and `fragment_upload_existing_files.xml`
+- Edited `LoginFragment.java`
+  - Changed anonymous listeners and methods to lambdas.
+- Added the `WorkSeries` classes from last draft

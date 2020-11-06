@@ -32,6 +32,7 @@ import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.adapters.DocumentAdapter;
+import com.icecrown.onyxridgecm.interfaces.IProjectSelectedCallback;
 import com.icecrown.onyxridgecm.utility.Document;
 
 import java.text.DateFormat;
@@ -50,7 +51,7 @@ public class BrowseReportsFragment extends Fragment {
 
     private DocumentAdapter documentAdapter;
 
-    private final SelectProjectFragment.ProjectSelectedCallback callback = new SelectProjectFragment.ProjectSelectedCallback() {
+    private final IProjectSelectedCallback callback = new IProjectSelectedCallback() {
         @Override
         public void onProjectSelected(String projectName) {
             projectNameString = projectName;
@@ -70,11 +71,11 @@ public class BrowseReportsFragment extends Fragment {
         projectNameTextView.setOnClickListener(v1 -> {
             SelectProjectFragment fragment = new SelectProjectFragment();
             fragment.setCallback(callback);
-
-            FragmentManager manager = getActivity().getSupportFragmentManager();
-            manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, fragment).addToBackStack(null).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().hide(singleton).add(R.id.main_content_holder, fragment).addToBackStack(null).commit();
 
         });
+
+        documentAdapter = new DocumentAdapter(documentList);
         return v;
     }
 
@@ -90,7 +91,7 @@ public class BrowseReportsFragment extends Fragment {
                     final List<StorageReference> refList = task.getResult().getItems();
 
                     new Thread(() -> {
-                        if(task.getResult().getItems().size() != 0) {
+                        if(refList.size() != 0) {
                             for(final StorageReference doc : refList) {
                                 doc.getMetadata().addOnCompleteListener(task1 -> {
                                     if(task1.isSuccessful()) {
@@ -111,7 +112,6 @@ public class BrowseReportsFragment extends Fragment {
                                             e.printStackTrace();
                                             dateOfContent = new Date();
                                         }
-
 
                                         documentList.add(new Document(doc, data.getCustomMetadata("document_name"), dateUploaded, dateOfContent, data.getCustomMetadata("first_name"), data.getCustomMetadata("last_name"), Boolean.parseBoolean(data.getCustomMetadata("accident_happened"))));
 

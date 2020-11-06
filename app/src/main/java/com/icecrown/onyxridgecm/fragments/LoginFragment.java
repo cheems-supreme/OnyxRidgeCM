@@ -18,6 +18,11 @@
 //      - Added EditText and button variables.
 //      - Placed this class in a new package:
 //        onyxridgecm.fragments
+// ------------------------------------------------
+// - 11/5/2020
+// - R.O.
+// - DETAILS:
+//      - Changed anonymous methods and classes to lambda expressions
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -72,67 +77,63 @@ public class LoginFragment extends Fragment {
         prefs = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
 
 
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        signInButton.setOnClickListener(v -> {
+            // Ensures button is not clicked more than once during sign in
+            signInButton.setClickable(false);
 
-                // Ensures button is not clicked more than once during sign in
-                signInButton.setClickable(false);
+            String email = emailEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
 
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+            boolean isEmailBlank = email.isEmpty();
+            boolean isPasswordBlank = password.isEmpty();
 
-                boolean isEmailBlank = email.isEmpty();
-                boolean isPasswordBlank = password.isEmpty();
-
-                if(isEmailBlank || isPasswordBlank) {
-                    if(isEmailBlank) {
-                        emailEditText.setError(getActivity().getResources().getString(R.string.email_not_entered));
-                    }
-                    if(isPasswordBlank) {
-                        passwordEditText.setError(getActivity().getResources().getString(R.string.password_not_entered));
-                    }
-                    signInButton.setClickable(true);
+            if(isEmailBlank || isPasswordBlank) {
+                if(isEmailBlank) {
+                    emailEditText.setError(getString(R.string.email_not_entered));
                 }
-                else {
-                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()) {
-                                alertsMTextView.setText(R.string.login_succeeded);
+                if(isPasswordBlank) {
+                    passwordEditText.setError(getString(R.string.password_not_entered));
+                }
+                signInButton.setClickable(true);
+            }
+            else {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            alertsMTextView.setText(R.string.login_succeeded);
 
-                                db.collection("users").whereEqualTo("email", FirebaseAuth.getInstance().getCurrentUser().getEmail()).get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if(task.isSuccessful()) {
-                                                    DocumentSnapshot snap = task.getResult().getDocuments().get(0);
-                                                    if(snap.exists()) {
-                                                        SharedPreferences.Editor editor = prefs.edit();
-                                                        editor.putString("first_name", snap.getString("first_name"));
-                                                        editor.putString("last_name", snap.getString("last_name"));
-                                                        editor.putString("email", snap.getString("email"));
-                                                        // TODO: POTENTIALLY IMPLEMENT SECURITY FEATURES
-                                                        editor.apply();
+                            db.collection("users").whereEqualTo("email", FirebaseAuth.getInstance().getCurrentUser().getEmail()).get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if(task.isSuccessful()) {
+                                                DocumentSnapshot snap = task.getResult().getDocuments().get(0);
+                                                if(snap.exists()) {
+                                                    SharedPreferences.Editor editor = prefs.edit();
+                                                    editor.putString("first_name", snap.getString("first_name"));
+                                                    editor.putString("last_name", snap.getString("last_name"));
+                                                    editor.putString("email", snap.getString("email"));
+                                                    // TODO: POTENTIALLY IMPLEMENT SECURITY FEATURES
+                                                    editor.apply();
 
-                                                        startActivity(MainContentActivity.GenerateIntent(getContext()));
-                                                        signInButton.setClickable(true);
-                                                    }
-                                                }
-                                                else {
-                                                    alertsMTextView.setText(R.string.login_failed_admin);
+                                                    startActivity(MainContentActivity.GenerateIntent(getContext()));
                                                     signInButton.setClickable(true);
                                                 }
                                             }
-                                        });
-                            } else {
-                                alertsMTextView.setText(R.string.login_failed_creds);
-                                passwordEditText.setText("");
-                                signInButton.setClickable(true);
-                            }
+                                            else {
+                                                alertsMTextView.setText(R.string.login_failed_admin);
+                                                signInButton.setClickable(true);
+                                            }
+                                        }
+                                    });
+                        } else {
+                            alertsMTextView.setText(R.string.login_failed_creds);
+                            passwordEditText.setText("");
+                            signInButton.setClickable(true);
                         }
-                    });
-                }
+                    }
+                });
             }
         });
 
@@ -144,6 +145,5 @@ public class LoginFragment extends Fragment {
         alertsMTextView.setText("");
         passwordEditText.setText("");
         super.onResume();
-
     }
 }

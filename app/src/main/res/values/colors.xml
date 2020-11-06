@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- WEBGYAANI COLOR PALETTE #2 -->
+    <color name="base_maroon_flat">#765D69</color>
+    <color name="second_teal_flat">#8FB9A8</color>
+    <color name="accent_beige_flat">#FEFAD4</color>
+    <color name="accent_salmon_flat">#FCD0BA</color>
+    <color name="accent_pink_red_flat">#F1828D</color>
+
+    <color name="base_dark_blue_flat">#305F72</color>
+    <color name="base_dark_blue_flat_light">#5F8CA1</color>
+    <color name="base_dark_blue_flat_dark">#003547</color>
+    <color name="second_pink_red_flat">#F18C8E</color>
+    <color name="second_pink_red_flat_light">#FFBDBE</color>
+    <color name="second_pink_red_flat_dark">#BD5D61</color>
+
+
+    <color name="accent_tan_flat">#F0B7A4</color>
+    <color name="accent_beige_flat_v_2">#F1D1B5</color>
+    <color name="accent_teal_flat">#568EA6</color>
+
+    <color name="color_error">#C72C41</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorOnyxAccent">#D3D3D3</color>
     <color name="colorOnyxPrimary">#505050</color>

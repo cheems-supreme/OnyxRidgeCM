@@ -11,39 +11,101 @@
 
     <!-- GENERAL TEXT -->
         <!-- BROWSE CONTENT TEXT -->
-        <string name="project_title">Project:</string>
+        <string name="project_title">Project: </string>
         <string name="filter_content">Filter</string>
         <string name="sort_content">Sort</string>
-        <string name="no_project_chosen">No project chosen</string>
+        <string name="no_project_chosen">No project chosen.</string>
+
         <!-- RECYCLERVIEW CONTENT TEXT -->
         <string name="date_of_content">Date of content: </string>
         <string name="document_written_by">Written by: </string>
-        <!-- MAIN MENU CARD TEXT -->
-        <string name="generate_yearly_report_title">Generate Yearly Report</string>
-        <string name="generate_report_by_month">Generate Report by Month</string>
 
+        <!-- MAIN MENU CARD TEXT -->
+        <string name="generate_yearly_report_cv_title">Generate Yearly Report</string>
+        <string name="generate_report_by_month_cv_title">Generate Report by Month</string>
+        <string name="create_new_report_cv_title">Create a New Report</string>
+        <string name="upload_existing_report_cv_title">Upload an Existing Report</string>
+
+        <!-- CREATE REPORT TEMPLATE FIELDS -->
+        <string name="job_name_title">Job Name: </string>
+        <string name="date_title">Date: </string>
+        <string name="workers_title">Workers: </string>
+        <string name="hours_per_worker_title">Hours Worked Per Worker: </string>
+        <string name="daily_log_title">Daily Log: </string>
+        <string name="weather_title">Weather: </string>
+        <string name="accident_happened_title">Did an accident happen? </string>
+        <string name="accident_log_title">Accident Log: </string>
+        <string name="total_hours_title">Total Hours: </string>
+        <string name="workers_postfix"> workers.</string>
+        <string name="hours_postfix"> hours.</string>
+        <string name="total_hours_postfix"> total hours.</string>
+        <string name="no_accident_occurred_text">No accident has occurred.</string>
+        <string name="no_pictures_chosen">No Pictures Selected.</string>
+
+        <!-- GENERAL UPLOADING TEXT -->
+        <string name="submit_content">Submit</string>
+        <string name="upload_content">Upload</string>
+        <string name="upload_existing_report_title">Upload an Existing Report</string>
+        <string name="upload_existing_photo_title">Upload an Existing Photo</string>
+        <string name="select_file_to_upload">Select File</string>
+        <string name="loading_in_progress">Loading…</string>
+        <string name="uploading_in_progress">Uploading…</string>
+
+        <!-- ARRAY TEXT -->
+        <string name="job_name_default_value">Job Name</string>
+        <string name="weather_default_value">Weather</string>
+        <string-array name="weather_values">
+            <item>Weather</item>
+            <item>Sunny</item>
+            <item>Cloudy</item>
+            <item>Rain</item>
+            <item>Snow</item>
+        </string-array>
+
+        <!-- CONFIRMATION MESSAGES -->
+        <string name="confirm_sign_out_title">Confirm sign out</string>
+        <string name="sign_out_confirmation_desc">This action will sign you out. Continue?</string>
+        <string name="confirm_logoff">Logout</string>
+        <string name="confirm_cancel">Cancel</string>
     <!-- SUCCESS MESSAGES -->
         <!-- LOGIN SUCCESS MESSAGES -->
         <string name="login_succeeded">Login successful!</string>
+        <!-- UPLOAD SUCCESS MESSAGES -->
+        <string name="report_upload_success">Report uploaded!</string>
 
     <!-- ERROR MESSAGES -->
         <!-- LOGIN ERROR MESSAGES -->
-        <string name="email_not_entered">You must enter an email</string>
-        <string name="email_not_correct">This email is not associated with an account</string>
-        <string name="password_not_entered">You must enter a password</string>
-        <string name="password_not_correct">Your password is not correct</string>
-        <string name="login_failed_creds">Login failed, please check credentials</string>
-        <string name="login_failed_admin">Login failed, contact administration</string>
-        <!-- LOADING RESOURCES FROM FIREBASE ERRORS -->
-        <string name="projects_not_found">No projects found</string>
-        <string name="projects_not_loaded">Projects cannot be loaded</string>
-        <string name="no_documents_found">No documents to show</string>
+        <string name="email_not_entered">You must enter an email.</string>
+        <string name="email_not_correct">This email is not associated with an account.</string>
+        <string name="password_not_entered">You must enter a password.</string>
+        <string name="password_not_correct">Your password is not correct.</string>
+        <string name="login_failed_creds">Login failed, please check credentials.</string>
+        <string name="login_failed_admin">Login failed, contact administration.</string>
+        <!-- LOADING RESOURCES FROM FIREBASE ERROR MESSAGES -->
+        <string name="projects_not_found">No projects found.</string>
+        <string name="projects_not_loaded">Projects cannot be loaded.</string>
+        <string name="no_documents_found">No documents to show.</string>
+        <!-- GENERATE REPORT ERROR MESSAGES -->
+        <string name="job_name_not_chosen">A job name must be selected.</string>
+        <string name="workers_on_site_not_entered">\'Workers on Site\' must be entered.</string>
+        <string name="hours_worked_not_entered">\'Hours Worked\' must be entered.</string>
+        <string name="daily_log_not_entered">\'Daily Log\' must be filled.</string>
+        <string name="weather_not_chosen">A weather type must be chosen.</string>
+        <string name="accident_happened_not_entered">If an accident occurred, a description must be entered.</string>
+        <!-- UPLOAD ERROR MESSAGES -->
+        <string name="upload_report_failed">Report upload failed.</string>
 
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->
         <string name="login_password_hint">Password</string>
         <string name="login_email_hint">Email address</string>
+        <string name="workers_number_hint">Number of workers</string>
+        <string name="hours_worked_per_worker_hint">Hours worked</string>
 
     <!-- ACCESSIBILITY TEXT -->
     <string name="accessibility_generate_yearly_icon">Generate yearly report icon</string>
+    <string name="accessibility_generate_monthly_report_icon">Generate monthly report icon</string>
+    <string name="accessibility_create_new_report_icon">Create new report</string>
+    <string name="accessibility_upload_existing_report_icon">Upload existing report</string>
+
 </resources>
