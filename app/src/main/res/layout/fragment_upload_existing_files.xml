@@ -26,28 +26,23 @@
 
     <com.github.barteksc.pdfviewer.PDFView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="15dp"
         app:layout_constraintTop_toBottomOf="@id/upload_existing_menu_text_view"
+        app:layout_constraintBottom_toTopOf="@id/attach_and_upload_file"
         android:id="@+id/file_preview_viewer"
-        android:layout_marginHorizontal="15dp"/>
-<!--    <com.google.android.material.textview.MaterialTextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:textSize="20sp"-->
-<!--        android:gravity="center"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/upload_existing_menu_text_view"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:id="@+id/filename_text_view"/>-->
+        android:layout_marginHorizontal="15dp"
+        android:background="@color/blackTranslucent"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/attach_and_upload_file"
-        app:layout_constraintTop_toBottomOf="@id/file_preview_viewer"
-        android:layout_margin="15dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="30dp"
+        >
         <com.google.android.material.button.MaterialButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"

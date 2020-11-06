@@ -90,3 +90,9 @@
   - Added a card view to generate an accident report
   - Added card views for uploading new and existing photos
   - Added separators to divide content
+
+# 11/6/2020 Changes, Section 3
+- Changed light theme
+- Edited `fragment_upload_existing_files.xml`
+  - Changed layout
+  - Removed commented-out/unused View

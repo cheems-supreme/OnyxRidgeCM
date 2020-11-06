@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/base_maroon_flat</item>
         <item name="colorPrimaryVariant">@color/second_teal_flat</item>
-        <item name="colorOnPrimary">@color/colorConstAccent</item>
+        <item name="colorOnPrimary">@color/accent_beige_flat</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/accent_beige_flat</item>
         <item name="colorSecondaryVariant">@color/accent_salmon_flat</item>
