@@ -8,6 +8,20 @@
 // Written on: 11/5/2020
 //
 // Purpose: Used for logic behind creating reports
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/6/2020
+// - R.O.
+// - DETAILS:
+//      - Removed unused variable, singleton
+//      - Added variable to reduce calls to FirebaseStorage
+//        .getInstance()
+//      - Added check to see if backstack is -1 (empty) upon
+//        file upload completion. If it isn't (backstack exists),
+//        then pop it; else, do nothing.
+//      - Simplified if/else statement
+//      - Removed unused imports
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -15,27 +29,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import androidx.fragment.app.FragmentManager;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.snackbar.Snackbar;
@@ -47,13 +52,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.utility.ReportFactory;
 import com.icecrown.onyxridgecm.workseries.WorkMonth;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,11 +77,10 @@ public class CreateNewReportFragment extends Fragment {
     private MaterialCheckBox accidentHappenedCheckBox;
     private TextInputEditText accidentDetails;
     private MaterialButton submitReportButton;
-
     private String jobNameValue = "";
     private String weatherValue = "";
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-    private final CreateNewReportFragment singleton = this;
 
     @Nullable
     @Override
@@ -86,7 +88,7 @@ public class CreateNewReportFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_create_new_report, container, false);
 
         jobNameSpinner = v.findViewById(R.id.job_name_spinner);
-        FirebaseStorage.getInstance().getReference().listAll().addOnCompleteListener(task -> {
+        storage.getReference().listAll().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 List<String> jobNames = new ArrayList<>();
 
@@ -140,12 +142,7 @@ public class CreateNewReportFragment extends Fragment {
 
         accidentHappenedCheckBox = v.findViewById(R.id.accident_happened_check_box);
         accidentHappenedCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if(isChecked) {
-                accidentDetails.setActivated(true);
-            }
-            else {
-                accidentDetails.setActivated(false);
-            }
+            accidentDetails.setActivated(isChecked);
         });
         accidentDetails = v.findViewById(R.id.accident_happened_description);
         accidentDetails.setActivated(false);
@@ -252,7 +249,7 @@ public class CreateNewReportFragment extends Fragment {
                 if(task.getResult().exists()) {
                     Log.d("EPOCH-2", "Document exists");
                     totalHoursPrev = doc.getDouble("total_hours");
-                    newHours.put("total_hours", totalHoursPrev.doubleValue() + totalHours);
+                    newHours.put("total_hours", totalHoursPrev + totalHours);
                     totalHoursRef.update(newHours);
                 } else {
                     Log.d("EPOCH-2", "Document doesn't exist");
@@ -267,7 +264,7 @@ public class CreateNewReportFragment extends Fragment {
 
     private void UploadFileToStorageAndClose(Uri chosenFile, final String fileName)
     {
-        StorageReference insertionDirectory = FirebaseStorage.getInstance().getReference().child(jobNameValue);
+        StorageReference insertionDirectory = storage.getReference().child(jobNameValue);
         SharedPreferences prefs = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
 
         final StorageReference insertionInstance = insertionDirectory.child("documents/" + fileName);
@@ -287,7 +284,10 @@ public class CreateNewReportFragment extends Fragment {
             insertionInstance.updateMetadata(metadata).addOnCompleteListener(task1 -> {
                 if(task1.isSuccessful()) {
                     Snackbar.make(submitReportButton, R.string.report_upload_success, Snackbar.LENGTH_SHORT).show();
-                    getActivity().getSupportFragmentManager().popBackStack();
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                    if(manager.getBackStackEntryCount() != -1) {
+                        getActivity().getSupportFragmentManager().popBackStack();
+                    }
                 }
                 else {
                     Snackbar.make(submitReportButton, R.string.upload_report_failed, Snackbar.LENGTH_SHORT).show();

@@ -9,6 +9,13 @@
 //
 // Purpose: Used for logic regarding viewing and downloading
 //          reports
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/6/2020
+// - R.O.
+// - DETAILS:
+//      - Made a method a lambda
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -44,11 +51,8 @@ import java.util.List;
 public class BrowseReportsFragment extends Fragment {
 
     private MaterialTextView projectNameTextView;
-
     private String projectNameString = "";
-
     private List<Document> documentList = new ArrayList<>();
-
     private DocumentAdapter documentAdapter;
 
     private final IProjectSelectedCallback callback = new IProjectSelectedCallback() {
@@ -84,48 +88,45 @@ public class BrowseReportsFragment extends Fragment {
             documentList.clear();
         }
 
-        FirebaseStorage.getInstance().getReference(projectNameString + "/documents/").listAll().addOnCompleteListener(new OnCompleteListener<ListResult>() {
-            @Override
-            public void onComplete(@NonNull Task<ListResult> task) {
-                if(task.isSuccessful()) {
-                    final List<StorageReference> refList = task.getResult().getItems();
+        FirebaseStorage.getInstance().getReference(projectNameString + "/documents/").listAll().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                final List<StorageReference> refList = task.getResult().getItems();
 
-                    new Thread(() -> {
-                        if(refList.size() != 0) {
-                            for(final StorageReference doc : refList) {
-                                doc.getMetadata().addOnCompleteListener(task1 -> {
-                                    if(task1.isSuccessful()) {
-                                        StorageMetadata data = task1.getResult();
+                new Thread(() -> {
+                    if(refList.size() != 0) {
+                        for(final StorageReference doc : refList) {
+                            doc.getMetadata().addOnCompleteListener(task1 -> {
+                                if(task1.isSuccessful()) {
+                                    StorageMetadata data = task1.getResult();
 
-                                        Date dateUploaded;
-                                        Date dateOfContent;
-                                        try {
-                                            dateUploaded = DateFormat.getDateInstance(DateFormat.SHORT).parse(data.getCustomMetadata("date_created"));
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                            dateUploaded = new Date();
-                                        }
-
-                                        try {
-                                            dateOfContent = DateFormat.getDateInstance(DateFormat.SHORT).parse(data.getCustomMetadata("date_of_content"));
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                            dateOfContent = new Date();
-                                        }
-
-                                        documentList.add(new Document(doc, data.getCustomMetadata("document_name"), dateUploaded, dateOfContent, data.getCustomMetadata("first_name"), data.getCustomMetadata("last_name"), Boolean.parseBoolean(data.getCustomMetadata("accident_happened"))));
-
-                                        if(documentList.size() == refList.size()) {
-                                            documentAdapter.setDocs(documentList);
-                                        }
+                                    Date dateUploaded;
+                                    Date dateOfContent;
+                                    try {
+                                        dateUploaded = DateFormat.getDateInstance(DateFormat.SHORT).parse(data.getCustomMetadata("date_created"));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        dateUploaded = new Date();
                                     }
-                                });
-                            }
-                        } else {
-                            Snackbar.make(projectNameTextView, R.string.no_documents_found, Snackbar.LENGTH_SHORT).show();
+
+                                    try {
+                                        dateOfContent = DateFormat.getDateInstance(DateFormat.SHORT).parse(data.getCustomMetadata("date_of_content"));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        dateOfContent = new Date();
+                                    }
+
+                                    documentList.add(new Document(doc, data.getCustomMetadata("document_name"), dateUploaded, dateOfContent, data.getCustomMetadata("first_name"), data.getCustomMetadata("last_name"), Boolean.parseBoolean(data.getCustomMetadata("accident_happened"))));
+
+                                    if(documentList.size() == refList.size()) {
+                                        documentAdapter.setDocs(documentList);
+                                    }
+                                }
+                            });
                         }
-                    }).start();
-                }
+                    } else {
+                        Snackbar.make(projectNameTextView, R.string.no_documents_found, Snackbar.LENGTH_SHORT).show();
+                    }
+                }).start();
             }
         });
     }

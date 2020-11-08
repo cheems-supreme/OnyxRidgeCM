@@ -57,5 +57,42 @@
   - Changed anonymous listeners and methods to lambdas.
 - Added the `WorkSeries` classes from last draft
 
-# 11/8/2020 Changes
-- Changed the `ic_image_menu` drawable
+# 11/6/2020 Changes, Section 1
+- Added `ic_images_menu.png` files; somehow, they were deleted (or moved)
+- Edited `MainContentActivity.java`
+  - Changed `popBackStack()` loop to just once (program won't go beyond one on the backstack)
+  - Commented out `onBackPressed(...)` to allow code to compile
+  - Changed switch statement that handles changing fragments on bottom nav click to if/else if
+    chain; see file update log
+- Edited `CreateNewReportFragment.java`
+  - Removed unused variable and imports
+  - Added variable to reduce calls to a static method
+  - Added check to see if backstack is -1 (empty) in `onComplete(...)` method for file upload,
+    which ensure that the program won't try to pop the backstack when it's empty (the user exited
+    the fragment, and thus popped the backstack, before upload was complete)
+  - Simplified an if/else statement
+- Edited `LoginFragment.java`
+  - Changed anonymous methods/classes to lambdas
+  - made certain variables final
+  - Removed unused imports
+- Edited `MainMenuFragment.java`
+  - Changed some lambdas to expression lambdas
+  - Converted certain variables from class to local
+- Edited `SelectProjectFragment.java`
+  - Removed unused instance singleton
+- Edited `BrowseReportsFragment.java`
+  - Made a method into a lambda
+
+# 11/6/2020 Changes, Section 2
+- Added string resources
+- Added custom icons for main menu content card views
+- Edited `fragment_main_menu.xml`
+  - Added a card view to generate an accident report
+  - Added card views for uploading new and existing photos
+  - Added separators to divide content
+
+# 11/6/2020 Changes, Section 3
+- Changed light theme
+- Edited `fragment_upload_existing_files.xml`
+  - Changed layout
+  - Removed commented-out/unused View

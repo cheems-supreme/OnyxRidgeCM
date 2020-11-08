@@ -9,6 +9,13 @@
 //
 // Purpose: Used for selecting projects from storage to browse
 //          reports and photos in
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/6/2020
+// - R.O.
+// - DETAILS:
+//      - Removed unused variable singleton
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -41,7 +48,6 @@ public class SelectProjectFragment extends Fragment {
     private ProjectAdapter projectAdapter;
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private IProjectSelectedCallback callback;
-    private final SelectProjectFragment singleton = this;
 
     @Nullable
     @Override
@@ -80,8 +86,6 @@ public class SelectProjectFragment extends Fragment {
         });
         super.onStart();
     }
-
-
 
     public void setCallback(IProjectSelectedCallback callback) {
         this.callback = callback;
