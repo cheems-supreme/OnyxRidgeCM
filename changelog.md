@@ -56,3 +56,6 @@
 - Edited `LoginFragment.java`
   - Changed anonymous listeners and methods to lambdas.
 - Added the `WorkSeries` classes from last draft
+
+# 11/8/2020 Changes
+- Changed the `ic_image_menu` drawable
