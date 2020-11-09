@@ -1,5 +1,6 @@
 //**************************************************************
 // Project: OnyxRidge Construction Management
+//
 // File: MainContentActivity.java
 //
 // Written by: Raymond O'Neill
@@ -38,21 +39,17 @@ package com.icecrown.onyxridgecm.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.fragments.BrowsePhotosFragment;
 import com.icecrown.onyxridgecm.fragments.BrowseReportsFragment;
 import com.icecrown.onyxridgecm.fragments.MainMenuFragment;
 import com.icecrown.onyxridgecm.fragments.SettingsAndHelpFragment;
-import com.icecrown.onyxridgecm.interfaces.IActiveFragmentChanged;
 
 public class MainContentActivity extends AppCompatActivity {
 

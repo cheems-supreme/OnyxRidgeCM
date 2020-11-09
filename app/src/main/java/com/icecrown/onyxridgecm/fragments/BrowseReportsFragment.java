@@ -16,6 +16,12 @@
 // - R.O.
 // - DETAILS:
 //      - Made a method a lambda
+// ------------------------------------------------
+// - 11/8/20
+// - R.O.
+// - DETAILS:
+//      - Added RecyclerView instance to this and corresponding
+//        `browse_content` XML file
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -28,6 +34,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,15 +81,20 @@ public class BrowseReportsFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_browse_content, container, false);
 
         projectNameTextView = v.findViewById(R.id.project_name);
+        RecyclerView recView = v.findViewById(R.id.content_browse_rec_view);
+
+        recView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        recView.setItemAnimator(new DefaultItemAnimator());
+        recView.addItemDecoration(new DividerItemDecoration(recView.getContext(), DividerItemDecoration.VERTICAL));
 
         projectNameTextView.setOnClickListener(v1 -> {
             SelectProjectFragment fragment = new SelectProjectFragment();
             fragment.setCallback(callback);
             getActivity().getSupportFragmentManager().beginTransaction().hide(singleton).add(R.id.main_content_holder, fragment).addToBackStack(null).commit();
-
         });
 
         documentAdapter = new DocumentAdapter(documentList);
+        recView.setAdapter(documentAdapter);
         return v;
     }
 

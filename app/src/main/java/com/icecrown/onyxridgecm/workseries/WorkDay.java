@@ -1,16 +1,22 @@
 //*********************************************************
-// Project: BCS430W - Senior Project
-//
-// Project Name: OnyxRidge
+// Project: OnyxRidge Construction Management
 //
 // File: WorkDay.java
 //
 // Written by: Raymond O'Neill
 //
 // Date written: 11/1/20
+// Date added: 11/6/20
 //
 // Details: Holds information regarding a day of work
 //          (the day itself and the total hours worked)
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/8/20
+// - R.O.
+// - DETAILS:
+//      - Changed initial variable value
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 
@@ -23,7 +29,7 @@ public class WorkDay {
 
     public WorkDay() {
         day = new GregorianCalendar();
-        hours = 00;
+        hours = 0;
     }
     public WorkDay(GregorianCalendar day, double hours)
     {

@@ -1,21 +1,15 @@
 //*********************************************************
-// Project: BCS430W - Senior Project
-//
-// Project Name: OnyxRidge
+// Project: OnyxRidge Construction Management
 //
 // File: WorkYear.java
 //
 // Written by: Raymond O'Neill
 //
 // Date written: 11/1/20
+// Date added: 11/6/20
 //
 // Details: Holds information regarding a year of work
 //          (the months themselves, which uses composition)
-// ------------------------------------------------
-// - 11/1/20
-// - R.O.
-// - DETAILS:
-//      - Added a method to set a month at a given index
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 

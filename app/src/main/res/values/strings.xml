@@ -38,9 +38,9 @@
         <string name="accident_happened_title">Did an accident happen? </string>
         <string name="accident_log_title">Accident Log: </string>
         <string name="total_hours_title">Total Hours: </string>
-        <string name="workers_postfix"> workers.</string>
-        <string name="hours_postfix"> hours.</string>
-        <string name="total_hours_postfix"> total hours.</string>
+        <string name="workers_postfix">workers.</string>
+        <string name="hours_postfix">hours.</string>
+        <string name="total_hours_postfix">total hours.</string>
         <string name="no_accident_occurred_text">No accident has occurred.</string>
         <string name="no_pictures_chosen">No Pictures Selected.</string>
 
@@ -96,6 +96,8 @@
         <string name="accident_happened_not_entered">If an accident occurred, a description must be entered.</string>
         <!-- UPLOAD ERROR MESSAGES -->
         <string name="upload_report_failed">Report upload failed.</string>
+        <string name="no_project_chosen_upload">You must select a project before uploading</string>
+        <string name="no_file_chosen_for_upload">No file chosen for upload; you must select a file.</string>
 
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->

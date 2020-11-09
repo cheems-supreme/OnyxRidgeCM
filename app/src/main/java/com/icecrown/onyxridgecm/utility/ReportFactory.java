@@ -1,3 +1,17 @@
+//*******************************************************************
+// Project: OnyxRidge Construction Management
+//
+// File: ReportFactory.java
+//
+// Written by: Raymond O'Neill
+//
+// Date written: 10/8/20
+// Date added: 11/6/20
+//
+// Detail: A class that handles the generation of reports based on
+//         passed in content. Mainly used to separate this logic from
+//         the class it is used in to clear up space and modularize
+//*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 
 import android.content.Context;
@@ -94,7 +108,7 @@ public class ReportFactory {
     public static void AddWorkersHoursAndTotal(Context context, Document document, int workersOnSite, float hoursPerWorker) {
         Text workersOnSiteLabel = new Text(context.getString(R.string.workers_title));
         workersOnSiteLabel.setBold();
-        Text workersOnSiteValue = new Text(workersOnSite + context.getString(R.string.workers_postfix));
+        Text workersOnSiteValue = new Text(workersOnSite + " " + context.getString(R.string.workers_postfix));
         workersOnSiteValue.setUnderline();
         Paragraph workersOnSiteContent = new Paragraph();
         workersOnSiteContent.setPaddingTop(5);
@@ -106,7 +120,7 @@ public class ReportFactory {
 
         Text hoursPerWorkerLabel = new Text(context.getString(R.string.hours_per_worker_title));
         hoursPerWorkerLabel.setBold();
-        Text hoursPerWorkerValue = new Text(hoursPerWorker + context.getString(R.string.hours_postfix));
+        Text hoursPerWorkerValue = new Text(hoursPerWorker + " " + context.getString(R.string.hours_postfix));
         hoursPerWorkerValue.setUnderline();
         Paragraph hoursPerWorkerContent = new Paragraph();
         hoursPerWorkerContent.setPaddingLeft(15);
@@ -120,7 +134,7 @@ public class ReportFactory {
         Text totalHoursLabel = new Text(context.getString(R.string.total_hours_title));
         totalHoursLabel.setBold();
         String totalHoursWorker = String.valueOf(hoursPerWorker * workersOnSite);
-        Text totalHoursValue = new Text(totalHoursWorker + context.getString(R.string.total_hours_postfix));
+        Text totalHoursValue = new Text(totalHoursWorker + " " + context.getString(R.string.total_hours_postfix));
         totalHoursValue.setUnderline();
         Paragraph totalHoursContent = new Paragraph();
         totalHoursContent.setPaddingTop(5);
@@ -194,7 +208,7 @@ public class ReportFactory {
         document.add(accidentOccurredContent);
 
 
-        Text accidentDetailLabelText = new Text(context.getString(R.string.accident_happened_title));
+        Text accidentDetailLabelText = new Text(context.getString(R.string.accident_log_title));
         Paragraph accidentDetailLabel = new Paragraph(accidentDetailLabelText);
         accidentDetailLabel.setBold();
         accidentDetailLabel.setPaddingLeft(15);

@@ -1,5 +1,6 @@
 //**************************************************************
 // Project: OnyxRidge Construction Management
+//
 // File: MainActivity.java
 //
 // Written by: Raymond O'Neill

@@ -96,3 +96,24 @@
 - Edited `fragment_upload_existing_files.xml`
   - Changed layout
   - Removed commented-out/unused View
+
+# 11/8/2020 Changes
+- Added string resources
+- Edited `BrowseReportsFragment.java`
+  - Added `RecyclerView` instance that handles the holding of content for potential viewing
+  - Added View to `fragment_browse_content.xml`
+- Edited `UploadExistingReportFragment.java`
+  - Added code to upload existing files to Storage
+- Edited `LoginFragment.java`
+  - Added code to test to see why SharedPreferences data wasn't being loaded in Upload/Generate
+    Fragments (misspelt field name in Fragments files)
+- Edited `fragment_create_new_report.xml`
+  - Changed layout to better suit page
+- Edited `ReportFactory.java`
+  - Changed string resources being used in constructors/methods
+- Edited `CreateNewReportFragment.java`
+  - Closed `document` and `writer` instance at end of writing report to file
+- Removed unused interface
+- Added commenting headers and fixed header layouts
+- Edited `WorkDay.java`
+  - Changed init variable value

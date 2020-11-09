@@ -22,6 +22,12 @@
 //        then pop it; else, do nothing.
 //      - Simplified if/else statement
 //      - Removed unused imports
+// ------------------------------------------------
+// - 11/8/20
+// - R.O.
+// - DETAILS:
+//      - Added code to close 'document' and 'writer' instances
+//        at end of writing to file
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -58,6 +64,7 @@ import com.icecrown.onyxridgecm.workseries.WorkMonth;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -168,9 +175,16 @@ public class CreateNewReportFragment extends Fragment {
                     ReportFactory.AddLineSeparator(document);
                     ReportFactory.AddWeatherContent(getContext(), document, weatherValue);
                     ReportFactory.AddAccidentOccurredContent(getContext(), document, accidentHappenedCheckBox.isChecked(), accidentDetails.getText().toString());
-                    ReportFactory.UploadPhotosToDoc(getContext(), document, new File[0]);
                     // TODO:
+                    ReportFactory.UploadPhotosToDoc(getContext(), document, new File[0]);
                     //ReportFactory.UploadPhotosToDoc(getContext(), document, imagesChosen);
+
+                    document.close();
+                    try {
+                        writer.close();
+                    } catch(IOException ioe) {
+                        Log.d("EPOCH-3", "IOException encountered on PdfWriter.close() in file CreateNewReportFragment.java");
+                    }
 
                     InsertTotalHoursIntoDB(workersOnSite * hoursPerWorker);
 
@@ -219,7 +233,7 @@ public class CreateNewReportFragment extends Fragment {
     private void InsertTotalHoursIntoDB(final double totalHours) {
         FirebaseFirestore store = FirebaseFirestore.getInstance();
         final CollectionReference hoursRef = store.collection("hours");
-        final CollectionReference monthHoursRef = store.collection("hours/" + jobNameValue + "/" + dateChooser.getYear() + "/" + WorkMonth.DetermineMonthName(dateChooser.getMonth()).toLowerCase());
+        final CollectionReference monthHoursRef = store.collection("hours/" + jobNameValue + "/years/" + dateChooser.getYear() + "/months/" + WorkMonth.DetermineMonthName(dateChooser.getMonth()).toLowerCase() + "/days");
         final DocumentReference docRef = monthHoursRef.document(String.valueOf(dateChooser.getDayOfMonth()));
 
         docRef.get().addOnCompleteListener(task -> {

@@ -36,6 +36,7 @@ package com.icecrown.onyxridgecm.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,8 +75,7 @@ public class LoginFragment extends Fragment {
 
         signInButton = view.findViewById(R.id.sign_in_button);
 
-        prefs = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
-
+        prefs = getActivity().getApplicationContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
 
         signInButton.setOnClickListener(v -> {
             // Ensures button is not clicked more than once during sign in
@@ -107,9 +107,14 @@ public class LoginFragment extends Fragment {
                                         DocumentSnapshot snap = task1.getResult().getDocuments().get(0);
                                         if(snap.exists()) {
                                             SharedPreferences.Editor editor = prefs.edit();
-                                            editor.putString("first_name", snap.getString("first_name"));
-                                            editor.putString("last_name", snap.getString("last_name"));
-                                            editor.putString("email", snap.getString("email"));
+                                            String firstName = snap.getString("first_name");
+                                            String lastName = snap.getString("last_name");
+                                            String emailFB = snap.getString("email");
+
+                                            Log.d("EPOCH-3", "First Name: " + firstName + " Last Name: " + lastName + " Email: " + emailFB);
+                                            editor.putString("first_name", firstName);
+                                            editor.putString("last_name", lastName);
+                                            editor.putString("email", emailFB);
                                             // TODO: POTENTIALLY IMPLEMENT SECURITY FEATURES
                                             editor.apply();
 

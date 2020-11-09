@@ -1,36 +1,15 @@
 //*******************************************************************
-// Project: BCS430W - Senior Project
+// Project: OnyxRidge Construction Management
 //
-// Project name: OnyxRidge
-//
-// File: Adapter_Documents.java
+// File: DocumentsAdapter.java
 //
 // Written by: Raymond O'Neill
 //
 // Date written: 10/2/20
+// Date added: ~11/5/20
 //
-// Detail: Ooh, boy, part 2. Used for the RecyclerView to display the
-//         documents available to the user after selecting a specific
-//         directory. When on clicks on the file, it will launch
-//         another activity (maybe a popup instead) that will give a
-//         preview of the report, and give options to save to local
-//         device.
-// ------------------------------------------------
-// UPDATES
-// ------------------------------------------------
-// - 10/8/20
-// - R.O.
-// - DETAILS:
-//      - Actually fleshed out the class, gave it inner class, interface,
-//        methods, and member variables.
-// ------------------------------------------------
-// - 10/19/20
-// - R.O.
-// - DETAILS:
-//      - Attempted to have a context menu appear when list item is
-//        clicked. Removed all code involving that in the class.
-//      - Refactored name to the current version (from DocumentsAdapter.java)
-//        to improve readability
+// Detail: Used to connect Document data to RecyclerView in Browse-
+//         ReportsFragment
 //*******************************************************************
 package com.icecrown.onyxridgecm.adapters;
 

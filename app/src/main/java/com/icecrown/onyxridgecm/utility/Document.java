@@ -1,24 +1,16 @@
 //*******************************************************************
-// Project: BCS430W - Senior Project
-//
-// Project name: OnyxRidge
+// Project: OnyxRidge Construction Management
 //
 // File: Document.java
 //
 // Written by: Raymond O'Neill
 //
 // Date written: 10/8/20
+// Date added: 11/6/20
 //
-// Detail: Class to be used with the Adapter_Documents.java class
+// Detail: Class to be used with the DocumentsAdapter.java class
 //         contains information about a document and a reference
 //         to said document.
-// ------------------------------------------------
-// UPDATES
-// ------------------------------------------------
-// - 11/3/20
-// - R.O.
-// - DETAILS:
-//      - Added member variable to determine if an accident occured on this day.
 //*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 

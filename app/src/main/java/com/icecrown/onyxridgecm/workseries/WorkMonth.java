@@ -1,22 +1,15 @@
 //*********************************************************
-// Project: BCS430W - Senior Project
-//
-// Project Name: OnyxRidge
+// Project: OnyxRidge Construction Management
 //
 // File: WorkMonth.java
 //
 // Written by: Raymond O'Neill
 //
 // Date written: 11/1/20
+// Date added: 11/6/20
 //
 // Details: Holds information regarding a month of work
 //          (the amount of days in said month
-// ------------------------------------------------
-// - 11/1/20
-// - R.O.
-// - DETAILS:
-//      - Added a method to set a day to a given day, without
-//        needing the whole month's worth of days.
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 
