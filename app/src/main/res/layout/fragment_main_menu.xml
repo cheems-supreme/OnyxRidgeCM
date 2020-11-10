@@ -159,7 +159,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:text="@string/upload_existing_report_cv_title"
+                            android:text="@string/upload_existing_photo_title"
                             android:gravity="center_horizontal"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/upload_existing_photo_icon"

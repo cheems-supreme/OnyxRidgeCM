@@ -128,3 +128,34 @@
 - Added string resources
 - Added `view_report_file.xml`
   - Handles layout for `ViewPdfReportFragment.java`
+
+# 11/10/2020 Changes
+- Added `PhotosAdapter.java`
+  - Handles the connection between a photos recyclerview and photo data from Storage
+- Added `Photo.java`
+  - Contains information about individual photos taken from Storage
+- Added string resources
+- Edited `fragment_upload_existing_files.xml`
+  - Changed certain attributes to remove redundancy
+- Edited `fragment_main_menu.xml`
+  - Changed string value of a CardView (was wrong value)
+- Edited `MainMenuFragment.java`
+  - Added code to launch fragment to upload existing photos to Storage
+- Added `fragment_upload_existing_photo.xml`
+  - Layout presented to upload existing photo to project. Mirrors existing reports upload menu
+- Edited `UploadExistingReportFragment.java`
+  - Removed duplicate code for Spinner.OnItemSelectedListener(...) attach.
+  - Changed invoke of getSupportFragmentManager(...) to a variable (instatntiated earlier in block)
+  - Added brackets around an 'if' statment to prevent logic error
+- Added `UploadExistingPhotoFragment.java`
+  - Uploads existing photos to Storage, that can then be viewed.
+  - Does similar thing to `UploadExistingReportFragment.java`
+- Edited `BrowsePhotosFragment.java`
+  - Added code to handle most of what this fragment is meant to do
+- Added `ViewPhotoFragment.java`
+  - Similar to popup from previous version that displayed image preview to screen (will give options
+    to download).
+- Added `PhotoFactory.java`
+  - Will handle widespread methods to manipulate or work with photo files (such as .jpgs)
+- Edited/added other xml files.
+- Increased minimum SDK level.

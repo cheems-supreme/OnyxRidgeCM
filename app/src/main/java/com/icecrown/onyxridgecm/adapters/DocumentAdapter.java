@@ -69,7 +69,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
     @Override
     public DocumentAdapter.DocumentHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_documents_instance, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_document_instance, parent, false);
         return new DocumentAdapter.DocumentHolder(itemView);
     }
 

@@ -17,6 +17,11 @@
 // - DETAILS:
 //      - Changed lambdas to expression lambdas
 //      - Converted certain variables from class to local
+// ------------------------------------------------
+// - 11/10/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to launch fragment to upload existing photos
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -50,7 +55,10 @@ public class MainMenuFragment extends Fragment {
         MaterialCardView uploadExistingReportCardView = v.findViewById(R.id.upload_existing_report_card_view);
         uploadExistingReportCardView.setOnClickListener(v1 -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new UploadExistingReportFragment()).addToBackStack(null).commit());
 
+        MaterialCardView takeNewPhotoCardView = v.findViewById(R.id.take_new_photo_card_view);
 
+        MaterialCardView uploadExistingPhotoCardView = v.findViewById(R.id.upload_existing_photo_card_view);
+        uploadExistingPhotoCardView.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new UploadExistingPhotoFragment()).addToBackStack(null).commit());
         return v;
     }
 }

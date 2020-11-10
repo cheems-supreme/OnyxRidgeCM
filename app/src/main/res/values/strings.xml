@@ -19,6 +19,8 @@
         <!-- RECYCLERVIEW CONTENT TEXT -->
         <string name="date_of_content">Date of content: </string>
         <string name="document_written_by">Written by: </string>
+        <string name="photo_taken_by">Taken by: </string>
+        <string name="photo_date_taken_on">Date taken: </string>
 
         <!-- MAIN MENU CARD TEXT -->
         <string name="generate_yearly_report_cv_title">Generate Yearly Report</string>
@@ -71,9 +73,10 @@
         <string name="confirm_cancel">Cancel</string>
     <!-- SUCCESS MESSAGES -->
         <!-- LOGIN SUCCESS MESSAGES -->
-        <string name="login_succeeded">Login successful!</string>
+        <string name="login_succeeded">Login successful.</string>
         <!-- UPLOAD SUCCESS MESSAGES -->
-        <string name="report_upload_success">Report uploaded!</string>
+        <string name="report_upload_success">Report uploaded.</string>
+        <string name="photo_upload_success">Photo uploaded.</string>
 
     <!-- ERROR MESSAGES -->
         <!-- LOGIN ERROR MESSAGES -->
@@ -87,6 +90,9 @@
         <string name="projects_not_found">No projects found.</string>
         <string name="projects_not_loaded">Projects cannot be loaded.</string>
         <string name="no_documents_found">No documents to show.</string>
+        <string name="pdf_viewing_report_not_loaded_admin">File cannot be loaded; contact administrator</string>
+        <string name="no_photos_to_show">No photos to show.</string>
+        <string name="photo_cannot_be_loaded">Photo cannot be loaded; contact administrator</string>
         <!-- GENERATE REPORT ERROR MESSAGES -->
         <string name="job_name_not_chosen">A job name must be selected.</string>
         <string name="workers_on_site_not_entered">\'Workers on Site\' must be entered.</string>
@@ -96,9 +102,11 @@
         <string name="accident_happened_not_entered">If an accident occurred, a description must be entered.</string>
         <!-- UPLOAD ERROR MESSAGES -->
         <string name="upload_report_failed">Report upload failed.</string>
+        <string name="upload_photo_failed">Photo upload failed.</string>
+        <string name="metatdata_not_applied_admin">File upload partially completed; contact administrator</string>
         <string name="no_project_chosen_upload">You must select a project before uploading</string>
         <string name="no_file_chosen_for_upload">No file chosen for upload; you must select a file.</string>
-        <string name="pdf_viewing_report_not_loaded_admin">File cannot be loaded; contact administrator</string>
+
 
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->
@@ -115,5 +123,5 @@
     <string name="accessibility_take_new_photo_icon">Take new photo</string>
     <string name="accessibility_upload_existing_photo_icon">Upload existing photo</string>
     <string name="accessibility_generate_report_of_accidents">Generate report of accidents photo</string>
-
+    <string name="accessibility_image_instance_thumbnail">Image thumbnail</string>
 </resources>
