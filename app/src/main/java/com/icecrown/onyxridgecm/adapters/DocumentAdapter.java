@@ -10,6 +10,13 @@
 //
 // Detail: Used to connect Document data to RecyclerView in Browse-
 //         ReportsFragment
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/9/20
+// - R.O.
+// - DETAILS:
+//      - Made interface public
 //*******************************************************************
 package com.icecrown.onyxridgecm.adapters;
 
@@ -91,7 +98,7 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
         notifyDataSetChanged();
     }
 
-    interface DocumentAdapterListener {
+    public interface DocumentAdapterListener {
         void onItemClick(int position);
     }
 

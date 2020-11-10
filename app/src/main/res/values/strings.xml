@@ -98,6 +98,7 @@
         <string name="upload_report_failed">Report upload failed.</string>
         <string name="no_project_chosen_upload">You must select a project before uploading</string>
         <string name="no_file_chosen_for_upload">No file chosen for upload; you must select a file.</string>
+        <string name="pdf_viewing_report_not_loaded_admin">File cannot be loaded; contact administrator</string>
 
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->

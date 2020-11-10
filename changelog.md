@@ -117,3 +117,14 @@
 - Added commenting headers and fixed header layouts
 - Edited `WorkDay.java`
   - Changed init variable value
+
+# 11/9/2020 Changes
+- Edited `BrowseReportsFragment.java`
+  - Added code to handle user clicking on entry in the RecyclerView
+- Added `ViewPdfReportFragment.java`
+  - Used to view PDF that user clicks on in `BrowseReportsFragment.java`
+- Edited `DocumentAdapter.java`
+  - Made nested Interface public from package-level
+- Added string resources
+- Added `view_report_file.xml`
+  - Handles layout for `ViewPdfReportFragment.java`

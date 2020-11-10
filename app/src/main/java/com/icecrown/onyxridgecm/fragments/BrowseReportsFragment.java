@@ -22,14 +22,23 @@
 // - DETAILS:
 //      - Added RecyclerView instance to this and corresponding
 //        `browse_content` XML file
+// ------------------------------------------------
+// - 11/9/20
+// - R.O.
+// - DETAILS:
+//      - Added code to handle user clicking on a report entry
+//        of the RecyclerView
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -43,6 +52,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageMetadata;
@@ -51,7 +61,9 @@ import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.adapters.DocumentAdapter;
 import com.icecrown.onyxridgecm.interfaces.IProjectSelectedCallback;
 import com.icecrown.onyxridgecm.utility.Document;
+import com.icecrown.onyxridgecm.utility.ReportFactory;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -93,8 +105,25 @@ public class BrowseReportsFragment extends Fragment {
             getActivity().getSupportFragmentManager().beginTransaction().hide(singleton).add(R.id.main_content_holder, fragment).addToBackStack(null).commit();
         });
 
+
         documentAdapter = new DocumentAdapter(documentList);
+        documentAdapter.setOnItemClickListener(position -> {
+            final File chosenFile = ReportFactory.GenerateFile(getContext(), getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE));
+            documentAdapter.getDocuments().get(position).getRef().getFile(chosenFile).addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    Log.d("EPOCH-3", "documentAdapter onClick successful");
+
+                    ViewPdfReportFragment pdfFragment = new ViewPdfReportFragment();
+                    pdfFragment.setChosenPdf(chosenFile);
+                    getActivity().getSupportFragmentManager().beginTransaction().hide(singleton).add(R.id.main_content_holder, pdfFragment).addToBackStack(null).commit();
+                } else {
+                    Snackbar.make(recView, R.string.pdf_viewing_report_not_loaded_admin, Snackbar.LENGTH_SHORT).show();
+                }
+            });
+        });
+
         recView.setAdapter(documentAdapter);
+
         return v;
     }
 
