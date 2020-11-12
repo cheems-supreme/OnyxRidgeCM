@@ -159,3 +159,40 @@
   - Will handle widespread methods to manipulate or work with photo files (such as .jpgs)
 - Edited/added other xml files.
 - Increased minimum SDK level.
+
+# 11/12/2020 Changes
+- Added `xml/` and `xml/filepaths`
+  - Folder for file provider to access photos
+- Edited `AndroidManifest.xml`
+  - Added a FileProvider to be able to take and save photos
+  - Added `uses-permission` for `READ_EXTERNAL_STORAGE` and `uses-feature` for `camera2`
+- Added `TakeNewPhotoFragment.java`
+  - Handles the logic behind taking new photos with the device's camera
+  - Also allows upload to the Storage solution
+- Added string resources
+- Edited `UploadExistingPhotoFragment.java`
+  - Added header comment to file
+  - Added `last_name` SharedPreferences field to metadata for `taken_by` field
+- Edited `MainMenuFragment.java`
+  - Added code to launch `TakeNewFragment.java` on specified CardView
+- Edited `recycler_view_photo_instance.xml`
+  - Changed the height of the `ConstraintLayout` from `match_parent` to `wrap_content`
+  - Added margin to `ImageView`
+  - Added `constraint` to `bottom of parent`
+- Added `fragment_take_new_photo.xml`
+  - Layout for the `TakeNewPhotoFragment` instance
+- Edited `PhotoFactory.java`
+  - Added comment header
+  - Changed File.createTempFile(...) to include a context's getFilesDir directory
+- Edited `Photo.java`
+  - Changed name of 'get' method for TakenBy (from getAuthor() to getTakenBy())
+  - Added two `String` variables for first name and last name
+  - Removed `takenBy` `String` varibale that held full name
+  - Made all variables but `Bitmap` `final`
+- Edited `BrowsePhotosFragment.java`
+  - Changed a List variable to `final`
+  - Changed format of onCreateView(...)
+- Edited `UploadExistingReportFragment.java`
+  - Added a `.load()` method call to PDFView once user selected PDF from file explorer
+- Edited `MainActivity.java`
+  - Added a note regarding the speed of which the project was made.

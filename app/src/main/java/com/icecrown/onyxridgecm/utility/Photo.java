@@ -10,6 +10,16 @@
 //
 // Detail: Class to be used with the PhotosAdapter to hold photos
 //         taken from Firebase Storage
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/12/20
+// - R.O.
+// - DETAILS:
+//      - Changed name of get...(...) method for TakenBy
+//      - Added two `String` variables for first name and last name
+//      - Removed `takenBy` `String` variable that held the full name
+//      - Made all variables but the `Bitmap` `final`.
 //*******************************************************************
 
 package com.icecrown.onyxridgecm.utility;
@@ -30,19 +40,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Photo {
-    private String filename;
+    private final String filename;
     private Bitmap thumbnail;
-    private Uri imageUri;
-    private StorageReference ref;
-    private Date dateTaken;
-    private String takenBy;
+    private final Uri imageUri;
+    private final StorageReference ref;
+    private final Date dateTaken;
+    private final String takenByFirst;
+    private final String takenByLast;
 
-    public Photo(String filename, Uri uri, StorageReference ref, Date dateTaken, String takenBy) {
+    public Photo(String filename, Uri uri, StorageReference ref, Date dateTaken, String takenByLast, String takenByFirst) {
         this.filename = filename;
         imageUri = uri;
         this.ref = ref;
         this.dateTaken = dateTaken;
-        this.takenBy = takenBy;
+        this.takenByFirst = takenByFirst;
+        this.takenByLast = takenByLast;
     }
 
 
@@ -59,14 +71,15 @@ public class Photo {
     {
         return new SimpleDateFormat("MM/dd/yyyy").format(dateTaken);
     }
-    public String getAuthor()
+    public String getTakenBy()
     {
-        return takenBy;
+        return takenByFirst + " " + takenByLast;
     }
     public Bitmap getThumbnail() {
         return thumbnail;
     }
     public String getFilename() { return filename; }
+    public String getTakenByLastNameFirst() { return takenByLast + ", " + takenByFirst; }
 
     public String GenerateBitmapForUri(Context c, ContentResolver res) {
         if(res != null && c != null) {

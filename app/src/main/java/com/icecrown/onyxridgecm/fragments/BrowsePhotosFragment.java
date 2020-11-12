@@ -9,6 +9,15 @@
 //
 // Purpose: Used for logic regarding viewing and downloading
 //          photos
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/12/20
+// - R.O.
+// - DETAILS:
+//      - Changed the List of Photos to a final variable
+//      - Changed format of onCreateView(...) (put recView def
+//        lower in the method)
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -56,7 +65,7 @@ public class BrowsePhotosFragment extends Fragment {
     private MaterialTextView projectNameTextView;
     private final BrowsePhotosFragment singleton = this;
     private PhotosAdapter photosAdapter;
-    private List<Photo> photoList = new ArrayList<>();
+    private final List<Photo> photoList = new ArrayList<>();
     private FragmentManager manager;
     private Date dateOfPhoto;
 
@@ -77,11 +86,6 @@ public class BrowsePhotosFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_browse_content, container, false);
 
         projectNameTextView = v.findViewById(R.id.project_name);
-        recView = v.findViewById(R.id.content_browse_rec_view);
-
-        recView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recView.setItemAnimator(new DefaultItemAnimator());
-        recView.addItemDecoration(new DividerItemDecoration(recView.getContext(), DividerItemDecoration.VERTICAL));
 
         projectNameTextView.setOnClickListener(v1 -> {
             SelectProjectFragment fragment = new SelectProjectFragment();
@@ -91,7 +95,7 @@ public class BrowsePhotosFragment extends Fragment {
 
         photosAdapter = new PhotosAdapter(photoList);
         photosAdapter.setOnItemClickListener(position -> {
-            final File f = PhotoFactory.GenerateImageFile();
+            final File f = PhotoFactory.GenerateImageFile(getContext());
 
             if(f != null) {
                 photoList.get(position).getRef().getFile(f).addOnCompleteListener(task -> {
@@ -106,6 +110,14 @@ public class BrowsePhotosFragment extends Fragment {
             }
         });
 
+        recView = v.findViewById(R.id.content_browse_rec_view);
+
+        recView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recView.setItemAnimator(new DefaultItemAnimator());
+        recView.addItemDecoration(new DividerItemDecoration(recView.getContext(), DividerItemDecoration.VERTICAL));
+
+        recView.setAdapter(photosAdapter);
+
         return v;
     }
 
@@ -119,13 +131,11 @@ public class BrowsePhotosFragment extends Fragment {
             if(task.isSuccessful()) {
                 final List<StorageReference> reference = task.getResult().getItems();
                 if(reference.size() != 0) {
-
                     new Thread(() -> {
                         for(final StorageReference photo : reference) {
                             photo.getMetadata().addOnCompleteListener(task1 -> {
                                 if(task.isSuccessful()) {
                                     final StorageMetadata meta = task1.getResult();
-
                                     try {
                                         dateOfPhoto = DateFormat.getDateInstance(DateFormat.SHORT).parse(meta.getCustomMetadata("date_uploaded"));
                                     } catch (Exception e) {
@@ -147,12 +157,13 @@ public class BrowsePhotosFragment extends Fragment {
                                     final File fileTemp = f;
 
                                     photo.getFile(fileTemp).addOnCompleteListener(task2 -> {
-                                        Photo adder = new Photo(fileTemp.getName(), Uri.fromFile(fileTemp), photo, dateOfPhoto, meta.getCustomMetadata("taken_by"));
+                                        Photo adder = new Photo(fileTemp.getName(), Uri.fromFile(fileTemp), photo, dateOfPhoto, meta.getCustomMetadata("taken_by_last"), meta.getCustomMetadata("taken_by_first"));
                                         adder.GenerateBitmapForUri(getActivity(), getActivity().getContentResolver());
                                         photoList.add(adder);
 
                                         if(photoList.size() == reference.size()) {
                                             photosAdapter.setPhotos(photoList);
+
                                         }
                                     });
                                 }
@@ -164,6 +175,8 @@ public class BrowsePhotosFragment extends Fragment {
                 else {
                     Snackbar.make(recView, R.string.no_photos_to_show, Snackbar.LENGTH_SHORT).show();
                 }
+            } else {
+                Snackbar.make(recView, R.string.no_photos_admin, Snackbar.LENGTH_SHORT).show();
             }
         });
     }

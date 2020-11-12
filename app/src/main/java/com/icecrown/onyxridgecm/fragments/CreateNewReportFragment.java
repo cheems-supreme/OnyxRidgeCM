@@ -28,6 +28,14 @@
 // - DETAILS:
 //      - Added code to close 'document' and 'writer' instances
 //        at end of writing to file
+// ------------------------------------------------
+// - 11/12/20
+// - R.O.
+// - DETAILS:
+//      - Changed SharedPreferences fields from incorrect fields
+//        to correct field names
+//      - Truncated StorageReference directory location into
+//        one line
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -278,10 +286,9 @@ public class CreateNewReportFragment extends Fragment {
 
     private void UploadFileToStorageAndClose(Uri chosenFile, final String fileName)
     {
-        StorageReference insertionDirectory = storage.getReference().child(jobNameValue);
         SharedPreferences prefs = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
 
-        final StorageReference insertionInstance = insertionDirectory.child("documents/" + fileName);
+        final StorageReference insertionInstance = storage.getReference().child(jobNameValue + "/documents/" + fileName);
 
         Calendar cal = Calendar.getInstance();
 
@@ -289,8 +296,8 @@ public class CreateNewReportFragment extends Fragment {
 
         insertionInstance.putFile(chosenFile).addOnCompleteListener(task -> {
             StorageMetadata metadata = new StorageMetadata.Builder().setContentType("application/pdf")
-                    .setCustomMetadata("first_name", prefs.getString("firstName", "Unavail."))
-                    .setCustomMetadata("last_name", prefs.getString("lastName", "Unavail."))
+                    .setCustomMetadata("first_name", prefs.getString("first_name", "Unavail."))
+                    .setCustomMetadata("last_name", prefs.getString("last_name", "Unavail."))
                     .setCustomMetadata("date_created", todaysDate)
                     .setCustomMetadata("date_of_content", (dateChooser.getMonth() + 1) + "/" + dateChooser.getDayOfMonth() + "/" + dateChooser.getYear())
                     .setCustomMetadata("document_name", fileName)

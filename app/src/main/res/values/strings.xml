@@ -54,6 +54,8 @@
         <string name="select_file_to_upload">Select File</string>
         <string name="loading_in_progress">Loading…</string>
         <string name="uploading_in_progress">Uploading…</string>
+        <string name="take_new_photo">Take new photo</string>
+        <string name="take_new_photo_title">Take and Upload a New Photo</string>
 
         <!-- ARRAY TEXT -->
         <string name="job_name_default_value">Job Name</string>
@@ -91,6 +93,7 @@
         <string name="projects_not_loaded">Projects cannot be loaded.</string>
         <string name="no_documents_found">No documents to show.</string>
         <string name="pdf_viewing_report_not_loaded_admin">File cannot be loaded; contact administrator</string>
+        <string name="no_photos_admin">Cannot display photos; contact administrator</string>
         <string name="no_photos_to_show">No photos to show.</string>
         <string name="photo_cannot_be_loaded">Photo cannot be loaded; contact administrator</string>
         <!-- GENERATE REPORT ERROR MESSAGES -->
@@ -106,7 +109,7 @@
         <string name="metatdata_not_applied_admin">File upload partially completed; contact administrator</string>
         <string name="no_project_chosen_upload">You must select a project before uploading</string>
         <string name="no_file_chosen_for_upload">No file chosen for upload; you must select a file.</string>
-
+        <string name="no_picture_taken_for_upload">No picture taken; you must take a picture in order to upload.</string>
 
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->

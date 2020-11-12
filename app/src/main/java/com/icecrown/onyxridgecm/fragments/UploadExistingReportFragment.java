@@ -26,6 +26,12 @@
 //        to a variable name (instantiated early in method).
 //      - Added brackets around an if(...) statement to prevent
 //        logic error
+// ------------------------------------------------
+// - 11/12/20
+// - R.O.
+// - DETAILS:
+//      - Added a `.load()` method call to the PDFView so it
+//        actually shows PDF before user uploads
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -181,7 +187,7 @@ public class UploadExistingReportFragment extends Fragment {
                 chosenFile = data.getData();
                 Log.d("EPOCH-3", "File name: " + chosenFile.getPath());
                 workingLoadingTextView.setText(R.string.loading_in_progress);
-                pdfView.fromUri(chosenFile);
+                pdfView.fromUri(chosenFile).load();
                 workingLoadingTextView.setText("");
             }
         }

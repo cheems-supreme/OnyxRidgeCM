@@ -17,6 +17,11 @@
 // - R.O.
 // - DETAILS:
 //      - Made interface public
+// ------------------------------------------------
+// - 11/12/20
+// - R.O.
+// - DETAILS:
+//      - Removed variables and placed 'get' method calls in place of
 //*******************************************************************
 package com.icecrown.onyxridgecm.adapters;
 
@@ -76,14 +81,9 @@ public class DocumentAdapter extends RecyclerView.Adapter<DocumentAdapter.Docume
     @Override
     public void onBindViewHolder(final DocumentAdapter.DocumentHolder holder, final int position)
     {
-        String documentName = documents.get(position).getFilename();
-        String documentDate = documents.get(position).getDateOfContentAsString();
-        String documentWrittenBy_Last = documents.get(position).getAuthorByLast();
-
-        holder.documentNameTV.setText(documentName);
-        holder.uploadedBy.setText(documentWrittenBy_Last);
-        holder.dateOfContent.setText(documentDate);
-
+        holder.documentNameTV.setText(documents.get(position).getFilename());
+        holder.uploadedBy.setText(documents.get(position).getAuthorByLast());
+        holder.dateOfContent.setText(documents.get(position).getDateOfContentAsString());
     }
 
 

@@ -17,6 +17,15 @@
 // - DETAILS:
 //      - Placed this class in a new package:
 //        onyxridgecm.activities
+// ========================================================
+// ========================================================
+//  PROJECT NOTE:
+//      THIS CODE COMES, PRIMARILY, FROM THE PREVIOUS INSTALLMENT
+//      OF THIS PROJECT. THE SPEED OF WHICH THIS PROGRAM WAS WRITTEN
+//      IS SOLELY DUE TO THE FACT THAT MOST OF THE CODE EXISTED
+//      ALREADY; IT SIMPLY NEEDED TO BE ADDED AND REFACTORED TO
+//      FIT THE PROJECT AND METHOD OF CONSTRUCTION (FITTING FRAGMENT
+//      USE, FOR INSTANCE)
 //**************************************************************
 package com.icecrown.onyxridgecm.activities;
 

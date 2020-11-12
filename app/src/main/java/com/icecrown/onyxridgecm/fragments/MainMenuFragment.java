@@ -56,6 +56,7 @@ public class MainMenuFragment extends Fragment {
         uploadExistingReportCardView.setOnClickListener(v1 -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new UploadExistingReportFragment()).addToBackStack(null).commit());
 
         MaterialCardView takeNewPhotoCardView = v.findViewById(R.id.take_new_photo_card_view);
+        takeNewPhotoCardView.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new TakeNewPhotoFragment()).addToBackStack(null).commit());
 
         MaterialCardView uploadExistingPhotoCardView = v.findViewById(R.id.upload_existing_photo_card_view);
         uploadExistingPhotoCardView.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new UploadExistingPhotoFragment()).addToBackStack(null).commit());

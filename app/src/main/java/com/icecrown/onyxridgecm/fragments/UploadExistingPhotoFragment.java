@@ -1,3 +1,24 @@
+//**************************************************************
+// Project: OnyxRidge Construction Management
+//
+// File: UploadExistingPhotoFragment.java
+//
+// Written by: Raymond O'Neill
+//
+// Written on: 11/10/2020
+//
+// Purpose: Used to browse photos taken and uploaded to
+//          Storage
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/12/2020
+// - R.O.
+// - DETAILS:
+//      - Added comment header to file
+//      - Added `last_name` SharedPreferences field to metadata
+//        for `taken_by` field
+//**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
 import android.app.Activity;
@@ -99,7 +120,8 @@ public class UploadExistingPhotoFragment extends Fragment {
 
                             SharedPreferences prefs = getActivity().getApplicationContext().getSharedPreferences("user_info", Context.MODE_PRIVATE);
                             StorageMetadata metadata = new StorageMetadata.Builder().setContentType("image")
-                                    .setCustomMetadata("taken_by", prefs.getString("first_name", "Unavail."))
+                                    .setCustomMetadata("taken_by_first", prefs.getString("first_name", "Unavail."))
+                                    .setCustomMetadata("taken_by_last", prefs.getString("last_name", "Unavail."))
                                     .setCustomMetadata("photo_name", new File(chosenFile.getLastPathSegment()).getName())
                                     .setCustomMetadata("date_uploaded", todaysDate).build();
 

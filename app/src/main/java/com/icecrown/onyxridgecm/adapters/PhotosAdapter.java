@@ -8,10 +8,20 @@
 // Written by: Raymond O'Neill
 //
 // Date written: 10/19/20
+//
 // Date added: 11/10/20
 //
 // Detail: Adapter for photos in the BrowsePhotosFragment.java. Will
 //         be used in the RecyclerView instance
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/12/20
+// - R.O.
+// - DETAILS:
+//      - Changed comment header layout
+//      - Changed the `name` field to be `last-name, first-name`
+//      - Made inner class `PhotoHolder` `private` variables `final`
 //*******************************************************************
 package com.icecrown.onyxridgecm.adapters;
 
@@ -35,9 +45,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoHolde
 
 
     public class PhotoHolder extends RecyclerView.ViewHolder {
-        private ImageView photoThumbnail;
-        private TextView uploadedBy;
-        private TextView dateOfContent;
+        private final ImageView photoThumbnail;
+        private final TextView uploadedBy;
+        private final TextView dateOfContent;
 
         public PhotoHolder(View v) {
             super(v);
@@ -72,9 +82,8 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoHolde
     @Override
     public void onBindViewHolder(final PhotosAdapter.PhotoHolder holder, final int position)
     {
-        // String photoFilename = photos.get(position).getFilename();
         holder.photoThumbnail.setImageBitmap(photos.get(position).getThumbnail());
-        holder.uploadedBy.setText(photos.get(position).getAuthor());
+        holder.uploadedBy.setText(photos.get(position).getTakenByLastNameFirst());
         holder.dateOfContent.setText(photos.get(position).getDateAsString());
 
     }
