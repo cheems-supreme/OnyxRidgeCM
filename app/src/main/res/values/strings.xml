@@ -7,7 +7,7 @@
     <string name="main_menu">Main menu</string>
     <string name="browse_reports">Browse Reports</string>
     <string name="browse_photos">Browse Photos</string>
-    <string name="settings_and_help">Settings/Help</string>
+    <string name="settings_and_help">Help/FAQ</string>
 
     <!-- GENERAL TEXT -->
         <!-- BROWSE CONTENT TEXT -->
@@ -23,6 +23,7 @@
         <string name="photo_date_taken_on">Date taken: </string>
 
         <!-- MAIN MENU CARD TEXT -->
+        <string name="generate_project_total_cv_title">Generate Project Overall Totals Report</string>
         <string name="generate_yearly_report_cv_title">Generate Yearly Report</string>
         <string name="generate_report_by_month_cv_title">Generate Report by Month</string>
         <string name="create_new_report_cv_title">Create a New Report</string>
@@ -57,6 +58,21 @@
         <string name="take_new_photo">Take new photo</string>
         <string name="take_new_photo_title">Take and Upload a New Photo</string>
 
+        <!-- HELP AND FAQ TEXT -->
+        <string name="frequently_asked_questions_title">Frequently Asked Questions (FAQ)</string>
+        <string name="help_title">Help</string>
+        <string name="navigating_menus_header">Navigating Menus</string>
+        <string name="uploading_reports_header">Uploading Reports</string>
+        <string name="create_new_report_subheader">Creating a New Report</string>
+        <string name="uploading_existing_report_subheader">Uploading an Existing Report or PDF</string>
+        <string name="browsing_reports_header">Browsing Reports</string>
+        <string name="downloading_reports_subheader">Downloading Reports</string>
+        <string name="uploading_photos_header">Uploading Photos</string>
+        <string name="taking_a_new_photo_subheader">Taking a New Photo</string>
+        <string name="uploading_an_existing_photo_subheader">Uploading an Existing Photo</string>
+        <string name="browsing_photos_header">Browsing Photos</string>
+        <string name="downloading_photos_subheader">Downloading Photos</string>
+
         <!-- ARRAY TEXT -->
         <string name="job_name_default_value">Job Name</string>
         <string name="weather_default_value">Weather</string>
@@ -73,6 +89,7 @@
         <string name="sign_out_confirmation_desc">This action will sign you out. Continue?</string>
         <string name="confirm_logoff">Logout</string>
         <string name="confirm_cancel">Cancel</string>
+
     <!-- SUCCESS MESSAGES -->
         <!-- LOGIN SUCCESS MESSAGES -->
         <string name="login_succeeded">Login successful.</string>
@@ -127,4 +144,5 @@
     <string name="accessibility_upload_existing_photo_icon">Upload existing photo</string>
     <string name="accessibility_generate_report_of_accidents">Generate report of accidents photo</string>
     <string name="accessibility_image_instance_thumbnail">Image thumbnail</string>
+    <string name="accessibility_project_total_icon">Generate project total report icon</string>
 </resources>

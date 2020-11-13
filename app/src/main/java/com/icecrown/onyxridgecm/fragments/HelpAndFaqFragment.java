@@ -1,7 +1,7 @@
 //**************************************************************
 // Project: OnyxRidge Construction Management
 //
-// File: SettingsAndHelpFragment.java
+// File: HelpAndFaqFragment.java
 //
 // Written by: Raymond O'Neill
 //
@@ -10,10 +10,20 @@
 // Purpose: Used for displaying help and (potentially) settings
 //          information to the user to assist in app navigation
 //          and experience
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/13/2020
+// - R.O.
+// - DETAILS:
+//      - Changed class name from `SettingsAndHelpFragment` to
+//        `HelpAndFaqFragment` since there are no settings to
+//        this application
+//      - Edited string resources to fit the change
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
 import androidx.fragment.app.Fragment;
 
-public class SettingsAndHelpFragment extends Fragment {
+public class HelpAndFaqFragment extends Fragment {
 }

@@ -49,7 +49,7 @@ import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.fragments.BrowsePhotosFragment;
 import com.icecrown.onyxridgecm.fragments.BrowseReportsFragment;
 import com.icecrown.onyxridgecm.fragments.MainMenuFragment;
-import com.icecrown.onyxridgecm.fragments.SettingsAndHelpFragment;
+import com.icecrown.onyxridgecm.fragments.HelpAndFaqFragment;
 
 public class MainContentActivity extends AppCompatActivity {
 
@@ -57,7 +57,7 @@ public class MainContentActivity extends AppCompatActivity {
     private final FragmentManager manager = getSupportFragmentManager();
     private final BrowseReportsFragment browseReportsFragment = new BrowseReportsFragment();
     private final BrowsePhotosFragment browsePhotosFragment = new BrowsePhotosFragment();
-    private final SettingsAndHelpFragment settingsHelpFragment = new SettingsAndHelpFragment();
+    private final HelpAndFaqFragment settingsHelpFragment = new HelpAndFaqFragment();
     private final MainMenuFragment mainMenuFragment = new MainMenuFragment();
     private Fragment activeFragment;
 

@@ -281,6 +281,36 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:id="@+id/generate_project_total_report_cv"
+                android:layout_marginHorizontal="15dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="5dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/accessibility_project_total_icon"
+                        android:src="@drawable/ic_project_total"
+                        android:padding="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:id="@+id/generate_project_total_report_icon"/>
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/generate_project_total_cv_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/generate_project_total_report_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textSize="21sp"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

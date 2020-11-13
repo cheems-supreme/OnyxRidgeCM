@@ -196,3 +196,15 @@
   - Added a `.load()` method call to PDFView once user selected PDF from file explorer
 - Edited `MainActivity.java`
   - Added a note regarding the speed of which the project was made.
+
+# 11/13/2020 Changes
+- Edited `fragment_main_menu`
+  - Added `CardView` for project total hours
+- Added icon for project total hours report generation
+- Added string resources'
+- Edited `HelpAndFaqFragment.java`
+  - Changed name from `SettingsAndHelpFragment.java` to `HelpAndFaqFragment.java`, since this project
+    has no settings the user can customize.
+- Added `fragment_help_and_faq.xml`
+  - UI for the `HelpAndFaqFragment.java` instance.
+  - Added string resources for each entry
