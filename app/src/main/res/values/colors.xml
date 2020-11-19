@@ -27,4 +27,14 @@
     <color name="blackTranslucent">#42000000</color>
     <color name="colorOnyxPrimaryDark">#080100</color>
     <color name="colorConstAccent">#090909</color>
+
+
+    <color name="primaryColor_AK">#616161</color>
+    <color name="primaryLightColor_AK">#8e8e8e</color>
+    <color name="primaryDarkColor_AK">#373737</color>
+    <color name="secondaryColor_AK">#bdbdbd</color>
+    <color name="secondaryLightColor_AK">#efefef</color>
+    <color name="secondaryDarkColor_AK">#8d8d8d</color>
+    <color name="primaryTextColor_AK">#ffffff</color>
+    <color name="secondaryTextColor_AK">#000000</color>
 </resources>

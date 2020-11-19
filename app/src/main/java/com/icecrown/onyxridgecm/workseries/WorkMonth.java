@@ -10,6 +10,14 @@
 //
 // Details: Holds information regarding a month of work
 //          (the amount of days in said month
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/18/2020
+// - R.O.
+// - DETAILS:
+//      - Added method to determine month string based on
+//        month offset number
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 
@@ -183,6 +191,36 @@ public class WorkMonth {
         }
     }
 
+    public static int DetermineMonthOffset(String monthName) {
+        switch(monthName) {
+            case "january":
+                return 0;
+            case "february":
+                return 1;
+            case "march":
+                return 2;
+            case "april":
+                return 3;
+            case "may":
+                return 4;
+            case "june":
+                return 5;
+            case "july":
+                return 6;
+            case "august":
+                return 7;
+            case "september":
+                return 8;
+            case "october":
+                return 9;
+            case "november":
+                return 10;
+            case "december":
+                return 11;
+            default:
+                return -1;
+        }
+    }
     public double GenerateTotalMonthlyHours() {
         double totalHours = 0.00;
         for(WorkDay day : days) {

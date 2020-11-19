@@ -11,29 +11,48 @@
 // Detail: A class that handles the generation of reports based on
 //         passed in content. Mainly used to separate this logic from
 //         the class it is used in to clear up space and modularize
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/18/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to generate monthly, yearly, and daily totals
 //*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
+import android.util.Log;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.icecrown.onyxridgecm.R;
+import com.icecrown.onyxridgecm.workseries.WorkDay;
+import com.icecrown.onyxridgecm.workseries.WorkMonth;
+import com.icecrown.onyxridgecm.workseries.WorkYear;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.borders.DottedBorder;
 import com.itextpdf.layout.element.AreaBreak;
+import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 public class ReportFactory {
     public static File GenerateFile(Context context, SharedPreferences prefs) {
@@ -275,5 +294,130 @@ public class ReportFactory {
         document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
         document.add(noPhotosContent);
         // }
+    }
+
+    public static void CreateMonthlyReport(Context context, Document document, String projectName, String year, String month, List<DocumentSnapshot> days) {
+        AddJobNameContent(context, document, projectName);
+        AddLineSeparator(document);
+    }
+
+    public static Table[] printMonthlyTotals(WorkYear year, Document document) {
+        Table[] monthlyRecords = new Table[12];
+
+        for (int i = 0; i < 12; i++) {
+            Log.d("EPOCH-3", "MONTH " + (i + 1) + " " + year.getMonths()[i].getDaysInMonth());
+            monthlyRecords[i] = printMonthTotal(year.getMonths()[i], document);
+        }
+        return monthlyRecords;
+    }
+
+    public static Table printMonthTotal(WorkMonth month, Document document) {
+        Table monthRecord = new Table(2);
+        monthRecord.setBorder(Border.NO_BORDER);
+        monthRecord.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth());
+
+        Cell monthHeaderCell = new Cell();
+        monthHeaderCell.add(new Paragraph(month.getMonthName()));
+        monthHeaderCell.setBorder(Border.NO_BORDER);
+        Cell totalHoursHeaderCell = new Cell();
+
+        totalHoursHeaderCell.setBorder(Border.NO_BORDER);
+        totalHoursHeaderCell.add(new Paragraph(String.format("%.2f hours", month.GenerateTotalMonthlyHours())));
+        totalHoursHeaderCell.setTextAlignment(TextAlignment.RIGHT);
+
+
+        monthRecord.addHeaderCell(monthHeaderCell);
+        monthRecord.addHeaderCell(totalHoursHeaderCell);
+
+        Cell dayHeaderLine = new Cell();
+
+        dayHeaderLine.add(new Paragraph("Days\n").setFontSize(12));
+        dayHeaderLine.setBorder(Border.NO_BORDER);
+        monthRecord.addCell(dayHeaderLine);
+        dayHeaderLine = new Cell();
+        monthRecord.addCell(dayHeaderLine.setBorder(Border.NO_BORDER));
+
+        for (int i = 0; i < month.getDaysInMonth(); i++) {
+            if(month.getDays()[i] != null) {
+                Log.d("EPOCH-3", "Month/Day: " + month.getMonthActual() + "/" + (i +1));
+                Cell[] line = printDailyTotal(month.getDays()[i], document);
+                monthRecord.addCell(line[0]);
+                monthRecord.addCell(line[1]);
+            }
+            else {
+                Log.d("EPOCH-3", "Day " + (i + 1) + " is null");
+            }
+        }
+        return monthRecord;
+    }
+
+    public static Cell[] printDailyTotal(WorkDay day, Document document) {
+        Cell dayLine = new Cell();
+        dayLine.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth() / 2);
+        dayLine.add(new Paragraph(day.GenerateHyphenDateString()).setFirstLineIndent(10).setFontSize(12));
+        dayLine.setBorder(Border.NO_BORDER);
+        dayLine.setBorderBottom(new DottedBorder(1));
+
+
+        Cell hourValue = new Cell();
+        String formattedHoursString = String.format("%.2f hours", day.getHours());
+        hourValue.add(new Paragraph(String.valueOf(formattedHoursString)).setFirstLineIndent(20).setFontSize(12));
+        hourValue.setTextAlignment(TextAlignment.RIGHT);
+        hourValue.setBorder(Border.NO_BORDER);
+        hourValue.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth() / 2);
+        hourValue.setBorderBottom(new DottedBorder(1));
+
+
+        return new Cell[]{dayLine, hourValue};
+    }
+
+
+
+    public static File GenerateMonthlyReport(WorkMonth month, Context appContext, String projectName) {
+        PdfWriter writer = null;
+
+        // TODO: Make Class level; this is the documents folder inside of our
+        File dir = appContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File f = null;
+        try {
+            // TODO: CHANGE FILENAME
+            f = new File(dir, "testDocument.pdf");
+            writer = new PdfWriter(f.getPath());
+            Log.d("EPOCH-3", f.getAbsolutePath());
+            Log.d("EPOCH-3", f.getPath());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Document document;
+        if (writer != null) {
+            PdfDocument doc = new PdfDocument(writer);
+            doc.addNewPage(PageSize.A4);
+            document = new Document(doc);
+            document.setFontSize(15);
+
+            AddJobNameContent(appContext, document, projectName);
+
+            LineSeparator sep = new LineSeparator(new SolidLine());
+            sep.setPaddingTop(10);
+            sep.setPaddingBottom(10);
+            document.add(sep);
+
+            Log.d("EPOCH-2", month.getMonthName() + " " + month.getDaysInMonth());
+            Table record = printMonthTotal(month, document);
+            document.add(record);
+
+
+            document.close();
+
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return f;
     }
 }

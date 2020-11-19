@@ -84,11 +84,15 @@
             <item>Snow</item>
         </string-array>
 
-        <!-- CONFIRMATION MESSAGES -->
+        <!-- CONFIRMATION TEXT -->
         <string name="confirm_sign_out_title">Confirm sign out</string>
         <string name="sign_out_confirmation_desc">This action will sign you out. Continue?</string>
         <string name="confirm_logoff">Logout</string>
         <string name="confirm_cancel">Cancel</string>
+
+        <!-- GENERATE TOTALS TEXT -->
+        <string name="create_monthly_total_title">Create Monthly Report</string>
+        <string name="create_monthly_total_button">Create report</string>
 
     <!-- SUCCESS MESSAGES -->
         <!-- LOGIN SUCCESS MESSAGES -->
@@ -127,6 +131,11 @@
         <string name="no_project_chosen_upload">You must select a project before uploading</string>
         <string name="no_file_chosen_for_upload">No file chosen for upload; you must select a file.</string>
         <string name="no_picture_taken_for_upload">No picture taken; you must take a picture in order to upload.</string>
+        <!-- TOTAL REPORT ERROR MESSAGES -->
+        <string name="no_documents_found_with_month_day">No reports were found for this day. Please recheck.</string>
+        <string name="no_month_entered">Please enter a month</string>
+        <string name="no_year_entered">Please enter a year</string>
+        <string name="report_not_made_admin">Report not created; contact administrator</string>
 
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->
@@ -134,6 +143,10 @@
         <string name="login_email_hint">Email address</string>
         <string name="workers_number_hint">Number of workers</string>
         <string name="hours_worked_per_worker_hint">Hours worked</string>
+        <!-- MONTHLY REPORT HINTS -->
+        <string name="job_year_hint">Job year (e.g. \'2020\')</string>
+        <string name="job_month_hint">Job month (e.g. \'November\'</string>
+
 
     <!-- ACCESSIBILITY TEXT -->
     <string name="accessibility_generate_yearly_icon">Generate yearly report icon</string>

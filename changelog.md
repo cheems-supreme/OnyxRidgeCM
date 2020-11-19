@@ -208,3 +208,21 @@
 - Added `fragment_help_and_faq.xml`
   - UI for the `HelpAndFaqFragment.java` instance.
   - Added string resources for each entry
+
+# 11/18/2020 Changes
+- Added `GenerateMonthlyReportFragment.java`
+  - Used to allow users to generate monthly report totals based on the project, year, and month
+    entered
+  - Also added `fragment_create_monthly_total_report.xml` for UI
+- Edited `MainMenuFragment.java`
+  - Added code to launch `GenerateMonthlyReportFragment.java`
+- Added colors
+- Added strings
+- Edited `dark` `themes.xml`
+  - Added Antwon's dark color theme
+- Edited `WorkMonth.java`
+  - Added method, `DetermineMonthOffset(...)`, that determines the number offset (array index)
+    of month based on given lowercase month passed in.
+- Edited `ReportFactory.java`
+  - Added methods to generate daily, monthly, and yearly totals.
+    - These were taken directly from the previous project, altered slightly.

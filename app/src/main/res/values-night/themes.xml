@@ -2,17 +2,19 @@
     <!-- Base application theme. -->
     <style name="Theme.OnyxRidgeConstructionManagement" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/base_dark_blue_flat</item>
-        <item name="colorPrimaryVariant">@color/base_dark_blue_flat_light</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/primaryColor_AK</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor_AK</item>
+        <item name="colorOnPrimary">@color/secondaryTextColor_AK</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/second_pink_red_flat</item>
-        <item name="colorSecondaryVariant">@color/second_pink_red_flat_light</item>
-        <item name="colorOnSecondary">@color/colorConstAccent</item>
+        <item name="colorSecondary">@color/secondaryColor_AK</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor_AK</item>
+        <item name="colorOnSecondary">@color/secondaryTextColor_AK</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="colorOnBackground">@color/base_dark_blue_flat_dark</item>
         <item name="colorError">@color/color_error</item>
+
+
     </style>
 </resources>

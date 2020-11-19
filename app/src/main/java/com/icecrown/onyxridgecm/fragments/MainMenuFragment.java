@@ -22,6 +22,12 @@
 // - R.O.
 // - DETAILS:
 //      - Added code to launch fragment to upload existing photos
+// ------------------------------------------------
+// - 11/18/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to handle onClick for the GenerateMonthlyTotals
+//        fragment.
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -60,6 +66,9 @@ public class MainMenuFragment extends Fragment {
 
         MaterialCardView uploadExistingPhotoCardView = v.findViewById(R.id.upload_existing_photo_card_view);
         uploadExistingPhotoCardView.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new UploadExistingPhotoFragment()).addToBackStack(null).commit());
+
+        MaterialCardView generateMonthlyTotalsReport = v.findViewById(R.id.generate_monthly_report_card_view);
+        generateMonthlyTotalsReport.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateMonthlyReportFragment()).addToBackStack(null).commit());
         return v;
     }
 }
