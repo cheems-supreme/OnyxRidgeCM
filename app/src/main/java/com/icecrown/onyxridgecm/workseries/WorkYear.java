@@ -10,6 +10,13 @@
 //
 // Details: Holds information regarding a year of work
 //          (the months themselves, which uses composition)
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Removed traces of `WorkMonth.equate(...)`
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 
@@ -35,7 +42,8 @@ public class WorkYear {
     public WorkYear(WorkMonth[] months, int year) {
         this.months = new WorkMonth[months.length];
         for(int i = 0; i < months.length; i++) {
-            this.months[i].equate(months[i]);
+            this.months[i] = new WorkMonth();
+            this.months[i] = months[i];
         }
         this.year = year;
     }
@@ -59,6 +67,6 @@ public class WorkYear {
         if(months[monthOffset] == null) {
             months[monthOffset] = new WorkMonth();
         }
-        months[monthOffset].equate(month);
+        months[monthOffset] = month;
     }
 }

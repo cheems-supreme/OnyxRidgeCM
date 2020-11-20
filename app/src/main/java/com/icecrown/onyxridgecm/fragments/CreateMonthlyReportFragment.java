@@ -9,6 +9,14 @@
 //
 // Purpose: Used for creating reports of total hours based
 //          on month of given year
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/20/20
+// - R.O.
+// - DETAILS:
+//      - Changed variable name for the file intended to hold
+//        the return value of GenerateMonthlyReport(...)
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -125,14 +133,13 @@ public class CreateMonthlyReportFragment extends Fragment {
                         WorkDay day = new WorkDay(new GregorianCalendar(Integer.parseInt(year), chosenMonthOffset, snapshot.getLong("day_of_month").intValue()), snapshot.getDouble("hours_worked"));
                         workMonth.SetDayAtInstance(day, snapshot.getLong("day_of_month").intValue() - 1);
                     }
-                    File f = ReportFactory.GenerateMonthlyReport(workMonth, getContext(), jobNameValue);
-                    if(f == null) {
-                        // TODO: ADD REPORT GENERATION FAILED SNACKBAR
+                    File monthlyReportFile = ReportFactory.GenerateMonthlyReport(workMonth, getContext(), jobNameValue);
+                    if(monthlyReportFile == null) {
                         Snackbar.make(jobNameSpinner, R.string.report_not_made_admin, Snackbar.LENGTH_SHORT).show();
                     }
                     else {
                         Log.d("EPOCH-3", "Report generated.");
-                        reportView.fromFile(f).load();
+                        reportView.fromFile(monthlyReportFile).load();
                     }
                 }
                 else {

@@ -28,6 +28,11 @@
 // - DETAILS:
 //      - Added code to handle onClick for the GenerateMonthlyTotals
 //        fragment.
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Added handling for yearly report generation `CardView`
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -69,6 +74,9 @@ public class MainMenuFragment extends Fragment {
 
         MaterialCardView generateMonthlyTotalsReport = v.findViewById(R.id.generate_monthly_report_card_view);
         generateMonthlyTotalsReport.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateMonthlyReportFragment()).addToBackStack(null).commit());
+
+        MaterialCardView generateYearlyTotalsReport = v.findViewById(R.id.generate_yearly_report_card_view);
+        generateYearlyTotalsReport.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateYearlyReportFragment()).addToBackStack(null).commit());
         return v;
     }
 }

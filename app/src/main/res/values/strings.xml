@@ -92,6 +92,7 @@
 
         <!-- GENERATE TOTALS TEXT -->
         <string name="create_monthly_total_title">Create Monthly Report</string>
+        <string name="create_yearly_total_title">Create Yearly Report</string>
         <string name="create_monthly_total_button">Create report</string>
 
     <!-- SUCCESS MESSAGES -->
@@ -132,7 +133,7 @@
         <string name="no_file_chosen_for_upload">No file chosen for upload; you must select a file.</string>
         <string name="no_picture_taken_for_upload">No picture taken; you must take a picture in order to upload.</string>
         <!-- TOTAL REPORT ERROR MESSAGES -->
-        <string name="no_documents_found_with_month_day">No reports were found for this day. Please recheck.</string>
+        <string name="no_documents_found_with_month_day">No reports were found for this month. Please recheck.</string>
         <string name="no_month_entered">Please enter a month</string>
         <string name="no_year_entered">Please enter a year</string>
         <string name="report_not_made_admin">Report not created; contact administrator</string>

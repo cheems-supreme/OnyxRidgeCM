@@ -226,3 +226,29 @@
 - Edited `ReportFactory.java`
   - Added methods to generate daily, monthly, and yearly totals.
     - These were taken directly from the previous project, altered slightly.
+
+# 11/20/2020 Changes
+- Added string resources
+- Added `CreateYearlyReportFragment.java`
+  - Handles logic for creating reports based on year. Performs what
+    `GenerateMonthlyReportFragment.java` does, but for the whole year
+  - Added `fragment_create_yearly_report.xml` for UI for this fragment
+- Edited `WorkMonth.java`
+  - Removed the `equate(...)` method to make things easier
+- Edited `WorkYear.java`
+  - Removed traces of `WorkMonth.equate(...)`
+- Edited `MainMenuFragment.java`
+  - Added handling of `CreateYearlyReportFragment.java`-related `CardView`
+- Added `CreateProjectHoursTotalFragment.java`
+- Edited `WorkDay.java`
+  - Removed `WorkDay.equate(...)`
+  - Removed traces of it in class
+- Edited `CreateMonthlyReportFragment.java`
+  - Changed name of File instance that held generated report
+- Edited `ReportFactory.java`
+  - Added `GenerateYearlyReport(...)` to print out yearly report
+  - Changed block of code with method call that did same thing (adding a line separator)
+  - Changed filename generation to randomly generated from method call, removed to-do
+  - Added commenting for certain cell generation related code
+  - Removed original `CreateMonthlyReport(...)` to remove unused method
+  - Refactored `printYearlyTotal(...)` to handle `null` months

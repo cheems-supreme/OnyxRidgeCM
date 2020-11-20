@@ -18,6 +18,11 @@
 // - DETAILS:
 //      - Added method to determine month string based on
 //        month offset number
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Removed `equate(...)` method.
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 
@@ -118,18 +123,6 @@ public class WorkMonth {
 
     public void setMonthOffset(int monthOffset) {
         this.monthOffset = monthOffset;
-    }
-
-    public WorkMonth equate(WorkMonth month) {
-        for(int i = 0; i < daysInMonth; i++) {
-            this.days[i] = new WorkDay(month.getDays()[i]);
-        }
-        monthOffset = month.monthOffset;
-        monthActual = month.monthActual;
-        daysInMonth = month.daysInMonth;
-        monthName = month.monthName;
-        belongingToYear = month.belongingToYear;
-        return this;
     }
 
     private int DetermineDaysInMonth(int monthOffset, int year) {
@@ -235,6 +228,6 @@ public class WorkMonth {
         if(days[dayOffset] == null) {
             days[dayOffset] = new WorkDay();
         }
-        days[dayOffset].equate(day);
+        days[dayOffset] = day;
     }
 }

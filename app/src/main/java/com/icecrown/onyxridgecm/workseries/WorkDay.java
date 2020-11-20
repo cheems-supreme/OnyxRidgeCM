@@ -20,6 +20,8 @@
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 
+import com.itextpdf.kernel.geom.PageSize;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -56,8 +58,13 @@ public class WorkDay {
         this.hours = hours;
     }
     public WorkDay equate(WorkDay day) {
-        this.day = new GregorianCalendar(day.getDay().get(Calendar.YEAR), day.getDay().get(Calendar.MONTH), day.getDay().get(Calendar.DAY_OF_MONTH));
-        this.hours = day.hours;
+        if(day != null) {
+            this.day = new GregorianCalendar(day.getDay().get(Calendar.YEAR), day.getDay().get(Calendar.MONTH), day.getDay().get(Calendar.DAY_OF_MONTH));
+            this.hours = day.hours;
+        }
+        else {
+            day = new WorkDay();
+        }
         return this;
     }
 

@@ -18,6 +18,16 @@
 // - R.O.
 // - DETAILS:
 //      - Added code to generate monthly, yearly, and daily totals
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Added `GenerateYearlyReport(...)`
+//      - Removed redundant code block
+//      - Changed filename generation
+//      - Added commenting for certain cell generation related code
+//      - Removed unused methods
+//      - Refactored `printYearlyTotal(...)` to handle `null` months
 //*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 
@@ -296,26 +306,28 @@ public class ReportFactory {
         // }
     }
 
-    public static void CreateMonthlyReport(Context context, Document document, String projectName, String year, String month, List<DocumentSnapshot> days) {
-        AddJobNameContent(context, document, projectName);
-        AddLineSeparator(document);
-    }
-
-    public static Table[] printMonthlyTotals(WorkYear year, Document document) {
+    //
+    public static Table[] printYearlyTotal(WorkYear year, Document document) {
         Table[] monthlyRecords = new Table[12];
 
         for (int i = 0; i < 12; i++) {
-            Log.d("EPOCH-3", "MONTH " + (i + 1) + " " + year.getMonths()[i].getDaysInMonth());
-            monthlyRecords[i] = printMonthTotal(year.getMonths()[i], document);
+            if(year.getMonths()[i] == null ) {
+                monthlyRecords[i] = null;
+            }
+            else {
+                monthlyRecords[i] = printMonthTotal(year.getMonths()[i], document);
+            }
         }
         return monthlyRecords;
     }
 
     public static Table printMonthTotal(WorkMonth month, Document document) {
+        // Generates table to insert values into (2 columns, one for day, other for hours)
         Table monthRecord = new Table(2);
         monthRecord.setBorder(Border.NO_BORDER);
         monthRecord.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth());
 
+        // Creates two cells for the month name and total hours worked for the month
         Cell monthHeaderCell = new Cell();
         monthHeaderCell.add(new Paragraph(month.getMonthName()));
         monthHeaderCell.setBorder(Border.NO_BORDER);
@@ -324,7 +336,6 @@ public class ReportFactory {
         totalHoursHeaderCell.setBorder(Border.NO_BORDER);
         totalHoursHeaderCell.add(new Paragraph(String.format("%.2f hours", month.GenerateTotalMonthlyHours())));
         totalHoursHeaderCell.setTextAlignment(TextAlignment.RIGHT);
-
 
         monthRecord.addHeaderCell(monthHeaderCell);
         monthRecord.addHeaderCell(totalHoursHeaderCell);
@@ -339,7 +350,6 @@ public class ReportFactory {
 
         for (int i = 0; i < month.getDaysInMonth(); i++) {
             if(month.getDays()[i] != null) {
-                Log.d("EPOCH-3", "Month/Day: " + month.getMonthActual() + "/" + (i +1));
                 Cell[] line = printDailyTotal(month.getDays()[i], document);
                 monthRecord.addCell(line[0]);
                 monthRecord.addCell(line[1]);
@@ -371,20 +381,13 @@ public class ReportFactory {
         return new Cell[]{dayLine, hourValue};
     }
 
-
-
     public static File GenerateMonthlyReport(WorkMonth month, Context appContext, String projectName) {
         PdfWriter writer = null;
-
-        // TODO: Make Class level; this is the documents folder inside of our
-        File dir = appContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         File f = null;
+
         try {
-            // TODO: CHANGE FILENAME
-            f = new File(dir, "testDocument.pdf");
+            f = GenerateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
             writer = new PdfWriter(f.getPath());
-            Log.d("EPOCH-3", f.getAbsolutePath());
-            Log.d("EPOCH-3", f.getPath());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -399,15 +402,58 @@ public class ReportFactory {
 
             AddJobNameContent(appContext, document, projectName);
 
-            LineSeparator sep = new LineSeparator(new SolidLine());
-            sep.setPaddingTop(10);
-            sep.setPaddingBottom(10);
-            document.add(sep);
+            AddLineSeparator(document);
 
-            Log.d("EPOCH-2", month.getMonthName() + " " + month.getDaysInMonth());
             Table record = printMonthTotal(month, document);
             document.add(record);
 
+            document.close();
+
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return f;
+    }
+
+    // TODO: ADD CODE TO PRINT A HEADER FOR MONTHS WITHOUT ANY DAYS, FOR BLANK ENTRIES SO ALL
+    //       MONTHS ARE PRESENT
+    public static File GenerateYearlyReport(WorkYear year, Context appContext, String projectName) {
+        PdfWriter writer = null;
+        File f = null;
+
+        try {
+            f = GenerateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
+            writer = new PdfWriter(f.getPath());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Document document;
+        if (writer != null) {
+            PdfDocument doc = new PdfDocument(writer);
+            doc.addNewPage(PageSize.A4);
+            document = new Document(doc);
+            document.setFontSize(15);
+
+            AddJobNameContent(appContext, document, projectName);
+
+            AddLineSeparator(document);
+
+            Table[] records = printYearlyTotal(year, document);
+            for(Table record : records) {
+                int count = 0;
+                if(record == null) {
+                    Log.d("EPOCH-3", "record " + ++count + " is null");
+                }
+                else {
+                    document.add(record);
+                }
+            }
 
             document.close();
 
