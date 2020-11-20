@@ -9,6 +9,13 @@
 //
 // Purpose: Used to view reports and other PDFs gathered from the
 //          BrowseReportsFragment RecView
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted `import` list
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -18,11 +25,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.github.barteksc.pdfviewer.PDFView;
+
 import com.google.android.material.snackbar.Snackbar;
+
 import com.icecrown.onyxridgecm.R;
 
 import java.io.File;

@@ -5,19 +5,29 @@
 //
 // Written by: Raymond O'Neill
 //
-// Date written: 10/8/20
-// Date added: 11/6/20
+// Date written: 10/8/2020
+// Date added: 11/6/2020
 //
 // Detail: Class to be used with the DocumentsAdapter.java class
 //         contains information about a document and a reference
 //         to said document.
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted comment header
+//      - Reformatted `import` list
 //*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 
 import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
+
 
 public class Document {
     private final StorageReference ref;

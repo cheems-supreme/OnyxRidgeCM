@@ -22,6 +22,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths"/>
         </provider>
+
+        <!-- TODO: CHANGE ATTRIBUTE THAT LIFTS CONTENT UP WHEN KEYBOARD IS OPENED.
+                   THIS CHANGE AFFECTS NAV BAR -->
         <activity android:name=".activities.MainActivity"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -30,7 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainContentActivity">
+        <!-- TODO: ATTEMPT TO REMEDY THE PREVIOUS TO-DO's ISSUE -->
+        <activity android:name=".activities.MainContentActivity"
+            android:windowSoftInputMode="adjustNothing">
 
         </activity>
     </application>

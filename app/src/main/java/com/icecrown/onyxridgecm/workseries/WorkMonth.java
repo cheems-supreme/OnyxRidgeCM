@@ -5,8 +5,8 @@
 //
 // Written by: Raymond O'Neill
 //
-// Date written: 11/1/20
-// Date added: 11/6/20
+// Date written: 11/1/2020
+// Date added: 11/6/2020
 //
 // Details: Holds information regarding a month of work
 //          (the amount of days in said month
@@ -23,6 +23,9 @@
 // - R.O.
 // - DETAILS:
 //      - Removed `equate(...)` method.
+//      - Removed unused testing code
+//      - Reformatted comment header
+//      - Refactored method names to lower camel case
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 
@@ -52,31 +55,19 @@ public class WorkMonth {
         this.monthOffset = monthOffset;
         belongingToYear = year;
         this.monthName = monthName;
-        daysInMonth = DetermineDaysInMonth(monthOffset % 2, year);
+        daysInMonth = determineDaysInMonth(monthOffset % 2, year);
     }
 
     public WorkMonth(int year, int monthOffset) {
         belongingToYear = year;
         this.monthOffset = monthOffset;
         monthActual = monthOffset + 1;
-        daysInMonth = DetermineDaysInMonth(monthOffset, year);
+        daysInMonth = determineDaysInMonth(monthOffset, year);
         days = new WorkDay[daysInMonth];
-        monthName = DetermineMonthName(monthOffset);
+        monthName = determineMonthName(monthOffset);
     }
 
-    public void GenerateMockWorkMonthData(int year, int monthActual) {
-        belongingToYear = year;
-        this.monthActual = monthActual;
-        monthOffset = monthActual - 1;
-        monthName = DetermineMonthName(monthOffset);
-        daysInMonth = DetermineDaysInMonth(monthActual, year);
 
-        days = new WorkDay[daysInMonth];
-        for(int i = 0; i < daysInMonth; i++) {
-            days[i] = new WorkDay(new GregorianCalendar(year, monthOffset, (i + 1)), 15 * (10 + (i * 100.00)));
-        }
-
-    }
     public int getBelongingToYear() {
         return belongingToYear;
     }
@@ -125,7 +116,7 @@ public class WorkMonth {
         this.monthOffset = monthOffset;
     }
 
-    private int DetermineDaysInMonth(int monthOffset, int year) {
+    private int determineDaysInMonth(int monthOffset, int year) {
         switch(monthOffset) {
             case 1:
                 GregorianCalendar cal = new GregorianCalendar(2020, 1, 1);
@@ -153,7 +144,7 @@ public class WorkMonth {
                 return 0;
         }
     }
-    public static String DetermineMonthName(int monthOffset) {
+    public static String determineMonthName(int monthOffset) {
         switch(monthOffset) {
             case 0:
                 return "January";
@@ -184,7 +175,7 @@ public class WorkMonth {
         }
     }
 
-    public static int DetermineMonthOffset(String monthName) {
+    public static int determineMonthOffset(String monthName) {
         switch(monthName) {
             case "january":
                 return 0;
@@ -214,7 +205,7 @@ public class WorkMonth {
                 return -1;
         }
     }
-    public double GenerateTotalMonthlyHours() {
+    public double generateTotalMonthlyHours() {
         double totalHours = 0.00;
         for(WorkDay day : days) {
             if(day != null) {
@@ -224,7 +215,7 @@ public class WorkMonth {
         return totalHours;
     }
 
-    public void SetDayAtInstance(WorkDay day, int dayOffset) {
+    public void setDayAtInstance(WorkDay day, int dayOffset) {
         if(days[dayOffset] == null) {
             days[dayOffset] = new WorkDay();
         }

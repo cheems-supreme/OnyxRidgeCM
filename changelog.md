@@ -227,7 +227,7 @@
   - Added methods to generate daily, monthly, and yearly totals.
     - These were taken directly from the previous project, altered slightly.
 
-# 11/20/2020 Changes
+# 11/20/2020 Changes, Section 1
 - Added string resources
 - Added `CreateYearlyReportFragment.java`
   - Handles logic for creating reports based on year. Performs what
@@ -252,3 +252,99 @@
   - Added commenting for certain cell generation related code
   - Removed original `CreateMonthlyReport(...)` to remove unused method
   - Refactored `printYearlyTotal(...)` to handle `null` months
+
+# 11/20/2020 Changes, Section 2
+- Added comment to `AndroidManifest.xml` to remove the attribute of the `MainActivity` tag that
+  enables resize of screen content based on whether the keyboard is being displayed
+- Refactored `MainContentActivity.java`
+  - Refactored `GenerateIntent(...)` to `generateIntent(...)`
+  - Refactored the `BottomNavigationView` variable to local in `onCreate(...)` from class-level
+  - Removed commented-out `@Override` of `onBackPressed(...)`
+- Refactored `WorkYear.java`
+  - Removed traces of `WorkMonth.equate(...)`
+  - Removed unused testing code
+- Refactored `WorkMonth.java`
+  - Removed `equate(...)` method
+  - Removed unused testing code
+- Refactored `WorkDay.java`
+  - See 'Reformats', sections (A) and (B)
+- Refactored `ReportFactory.java`
+  - See 'Reformats', sections (A) and (B)
+- Refactored `PhotoFactory.java`
+  - See 'Reformats', sections (A) and (B)
+- Refactored `Photo.java`
+  - Implemented `LocalDate` instead of `Date` instance
+  - `Refactored `getDateAsString(...)` to use `LocalDate` and `DateTimeFormatter` classes and
+    methods
+  - Removed unused imports
+  - See 'Reformats', sections (A) and (B)
+- Refactored `Document.java`
+  - See 'Reformats', section (A)
+  - Reformatted `import` list
+- Refactored `ViewPdfReportFragment.java`
+  - Reformatted `import` list
+- Refactored `UploadExistingReportFragment.java`
+  - Reformatted `import` list
+  - See 'Reformats', sections (A) and (B)
+- Refactored `UploadExistingPhotoFragment.java`
+  - See 'Reformats', section (B)
+- Refactored `PhotosAdapter.java`
+  - See 'Reformats', section (A)
+- Refactored `BrowsePhotosFragment.java`
+  - Removed unused imports
+  - Implemented the use of `LocalDate` and removed `Date` instance
+  - Reformatted spacing
+  - See 'Reformats' section (B)
+- Refactored `BrowseReportsFragment.java`
+  - Made `documentList` final
+  - Reformatted class-level variable list
+  - See 'Reformats', section (A) and (B)
+- Refactored `CreateMonthlyReportFragment.java`
+  - Changed variable name for `File` instance that holds the return value of
+    `generateMonthlyReport(...)`
+  - Reformatted `import` list
+  - Reformatted spacing
+  - See 'Reformats', section (A) and (B)
+- Refactored `CreateNewReportFragment.java`
+  - Reformatted `import` list
+  - See 'Reformats', section (A) and (B)
+- Refactored `CreateYearlyReportFragment.java`
+  - Reformatted `import` list
+  - See 'Reformats', section (B)
+- Refactored `LoginFragment.java`
+  - Changed method name to reflect change in `MainContentActivity.java`
+  - Reformatted `import` list
+- Refactored `MainMenuFragment.java`
+  - Added handling for yearly report generation `CardView`
+  - Reformatted `import` list
+- Refactored `SelectProjectFragment.java`
+  - Reformatted `import` list
+- Refactored `TakeNewPhotoFragment.java`
+  - Reformatted `import` list
+- Reformats:
+  - (A) Reformatted comment headers on:
+    - `PhotosAdapter.java`
+    - `WorkYear.java`
+    - `WorkMonth.java`
+    - `WorkDay.java`
+    - `ReportFactory.java`
+    - `PhotoFactory.java`
+    - `Photo.java`
+    - `Document.java`
+    - `UploadExistingReportFragment.java`
+    - `BrowseReportsFragment.java`
+    - `CreateMonthlyReportFragment.java`
+    - `CreateNewReportFragment.java`
+  - (B) Refactored method names to lower camel case on:
+    - `WorkMonth.java`
+    - `WorkDay.java`
+    - `ReportFactory.java`
+    - `PhotoFactory.java`
+    - `Photo.java`
+    - `UploadExistingReportFragment.java`
+    - `UploadExistingPhotoFragment.java`
+    - `BrowsePhotosFragment.java`
+    - `BrowseReportsFragment.java`
+    - `CreateMonthlyReportFragment.java`
+    - `CreateNewReportFragment.java`
+    - `CreateYearlyReportFragment.java`

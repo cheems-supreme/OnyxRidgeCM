@@ -16,6 +16,11 @@
 // - R.O.
 // - DETAILS:
 //      - Removed unused variable singleton
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O
+// - DETAILS:
+//      - Reformatted `import` list
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -35,6 +40,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.adapters.ProjectAdapter;
 import com.icecrown.onyxridgecm.interfaces.IProjectSelectedCallback;

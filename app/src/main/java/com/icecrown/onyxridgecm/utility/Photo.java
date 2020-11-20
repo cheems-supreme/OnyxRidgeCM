@@ -5,21 +5,31 @@
 //
 // Written by: Raymond O'Neill
 //
-// Date written: 10/26/20
-// Date added: 11/10/20
+// Date written: 10/26/2020
+// Date added: 11/10/2020
 //
 // Detail: Class to be used with the PhotosAdapter to hold photos
 //         taken from Firebase Storage
 // ------------------------------------------------
 // UPDATES
 // ------------------------------------------------
-// - 11/12/20
+// - 11/12/2020
 // - R.O.
 // - DETAILS:
 //      - Changed name of get...(...) method for TakenBy
 //      - Added two `String` variables for first name and last name
 //      - Removed `takenBy` `String` variable that held the full name
 //      - Made all variables but the `Bitmap` `final`.
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted comment header
+//      - Refactored method names to lower camel case
+//      - Implemented `LocalDate` instead of `Date` instance
+//      - Refactored `getDateAsString(...)` to use `LocalDate` and
+//        `DateTimeFormatter` classes and methods
+//      - Removed unused imports
 //*******************************************************************
 
 package com.icecrown.onyxridgecm.utility;
@@ -36,19 +46,19 @@ import com.google.firebase.storage.StorageReference;
 import com.icecrown.onyxridgecm.R;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Photo {
     private final String filename;
     private Bitmap thumbnail;
     private final Uri imageUri;
     private final StorageReference ref;
-    private final Date dateTaken;
+    private final LocalDate dateTaken;
     private final String takenByFirst;
     private final String takenByLast;
 
-    public Photo(String filename, Uri uri, StorageReference ref, Date dateTaken, String takenByLast, String takenByFirst) {
+    public Photo(String filename, Uri uri, StorageReference ref, LocalDate dateTaken, String takenByLast, String takenByFirst) {
         this.filename = filename;
         imageUri = uri;
         this.ref = ref;
@@ -63,13 +73,13 @@ public class Photo {
     {
         return ref;
     }
-    public Date getDate()
+    public LocalDate getDate()
     {
         return dateTaken;
     }
     public String getDateAsString()
     {
-        return new SimpleDateFormat("MM/dd/yyyy").format(dateTaken);
+        return dateTaken.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
     public String getTakenBy()
     {
@@ -81,7 +91,7 @@ public class Photo {
     public String getFilename() { return filename; }
     public String getTakenByLastNameFirst() { return takenByLast + ", " + takenByFirst; }
 
-    public String GenerateBitmapForUri(Context c, ContentResolver res) {
+    public String generateBitmapForUri(Context c, ContentResolver res) {
         if(res != null && c != null) {
             try {
                 ImageDecoder.Source s = ImageDecoder.createSource(res, imageUri);

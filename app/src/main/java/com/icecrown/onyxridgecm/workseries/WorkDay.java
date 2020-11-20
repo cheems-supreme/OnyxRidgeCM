@@ -5,22 +5,26 @@
 //
 // Written by: Raymond O'Neill
 //
-// Date written: 11/1/20
-// Date added: 11/6/20
+// Date written: 11/1/2020
+// Date added: 11/6/2020
 //
 // Details: Holds information regarding a day of work
 //          (the day itself and the total hours worked)
 // ------------------------------------------------
 // UPDATES
 // ------------------------------------------------
-// - 11/8/20
+// - 11/8/2020
 // - R.O.
 // - DETAILS:
 //      - Changed initial variable value
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted comment header
+//      - Refactored method names to lower camel case
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
-
-import com.itextpdf.kernel.geom.PageSize;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -68,7 +72,7 @@ public class WorkDay {
         return this;
     }
 
-    public String GenerateHyphenDateString() {
+    public String generateHyphenDateString() {
         String s = (day.get(Calendar.MONTH) + 1) + "-" + day.get(Calendar.DAY_OF_MONTH) + "-" + day.get(Calendar.YEAR);
         return s;
     }

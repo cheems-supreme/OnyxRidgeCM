@@ -33,6 +33,15 @@
 //        fragments to an if/else if statement block (view IDs
 //        are not final in Gradle 5.0, and switch statements need
 //        final values for cases)
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Refactored `GenerateIntent(...)` to
+//        `generateIntent(...)`
+//      - Refactored the `BottomNavigationView` to a local
+//        variable in `onCreate(...)` from a class-level variable
+//      - Removed commented-out `@Override` of `onBackPressed(...)`
 //**************************************************************
 package com.icecrown.onyxridgecm.activities;
 
@@ -53,7 +62,6 @@ import com.icecrown.onyxridgecm.fragments.HelpAndFaqFragment;
 
 public class MainContentActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNavigationView;
     private final FragmentManager manager = getSupportFragmentManager();
     private final BrowseReportsFragment browseReportsFragment = new BrowseReportsFragment();
     private final BrowsePhotosFragment browsePhotosFragment = new BrowsePhotosFragment();
@@ -66,7 +74,7 @@ public class MainContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_content);
 
-        bottomNavigationView = findViewById(R.id.menu_nav_bar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_nav_bar);
 
         manager.beginTransaction().add(R.id.main_content_holder, settingsHelpFragment).hide(settingsHelpFragment).commit();
         manager.beginTransaction().add(R.id.main_content_holder, browsePhotosFragment).hide(browsePhotosFragment).commit();
@@ -101,17 +109,7 @@ public class MainContentActivity extends AppCompatActivity {
         });
     }
 
-    public static Intent GenerateIntent(Context c) {
+    public static Intent generateIntent(Context c) {
         return new Intent(c, MainContentActivity.class);
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        // TODO: WHEN BACKSTACK COUNT == -1
-//        new MaterialAlertDialogBuilder(this)
-//                .setTitle(R.string.confirm_sign_out_title)
-//                .setMessage(R.string.sign_out_confirmation_desc)
-//                .setPositiveButton(R.string.)
-//        super.onBackPressed();
-//    }
 }

@@ -12,12 +12,22 @@
 // ------------------------------------------------
 // UPDATES
 // ------------------------------------------------
-// - 11/12/20
+// - 11/12/2020
 // - R.O.
 // - DETAILS:
 //      - Changed the List of Photos to a final variable
 //      - Changed format of onCreateView(...) (put recView def
 //        lower in the method)
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Refactored `LoadPhotoList(...)` to
+//        `loadPhotoList(...)`
+//      - Reformatted spacings
+//      - Implemented the use of `LocalDate` and removed `Date`
+//        instances.
+//      - Removed unused imports
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -28,7 +38,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -36,13 +45,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageException;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.icecrown.onyxridgecm.R;
@@ -53,9 +58,9 @@ import com.icecrown.onyxridgecm.utility.PhotoFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class BrowsePhotosFragment extends Fragment {
@@ -67,7 +72,7 @@ public class BrowsePhotosFragment extends Fragment {
     private PhotosAdapter photosAdapter;
     private final List<Photo> photoList = new ArrayList<>();
     private FragmentManager manager;
-    private Date dateOfPhoto;
+    private LocalDate dateOfPhoto;
 
 
 
@@ -76,9 +81,10 @@ public class BrowsePhotosFragment extends Fragment {
         public void onProjectSelected(String projectName) {
             projectNameString = projectName;
             projectNameTextView.setText(projectName);
-            LoadPhotoList();
+            loadPhotoList();
         }
     };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         manager = getActivity().getSupportFragmentManager();
@@ -95,7 +101,7 @@ public class BrowsePhotosFragment extends Fragment {
 
         photosAdapter = new PhotosAdapter(photoList);
         photosAdapter.setOnItemClickListener(position -> {
-            final File f = PhotoFactory.GenerateImageFile(getContext());
+            final File f = PhotoFactory.generateImageFile(getContext());
 
             if(f != null) {
                 photoList.get(position).getRef().getFile(f).addOnCompleteListener(task -> {
@@ -122,7 +128,7 @@ public class BrowsePhotosFragment extends Fragment {
     }
 
 
-    private void LoadPhotoList() {
+    private void loadPhotoList() {
         if(!photoList.isEmpty()) {
             photoList.clear();
         }
@@ -137,7 +143,7 @@ public class BrowsePhotosFragment extends Fragment {
                                 if(task.isSuccessful()) {
                                     final StorageMetadata meta = task1.getResult();
                                     try {
-                                        dateOfPhoto = DateFormat.getDateInstance(DateFormat.SHORT).parse(meta.getCustomMetadata("date_uploaded"));
+                                        dateOfPhoto = LocalDate.parse(meta.getCustomMetadata("date_uploaded"), DateTimeFormatter.ofPattern("MM/dd/yyyy"));
                                     } catch (Exception e) {
                                         Log.d("EPOCH-3", "Date exception for 'date_uploaded' occurred.");
                                         e.printStackTrace();
@@ -158,7 +164,7 @@ public class BrowsePhotosFragment extends Fragment {
 
                                     photo.getFile(fileTemp).addOnCompleteListener(task2 -> {
                                         Photo adder = new Photo(fileTemp.getName(), Uri.fromFile(fileTemp), photo, dateOfPhoto, meta.getCustomMetadata("taken_by_last"), meta.getCustomMetadata("taken_by_first"));
-                                        adder.GenerateBitmapForUri(getActivity(), getActivity().getContentResolver());
+                                        adder.generateBitmapForUri(getActivity(), getActivity().getContentResolver());
                                         photoList.add(adder);
 
                                         if(photoList.size() == reference.size()) {
@@ -180,5 +186,4 @@ public class BrowsePhotosFragment extends Fragment {
             }
         });
     }
-
 }

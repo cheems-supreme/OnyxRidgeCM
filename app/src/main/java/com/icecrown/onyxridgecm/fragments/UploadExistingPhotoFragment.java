@@ -18,6 +18,11 @@
 //      - Added comment header to file
 //      - Added `last_name` SharedPreferences field to metadata
 //        for `taken_by` field
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Refactored method names to lower camel case
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -71,7 +76,7 @@ public class UploadExistingPhotoFragment extends Fragment {
 
         imageView = v.findViewById(R.id.photo_preview_viewer_image_view);
         MaterialButton pickImageButton = v.findViewById(R.id.select_file_from_explorer);
-        pickImageButton.setOnClickListener(l -> OpenImageFromDirectory());
+        pickImageButton.setOnClickListener(l -> openImageFromDirectory());
 
         final Spinner jobNameSpinner = v.findViewById(R.id.job_name_spinner);
         jobNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -147,7 +152,7 @@ public class UploadExistingPhotoFragment extends Fragment {
         return v;
     }
 
-    private void OpenImageFromDirectory() {
+    private void openImageFromDirectory() {
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
         i.setType("image/*");

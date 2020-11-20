@@ -17,44 +17,45 @@
 // - DETAILS:
 //      - Made a method a lambda
 // ------------------------------------------------
-// - 11/8/20
+// - 11/8/2020
 // - R.O.
 // - DETAILS:
 //      - Added RecyclerView instance to this and corresponding
 //        `browse_content` XML file
 // ------------------------------------------------
-// - 11/9/20
+// - 11/9/2020
 // - R.O.
 // - DETAILS:
 //      - Added code to handle user clicking on a report entry
 //        of the RecyclerView
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Refactored `LoadDocumentList(...)` to
+//        `loadDocumentList(...)`
+//      - Reformatted comment headers
+//      - Made `documentList` `final`
+//      - Reformatted class-level variable list
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.icecrown.onyxridgecm.R;
@@ -65,7 +66,6 @@ import com.icecrown.onyxridgecm.utility.ReportFactory;
 
 import java.io.File;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -74,19 +74,18 @@ public class BrowseReportsFragment extends Fragment {
 
     private MaterialTextView projectNameTextView;
     private String projectNameString = "";
-    private List<Document> documentList = new ArrayList<>();
+    private final List<Document> documentList = new ArrayList<>();
     private DocumentAdapter documentAdapter;
+    private final BrowseReportsFragment singleton = this;
 
     private final IProjectSelectedCallback callback = new IProjectSelectedCallback() {
         @Override
         public void onProjectSelected(String projectName) {
             projectNameString = projectName;
             projectNameTextView.setText(projectName);
-            LoadDocumentsList();
+            loadDocumentsList();
         }
     };
-
-    private final BrowseReportsFragment singleton = this;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,7 +107,7 @@ public class BrowseReportsFragment extends Fragment {
 
         documentAdapter = new DocumentAdapter(documentList);
         documentAdapter.setOnItemClickListener(position -> {
-            final File chosenFile = ReportFactory.GenerateFile(getContext(), getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE));
+            final File chosenFile = ReportFactory.generateFile(getContext(), getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE));
             documentAdapter.getDocuments().get(position).getRef().getFile(chosenFile).addOnCompleteListener(task -> {
                 if(task.isSuccessful()) {
                     Log.d("EPOCH-3", "documentAdapter onClick successful");
@@ -127,7 +126,7 @@ public class BrowseReportsFragment extends Fragment {
         return v;
     }
 
-    private void LoadDocumentsList() {
+    private void loadDocumentsList() {
         if(!documentList.isEmpty()) {
             documentList.clear();
         }

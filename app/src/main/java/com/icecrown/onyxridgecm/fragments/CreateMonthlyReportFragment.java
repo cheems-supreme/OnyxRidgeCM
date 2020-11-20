@@ -12,11 +12,16 @@
 // ------------------------------------------------
 // UPDATES
 // ------------------------------------------------
-// - 11/20/20
+// - 11/20/2020
 // - R.O.
 // - DETAILS:
 //      - Changed variable name for the file intended to hold
 //        the return value of GenerateMonthlyReport(...)
+//      - Reformatted headers
+//      - Refactored `GenerateMonthlyReportEnter(...)` to
+//        `generateMonthlyReportEnter(...)`
+//      - Reformatted `import` list
+//      - Reformatted spacing
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -28,22 +33,28 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.github.barteksc.pdfviewer.PDFView;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.utility.ReportFactory;
 import com.icecrown.onyxridgecm.workseries.WorkDay;
 import com.icecrown.onyxridgecm.workseries.WorkMonth;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -57,9 +68,6 @@ public class CreateMonthlyReportFragment extends Fragment {
     private TextInputEditText jobYearInputField;
     private TextInputEditText jobMonthInputField;
     private PDFView reportView;
-
-
-
 
     @Nullable
     @Override
@@ -114,26 +122,26 @@ public class CreateMonthlyReportFragment extends Fragment {
                 }
             }
             else {
-                GenerateMonthlyReportEnter(monthString, yearString);
+                generateMonthlyReportEnter(monthString, yearString);
             }
         });
         return v;
     }
 
-    private void GenerateMonthlyReportEnter(String month, String year) {
+    private void generateMonthlyReportEnter(String month, String year) {
         CollectionReference daysInMonth = FirebaseFirestore.getInstance().collection("hours/" + jobNameValue + "/years/" + year + "/months/" + month.toLowerCase() + "/days");
 
         daysInMonth.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
                 List<DocumentSnapshot> days = task.getResult().getDocuments();
                 if(days.size() != 0) {
-                    int chosenMonthOffset = WorkMonth.DetermineMonthOffset(month.toLowerCase());
+                    int chosenMonthOffset = WorkMonth.determineMonthOffset(month.toLowerCase());
                     WorkMonth workMonth = new WorkMonth(Integer.parseInt(year), chosenMonthOffset);
                     for(DocumentSnapshot snapshot : days) {
                         WorkDay day = new WorkDay(new GregorianCalendar(Integer.parseInt(year), chosenMonthOffset, snapshot.getLong("day_of_month").intValue()), snapshot.getDouble("hours_worked"));
-                        workMonth.SetDayAtInstance(day, snapshot.getLong("day_of_month").intValue() - 1);
+                        workMonth.setDayAtInstance(day, snapshot.getLong("day_of_month").intValue() - 1);
                     }
-                    File monthlyReportFile = ReportFactory.GenerateMonthlyReport(workMonth, getContext(), jobNameValue);
+                    File monthlyReportFile = ReportFactory.generateMonthlyReport(workMonth, getContext(), jobNameValue);
                     if(monthlyReportFile == null) {
                         Snackbar.make(jobNameSpinner, R.string.report_not_made_admin, Snackbar.LENGTH_SHORT).show();
                     }

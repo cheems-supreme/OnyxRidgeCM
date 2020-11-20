@@ -9,6 +9,14 @@
 //
 // Purpose: Used for logic behind creating a total hours report
 //          for any given project.
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Changed method name to lower camel case
+//      - Reformatted `import` list
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -20,10 +28,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.github.barteksc.pdfviewer.PDFView;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -32,6 +43,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.utility.ReportFactory;
 import com.icecrown.onyxridgecm.workseries.WorkDay;
@@ -50,8 +62,8 @@ public class CreateYearlyReportFragment extends Fragment {
     private TextInputEditText yearInput;
     private Spinner jobNameSpinner;
     private String jobNameValue = "";
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Nullable
     @Override
@@ -97,7 +109,7 @@ public class CreateYearlyReportFragment extends Fragment {
             if (yearString.equals("")) {
                 yearInput.setError(getString(R.string.no_year_entered));
             } else {
-                GenerateYearlyReportEnter(yearString);
+                generateYearlyReportEnter(yearString);
             }
         });
 
@@ -105,7 +117,7 @@ public class CreateYearlyReportFragment extends Fragment {
     }
 
 
-    private void GenerateYearlyReportEnter(final String yearString) {
+    private void generateYearlyReportEnter(final String yearString) {
         CollectionReference[] yearColl = new CollectionReference[12];
         final int yearActual = Integer.parseInt(yearString);
         WorkYear year = new WorkYear(yearActual);
@@ -114,7 +126,7 @@ public class CreateYearlyReportFragment extends Fragment {
         AtomicInteger countOfAdditions = new AtomicInteger();
 
         for(int i = 0; i < 12; i++) {
-            yearColl[i] = db.collection("hours/" + jobNameValue + "/years/" + yearActual + "/months/" + WorkMonth.DetermineMonthName(i).toLowerCase() + "/days");
+            yearColl[i] = db.collection("hours/" + jobNameValue + "/years/" + yearActual + "/months/" + WorkMonth.determineMonthName(i).toLowerCase() + "/days");
             final int monthOffset = i;
 
             yearColl[i].get().addOnCompleteListener(task -> {
@@ -126,7 +138,7 @@ public class CreateYearlyReportFragment extends Fragment {
                         WorkMonth workMonth = new WorkMonth(yearActual, monthOffset);
                         for(DocumentSnapshot day : days) {
                             WorkDay workDay = new WorkDay(new GregorianCalendar(yearActual, monthOffset, day.getLong("day_of_month").intValue()), day.getDouble("hours_worked"));
-                            workMonth.SetDayAtInstance(workDay, day.getLong("day_of_month").intValue() - 1);
+                            workMonth.setDayAtInstance(workDay, day.getLong("day_of_month").intValue() - 1);
                         }
                         year.setMonthIndex(monthOffset, workMonth);
                     }
@@ -137,7 +149,7 @@ public class CreateYearlyReportFragment extends Fragment {
                    countOfAdditions.getAndIncrement();
 
                     if(countOfAdditions.get() == 11) {
-                        File yearlyReportFile = ReportFactory.GenerateYearlyReport(year, getContext(), jobNameValue);
+                        File yearlyReportFile = ReportFactory.generateYearlyReport(year, getContext(), jobNameValue);
                         if(yearlyReportFile == null) {
                             Snackbar.make(jobNameSpinner, R.string.report_not_made_admin, Snackbar.LENGTH_SHORT).show();
                         }

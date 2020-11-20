@@ -5,23 +5,29 @@
 //
 // Written by: Raymond O'Neill
 //
-// Date written: 10/2/20
-// Date added: ~11/5/20
+// Date written: 10/2/2020
+// Date added: ~11/5/2020
 //
 // Detail: Used to connect Document data to RecyclerView in Browse-
 //         ReportsFragment
 // ------------------------------------------------
 // UPDATES
 // ------------------------------------------------
-// - 11/9/20
+// - 11/9/2020
 // - R.O.
 // - DETAILS:
 //      - Made interface public
 // ------------------------------------------------
-// - 11/12/20
+// - 11/12/2020
 // - R.O.
 // - DETAILS:
-//      - Removed variables and placed 'get' method calls in place of
+//      - Removed variables and placed 'get' method
+//        calls in place of
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted comment header
 //*******************************************************************
 package com.icecrown.onyxridgecm.adapters;
 

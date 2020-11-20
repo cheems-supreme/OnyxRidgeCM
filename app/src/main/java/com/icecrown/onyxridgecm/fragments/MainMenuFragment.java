@@ -33,6 +33,7 @@
 // - R.O.
 // - DETAILS:
 //      - Added handling for yearly report generation `CardView`
+//      - Reformatted `import` list
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -47,6 +48,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.card.MaterialCardView;
+
 import com.icecrown.onyxridgecm.R;
 
 public class MainMenuFragment extends Fragment {

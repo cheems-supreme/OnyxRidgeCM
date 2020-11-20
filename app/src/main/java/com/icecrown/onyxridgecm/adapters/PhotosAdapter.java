@@ -7,21 +7,26 @@
 //
 // Written by: Raymond O'Neill
 //
-// Date written: 10/19/20
+// Date written: 10/19/2020
 //
-// Date added: 11/10/20
+// Date added: 11/10/2020
 //
 // Detail: Adapter for photos in the BrowsePhotosFragment.java. Will
 //         be used in the RecyclerView instance
 // ------------------------------------------------
 // UPDATES
 // ------------------------------------------------
-// - 11/12/20
+// - 11/12/2020
 // - R.O.
 // - DETAILS:
 //      - Changed comment header layout
 //      - Changed the `name` field to be `last-name, first-name`
 //      - Made inner class `PhotoHolder` `private` variables `final`
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted comment header
 //*******************************************************************
 package com.icecrown.onyxridgecm.adapters;
 

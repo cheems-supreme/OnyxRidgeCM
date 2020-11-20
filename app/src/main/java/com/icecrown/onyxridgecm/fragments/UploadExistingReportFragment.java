@@ -11,12 +11,12 @@
 // ------------------------------------------------
 // UPDATES
 // ------------------------------------------------
-// - 11/8/20
+// - 11/8/2020
 // - R.O.
 // - DETAILS:
 //      - Handled actual uploading and metadata insertion into files
 // ------------------------------------------------
-// - 11/10/20
+// - 11/10/2020
 // - R.O.
 // - DETAILS:
 //      - Removed duplicate code for the job name spinner that
@@ -27,11 +27,18 @@
 //      - Added brackets around an if(...) statement to prevent
 //        logic error
 // ------------------------------------------------
-// - 11/12/20
+// - 11/12/2020
 // - R.O.
 // - DETAILS:
 //      - Added a `.load()` method call to the PDFView so it
 //        actually shows PDF before user uploads
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted comment header
+//      - Reformatted `import` list
+//      - Refactored methods to lower camel case
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -56,12 +63,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.github.barteksc.pdfviewer.PDFView;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+
 import com.icecrown.onyxridgecm.R;
 
 import java.io.File;
@@ -88,7 +97,7 @@ public class UploadExistingReportFragment extends Fragment {
 
         MaterialButton pickFileButton = v.findViewById(R.id.select_file_from_explorer);
 
-        pickFileButton.setOnClickListener(l -> OpenFileFromDirectory());
+        pickFileButton.setOnClickListener(l -> openFileFromDirectory());
 
         final Spinner jobNameSpinner = v.findViewById(R.id.job_name_spinner);
         jobNameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -171,7 +180,7 @@ public class UploadExistingReportFragment extends Fragment {
         return v;
     }
 
-    private void OpenFileFromDirectory() {
+    private void openFileFromDirectory() {
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.addCategory(Intent.CATEGORY_OPENABLE);
         i.setType("application/pdf");

@@ -5,8 +5,8 @@
 //
 // Written by: Raymond O'Neill
 //
-// Date written: 11/1/20
-// Date added: 11/6/20
+// Date written: 11/1/2020
+// Date added: 11/6/2020
 //
 // Details: Holds information regarding a year of work
 //          (the months themselves, which uses composition)
@@ -17,21 +17,14 @@
 // - R.O.
 // - DETAILS:
 //      - Removed traces of `WorkMonth.equate(...)`
+//      - Reformatted comment header
+//      - Removed unused testing code
 //*********************************************************
 package com.icecrown.onyxridgecm.workseries;
 
 public class WorkYear {
     private WorkMonth[] months = new WorkMonth[12];
     private int year;
-
-
-    public void GenerateMockWorkYearData(int year) {
-        this.year = year;
-        for(int i = 0; i < 12; i++) {
-            months[i] = new WorkMonth();
-            months[i].GenerateMockWorkMonthData(year, i + 1);
-        }
-    }
 
     public WorkYear(int year) {
         this.year = year;

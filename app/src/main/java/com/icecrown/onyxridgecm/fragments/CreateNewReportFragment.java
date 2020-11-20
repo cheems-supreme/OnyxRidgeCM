@@ -23,19 +23,26 @@
 //      - Simplified if/else statement
 //      - Removed unused imports
 // ------------------------------------------------
-// - 11/8/20
+// - 11/8/2020
 // - R.O.
 // - DETAILS:
 //      - Added code to close 'document' and 'writer' instances
 //        at end of writing to file
 // ------------------------------------------------
-// - 11/12/20
+// - 11/12/2020
 // - R.O.
 // - DETAILS:
 //      - Changed SharedPreferences fields from incorrect fields
 //        to correct field names
 //      - Truncated StorageReference directory location into
 //        one line
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted comment header
+//      - Altered method names to lower camel case
+//      - Reformatted `import` list
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -51,10 +58,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.snackbar.Snackbar;
@@ -66,20 +75,23 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.utility.ReportFactory;
 import com.icecrown.onyxridgecm.workseries.WorkMonth;
+
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+
 import java.io.File;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 
 public class CreateNewReportFragment extends Fragment {
 
@@ -164,27 +176,27 @@ public class CreateNewReportFragment extends Fragment {
 
         submitReportButton = v.findViewById(R.id.generate_report_submit_button);
         submitReportButton.setOnClickListener(v1 -> {
-            if(!AreAnyFieldsBlank()) {
+            if(!areAnyFieldsBlank()) {
                 new Thread(() -> {
-                    File f = ReportFactory.GenerateFile(getContext(), getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE));
+                    File f = ReportFactory.generateFile(getContext(), getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE));
 
                     SharedPreferences prefs = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
 
                     int workersOnSite = Integer.parseInt(workersOnSiteEditText.getText().toString());
                     float hoursPerWorker = Float.parseFloat(hoursWorkedEditText.getText().toString());
 
-                    PdfWriter writer = ReportFactory.InitializeWriter(f);
-                    Document document = ReportFactory.InitializePdfDocument(writer);
-                    ReportFactory.AddJobNameContent(getContext(), document, jobNameValue);
-                    ReportFactory.AddDateContent(getContext(), document, String.format(Locale.getDefault(), "%d/%d/%d", (dateChooser.getMonth() + 1), dateChooser.getDayOfMonth(), dateChooser.getYear()));
-                    ReportFactory.AddCreatedByContent(getContext(), document, String.format(Locale.getDefault(), "%s %s", prefs.getString("first_name", "null"), prefs.getString("last_name", "null")));
-                    ReportFactory.AddWorkersHoursAndTotal(getContext(), document, workersOnSite, hoursPerWorker);
-                    ReportFactory.AddDailyLogContent(getContext(), document, dailyLogEditText.getText().toString());
-                    ReportFactory.AddLineSeparator(document);
-                    ReportFactory.AddWeatherContent(getContext(), document, weatherValue);
-                    ReportFactory.AddAccidentOccurredContent(getContext(), document, accidentHappenedCheckBox.isChecked(), accidentDetails.getText().toString());
+                    PdfWriter writer = ReportFactory.initializeWriter(f);
+                    Document document = ReportFactory.initializePdfDocument(writer);
+                    ReportFactory.addJobNameContent(getContext(), document, jobNameValue);
+                    ReportFactory.addDateContent(getContext(), document, String.format(Locale.getDefault(), "%d/%d/%d", (dateChooser.getMonth() + 1), dateChooser.getDayOfMonth(), dateChooser.getYear()));
+                    ReportFactory.addCreatedByContent(getContext(), document, String.format(Locale.getDefault(), "%s %s", prefs.getString("first_name", "null"), prefs.getString("last_name", "null")));
+                    ReportFactory.addWorkersHoursAndTotal(getContext(), document, workersOnSite, hoursPerWorker);
+                    ReportFactory.addDailyLogContent(getContext(), document, dailyLogEditText.getText().toString());
+                    ReportFactory.addLineSeparator(document);
+                    ReportFactory.addWeatherContent(getContext(), document, weatherValue);
+                    ReportFactory.addAccidentOccurredContent(getContext(), document, accidentHappenedCheckBox.isChecked(), accidentDetails.getText().toString());
                     // TODO:
-                    ReportFactory.UploadPhotosToDoc(getContext(), document, new File[0]);
+                    ReportFactory.uploadPhotosToDoc(getContext(), document, new File[0]);
                     //ReportFactory.UploadPhotosToDoc(getContext(), document, imagesChosen);
 
                     document.close();
@@ -194,9 +206,9 @@ public class CreateNewReportFragment extends Fragment {
                         Log.d("EPOCH-3", "IOException encountered on PdfWriter.close() in file CreateNewReportFragment.java");
                     }
 
-                    InsertTotalHoursIntoDB(workersOnSite * hoursPerWorker);
+                    insertTotalHoursIntoDB(workersOnSite * hoursPerWorker);
 
-                    UploadFileToStorageAndClose(Uri.fromFile(f), f.getName());
+                    uploadFileToStorageAndClose(Uri.fromFile(f), f.getName());
                 }).start();
             }
             else {
@@ -208,7 +220,7 @@ public class CreateNewReportFragment extends Fragment {
         return v;
     }
 
-    private boolean AreAnyFieldsBlank() {
+    private boolean areAnyFieldsBlank() {
         boolean doesAFieldHaveAnError = false;
 
         if(jobNameValue.equals("") || jobNameValue.equals(getString(R.string.job_name_default_value))) {
@@ -238,10 +250,10 @@ public class CreateNewReportFragment extends Fragment {
         return doesAFieldHaveAnError;
     }
 
-    private void InsertTotalHoursIntoDB(final double totalHours) {
+    private void insertTotalHoursIntoDB(final double totalHours) {
         FirebaseFirestore store = FirebaseFirestore.getInstance();
         final CollectionReference hoursRef = store.collection("hours");
-        final CollectionReference monthHoursRef = store.collection("hours/" + jobNameValue + "/years/" + dateChooser.getYear() + "/months/" + WorkMonth.DetermineMonthName(dateChooser.getMonth()).toLowerCase() + "/days");
+        final CollectionReference monthHoursRef = store.collection("hours/" + jobNameValue + "/years/" + dateChooser.getYear() + "/months/" + WorkMonth.determineMonthName(dateChooser.getMonth()).toLowerCase() + "/days");
         final DocumentReference docRef = monthHoursRef.document(String.valueOf(dateChooser.getDayOfMonth()));
 
         docRef.get().addOnCompleteListener(task -> {
@@ -284,7 +296,7 @@ public class CreateNewReportFragment extends Fragment {
         });
     }
 
-    private void UploadFileToStorageAndClose(Uri chosenFile, final String fileName)
+    private void uploadFileToStorageAndClose(Uri chosenFile, final String fileName)
     {
         SharedPreferences prefs = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
 

@@ -8,6 +8,14 @@
 // Written on: 11/12/2020
 //
 // Purpose: Used to take new photos and upload them to Storage
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Reformatted `import` list
+//      - Refactored method names to lower camel case
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -37,8 +45,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
+
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.utility.PhotoFactory;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -90,7 +100,7 @@ public class TakeNewPhotoFragment extends Fragment {
         imageView = v.findViewById(R.id.image_view_for_file);
 
         MaterialButton takeNewPhotoButton = v.findViewById(R.id.take_new_button);
-        takeNewPhotoButton.setOnClickListener(l -> TakeNewPhotoWithCamera());
+        takeNewPhotoButton.setOnClickListener(l -> takeNewPhotoWithCamera());
 
         MaterialButton uploadFileToStorageButton = v.findViewById(R.id.upload_file_to_storage_button);
         uploadFileToStorageButton.setOnClickListener(l -> {
@@ -101,17 +111,17 @@ public class TakeNewPhotoFragment extends Fragment {
                 Snackbar.make(jobNameSpinner, R.string.no_project_chosen_upload, Snackbar.LENGTH_SHORT).show();
             }
             else {
-                UploadFileToStorage(new File(chosenFile.getLastPathSegment()).getName());
+                uploadFileToStorage(new File(chosenFile.getLastPathSegment()).getName());
             }
             });
         return v;
     }
 
 
-    private void TakeNewPhotoWithCamera() {
+    private void takeNewPhotoWithCamera() {
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        File f = PhotoFactory.GenerateImageFile(getContext());
+        File f = PhotoFactory.generateImageFile(getContext());
 
         if(f != null) {
             chosenFile = FileProvider.getUriForFile(getContext(), "com.icecrown.onyxridgecm.fileprovider", f);
@@ -137,7 +147,7 @@ public class TakeNewPhotoFragment extends Fragment {
         }
     }
 
-    private void UploadFileToStorage(final String filename) {
+    private void uploadFileToStorage(final String filename) {
         final StorageReference insertionRef = storage.getReference().child(jobNameValue).child("photos/" + filename);
 
         insertionRef.putFile(chosenFile).addOnCompleteListener(task -> {

@@ -5,8 +5,8 @@
 //
 // Written by: Raymond O'Neill
 //
-// Date written: 10/8/20
-// Date added: 11/6/20
+// Date written: 10/8/2020
+// Date added: 11/6/2020
 //
 // Detail: A class that handles the generation of reports based on
 //         passed in content. Mainly used to separate this logic from
@@ -22,12 +22,14 @@
 // - 11/20/2020
 // - R.O.
 // - DETAILS:
-//      - Added `GenerateYearlyReport(...)`
+//      - Added `generateYearlyReport(...)`
 //      - Removed redundant code block
 //      - Changed filename generation
 //      - Added commenting for certain cell generation related code
 //      - Removed unused methods
 //      - Refactored `printYearlyTotal(...)` to handle `null` months
+//      - Refactored method names to lower camel case
+//      - Reformatted comment header
 //*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 
@@ -36,7 +38,6 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.workseries.WorkDay;
 import com.icecrown.onyxridgecm.workseries.WorkMonth;
@@ -62,10 +63,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
 
 public class ReportFactory {
-    public static File GenerateFile(Context context, SharedPreferences prefs) {
+    public static File generateFile(Context context, SharedPreferences prefs) {
         File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
         Calendar cal = Calendar.getInstance();
@@ -76,7 +76,7 @@ public class ReportFactory {
     }
 
 
-    public static PdfWriter InitializeWriter(File fileToWriteTo) {
+    public static PdfWriter initializeWriter(File fileToWriteTo) {
         PdfWriter writer = null;
         try {
             writer = new PdfWriter(fileToWriteTo);
@@ -86,13 +86,13 @@ public class ReportFactory {
         return writer;
     }
 
-    public static Document InitializePdfDocument(PdfWriter writer) {
+    public static Document initializePdfDocument(PdfWriter writer) {
         PdfDocument doc = new PdfDocument(writer);
         doc.addNewPage(PageSize.A4);
         return new Document(doc).setFontSize(15);
     }
 
-    public static void AddJobNameContent(Context context, Document document, String projectName) {
+    public static void addJobNameContent(Context context, Document document, String projectName) {
         Text jobNameLabel = new Text(context.getString(R.string.job_name_title));
         jobNameLabel.setBold();
         Text jobNameValue = new Text(projectName);
@@ -106,7 +106,7 @@ public class ReportFactory {
         document.add(jobNameContent);
     }
 
-    public static void AddDateContent(Context context, Document document, String dateInString) {
+    public static void addDateContent(Context context, Document document, String dateInString) {
         Text dateLabel = new Text(context.getString(R.string.date_title));
         dateLabel.setBold();
         Text dateValue = new Text(dateInString);
@@ -120,7 +120,7 @@ public class ReportFactory {
         document.add(dateContent);
     }
 
-    public static void AddCreatedByContent(Context context, Document document, String writtenBy) {
+    public static void addCreatedByContent(Context context, Document document, String writtenBy) {
         Text createdByLabel = new Text(context.getString(R.string.document_written_by));
         createdByLabel.setBold();
         Text createdByValue = new Text(writtenBy);
@@ -134,7 +134,7 @@ public class ReportFactory {
         document.add(createdByContent);
     }
 
-    public static void AddWorkersHoursAndTotal(Context context, Document document, int workersOnSite, float hoursPerWorker) {
+    public static void addWorkersHoursAndTotal(Context context, Document document, int workersOnSite, float hoursPerWorker) {
         Text workersOnSiteLabel = new Text(context.getString(R.string.workers_title));
         workersOnSiteLabel.setBold();
         Text workersOnSiteValue = new Text(workersOnSite + " " + context.getString(R.string.workers_postfix));
@@ -175,7 +175,7 @@ public class ReportFactory {
     }
 
 
-    public static void AddDailyLogContent(Context context, Document document, String dailyLog) {
+    public static void addDailyLogContent(Context context, Document document, String dailyLog) {
         Paragraph dailyLogContentOne = new Paragraph();
 
         Text dailyLogLabel = new Text(context.getString(R.string.daily_log_title));
@@ -192,11 +192,11 @@ public class ReportFactory {
         document.add(dailyLogValue);
     }
 
-    public static void AddLineSeparator(Document document) {
+    public static void addLineSeparator(Document document) {
         document.add(new LineSeparator(new SolidLine()).setPaddingTop(10).setPaddingBottom(10));
     }
 
-    public static void AddWeatherContent(Context context, Document document, String weatherValue) {
+    public static void addWeatherContent(Context context, Document document, String weatherValue) {
         Text weatherLabel = new Text(context.getString(R.string.weather_title));
         weatherLabel.setBold();
         Text weatherContentValue = new Text(weatherValue);
@@ -210,7 +210,7 @@ public class ReportFactory {
         document.add(weatherContent);
     }
 
-    public static void AddAccidentOccurredContent(Context context, Document document, boolean accidentHappened, String accidentHappenedDesc) {
+    public static void addAccidentOccurredContent(Context context, Document document, boolean accidentHappened, String accidentHappenedDesc) {
         Text accidentOccurredLabel = new Text(context.getString(R.string.accident_happened_title));
         accidentOccurredLabel.setBold();
         String isChecked;
@@ -251,7 +251,7 @@ public class ReportFactory {
         document.add(accidentDetailValue);
     }
 
-    public static void UploadPhotosToDoc(Context context, Document document, File[] imagesChosen) {
+    public static void uploadPhotosToDoc(Context context, Document document, File[] imagesChosen) {
         // TODO: HANDLE PICTURES BEING ADDED TO DOC TEMPLETE
         // if(imagesChosen != null) {
         //  Comparator<File> fileSorter = (o1, o2) -> {
@@ -334,7 +334,7 @@ public class ReportFactory {
         Cell totalHoursHeaderCell = new Cell();
 
         totalHoursHeaderCell.setBorder(Border.NO_BORDER);
-        totalHoursHeaderCell.add(new Paragraph(String.format("%.2f hours", month.GenerateTotalMonthlyHours())));
+        totalHoursHeaderCell.add(new Paragraph(String.format("%.2f hours", month.generateTotalMonthlyHours())));
         totalHoursHeaderCell.setTextAlignment(TextAlignment.RIGHT);
 
         monthRecord.addHeaderCell(monthHeaderCell);
@@ -364,7 +364,7 @@ public class ReportFactory {
     public static Cell[] printDailyTotal(WorkDay day, Document document) {
         Cell dayLine = new Cell();
         dayLine.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth() / 2);
-        dayLine.add(new Paragraph(day.GenerateHyphenDateString()).setFirstLineIndent(10).setFontSize(12));
+        dayLine.add(new Paragraph(day.generateHyphenDateString()).setFirstLineIndent(10).setFontSize(12));
         dayLine.setBorder(Border.NO_BORDER);
         dayLine.setBorderBottom(new DottedBorder(1));
 
@@ -381,12 +381,12 @@ public class ReportFactory {
         return new Cell[]{dayLine, hourValue};
     }
 
-    public static File GenerateMonthlyReport(WorkMonth month, Context appContext, String projectName) {
+    public static File generateMonthlyReport(WorkMonth month, Context appContext, String projectName) {
         PdfWriter writer = null;
         File f = null;
 
         try {
-            f = GenerateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
+            f = generateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
             writer = new PdfWriter(f.getPath());
 
         } catch (IOException e) {
@@ -400,9 +400,9 @@ public class ReportFactory {
             document = new Document(doc);
             document.setFontSize(15);
 
-            AddJobNameContent(appContext, document, projectName);
+            addJobNameContent(appContext, document, projectName);
 
-            AddLineSeparator(document);
+            addLineSeparator(document);
 
             Table record = printMonthTotal(month, document);
             document.add(record);
@@ -421,12 +421,12 @@ public class ReportFactory {
 
     // TODO: ADD CODE TO PRINT A HEADER FOR MONTHS WITHOUT ANY DAYS, FOR BLANK ENTRIES SO ALL
     //       MONTHS ARE PRESENT
-    public static File GenerateYearlyReport(WorkYear year, Context appContext, String projectName) {
+    public static File generateYearlyReport(WorkYear year, Context appContext, String projectName) {
         PdfWriter writer = null;
         File f = null;
 
         try {
-            f = GenerateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
+            f = generateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
             writer = new PdfWriter(f.getPath());
 
         } catch (IOException e) {
@@ -440,9 +440,9 @@ public class ReportFactory {
             document = new Document(doc);
             document.setFontSize(15);
 
-            AddJobNameContent(appContext, document, projectName);
+            addJobNameContent(appContext, document, projectName);
 
-            AddLineSeparator(document);
+            addLineSeparator(document);
 
             Table[] records = printYearlyTotal(year, document);
             for(Table record : records) {

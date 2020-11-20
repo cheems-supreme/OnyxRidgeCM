@@ -30,6 +30,13 @@
 //      - Changed anonymous methods/classes to lambdas
 //      - Made certain variables final
 //      - Removed unused imports
+// ------------------------------------------------
+// - 11/20/2020
+// - R.O.
+// - DETAILS:
+//      - Changed method name to reflect change in
+//        `MainContentActivity.java`
+//      - Reformatted `import` list
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -40,13 +47,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.fragment.app.Fragment;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.activities.MainContentActivity;
 
@@ -118,7 +128,7 @@ public class LoginFragment extends Fragment {
                                             // TODO: POTENTIALLY IMPLEMENT SECURITY FEATURES
                                             editor.apply();
 
-                                            startActivity(MainContentActivity.GenerateIntent(getContext()));
+                                            startActivity(MainContentActivity.generateIntent(getContext()));
                                             signInButton.setClickable(true);
                                         }
                                     }
