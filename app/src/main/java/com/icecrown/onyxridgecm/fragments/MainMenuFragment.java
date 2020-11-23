@@ -34,6 +34,12 @@
 // - DETAILS:
 //      - Added handling for yearly report generation `CardView`
 //      - Reformatted `import` list
+// ------------------------------------------------
+// - 11/23/2020
+// - R.O.
+// - DETAILS:
+//      - Added handling for the project's total hours report
+//        generation `CardView`
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -79,6 +85,10 @@ public class MainMenuFragment extends Fragment {
 
         MaterialCardView generateYearlyTotalsReport = v.findViewById(R.id.generate_yearly_report_card_view);
         generateYearlyTotalsReport.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateYearlyReportFragment()).addToBackStack(null).commit());
+
+        MaterialCardView generateProjectHourlyTotal = v.findViewById(R.id.generate_project_total_report_cv);
+        generateProjectHourlyTotal.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateProjectHoursTotalFragment()).addToBackStack(null).commit());
+
         return v;
     }
 }

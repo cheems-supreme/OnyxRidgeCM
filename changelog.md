@@ -348,3 +348,9 @@
     - `CreateMonthlyReportFragment.java`
     - `CreateNewReportFragment.java`
     - `CreateYearlyReportFragment.java`
+
+# 11/23/2020 Changes
+- Edited `CreateProjectHoursTotalFragment.java`
+  - Added class-level variables and entry-code to generating report
+  - Created `fragment_create_project_totals.xml` for fragment's UI.
+- Added string resources
