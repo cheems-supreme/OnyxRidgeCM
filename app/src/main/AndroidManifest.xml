@@ -33,9 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- TODO: ATTEMPT TO REMEDY THE PREVIOUS TO-DO's ISSUE -->
         <activity android:name=".activities.MainContentActivity"
-            android:windowSoftInputMode="adjustNothing">
+            android:windowSoftInputMode="adjustPan">
 
         </activity>
     </application>

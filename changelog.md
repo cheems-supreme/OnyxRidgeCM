@@ -354,3 +354,35 @@
   - Added class-level variables and entry-code to generating report
   - Created `fragment_create_project_totals.xml` for fragment's UI.
 - Added string resources
+
+# 11/24/2020 Changes
+- Edited `AndroidManifest.xml`
+  - Changed the `windowSoftInputMode` for `MainContentActivity.java` to `adjustPan`. Not sure if it
+    does anything (it's supposed to).
+- Added `CreateAccidentReportFragment.java`
+  - Handles the creation of accident reports for the total of the project.
+  - Added UI file, `fragment_create_report_of_accidents.xml`
+- Added `CreateNewProjectFragment.java`
+  - Handles creation of new projects via inserting a file directly under the project name prefix to
+  - Added UI file, `fragment_create_new_project.xml`
+    establish permanence in Storage
+- Edited `CreateNewReportFragment.java`
+  - Fixed report generation to prevent headers from printing twice (with insertion of header creation
+    method that also initializes the PdfWriter and Document [might / most likely will change later])
+  - Added comments to specify what two Firestore `CollectionReference` instances represent.
+  - Added method, `insertAccidentReportIntoDB(...)`, to insert accident information (day, weather
+    condition, and accident log) into Firestore.
+- Edited `CreateYearlyReportFragment.java`
+  - Added code to handle error if user doesn't select job name
+- Edited `MainMenuFragment.java`
+  - Added event handling for `generateAccidentReportCardView` and `createNewProjectCardView`
+- Added string resources
+- Edited `fragment_main_menu.xml`
+  - Added `CardView` to allow user to create new project in Firebase
+- Added `ic_add_project.png`
+  - Icon for adding a new project `CardView`
+- Edited `ReportFactory.java`
+  - Removed methods initializing certain variables and entities
+  - Added method to handle report generation for accidents
+  - Added method to make new, empty file to establish permanence inside FirebaseStorage
+  - Add method to initialize the `PdfWriter`, `Document`, and header text all at once.

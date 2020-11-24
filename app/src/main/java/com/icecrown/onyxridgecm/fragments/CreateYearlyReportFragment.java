@@ -17,6 +17,12 @@
 // - DETAILS:
 //      - Changed method name to lower camel case
 //      - Reformatted `import` list
+// ------------------------------------------------
+// - 11/24/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to handle what happens when there is no
+//        project selected.
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -106,10 +112,15 @@ public class CreateYearlyReportFragment extends Fragment {
         MaterialButton createMonthlyReportButton = v.findViewById(R.id.create_report_button);
         createMonthlyReportButton.setOnClickListener(l -> {
             String yearString = yearInput.getText().toString();
-            if (yearString.equals("")) {
-                yearInput.setError(getString(R.string.no_year_entered));
-            } else {
-                generateYearlyReportEnter(yearString);
+            if(jobNameValue.equals("") || jobNameValue.equals(getString(R.string.job_name_default_value))) {
+                Snackbar.make(jobNameSpinner, R.string.no_project_chosen, Snackbar.LENGTH_SHORT).show();
+            }
+            else {
+                if (yearString.equals("")) {
+                    yearInput.setError(getString(R.string.no_year_entered));
+                } else {
+                    generateYearlyReportEnter(yearString);
+                }
             }
         });
 

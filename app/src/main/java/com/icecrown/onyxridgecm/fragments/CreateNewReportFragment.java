@@ -43,6 +43,16 @@
 //      - Reformatted comment header
 //      - Altered method names to lower camel case
 //      - Reformatted `import` list
+// ------------------------------------------------
+// - 11/24/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to insert an entry into Firestore for
+//        information regarding an accident occuring on-site
+//        for any given day through the report generation page.
+//      - Commented two variables to define what they represent
+//        better
+//      - Fixed report generation to stop headers printing twice.
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -107,7 +117,7 @@ public class CreateNewReportFragment extends Fragment {
     private String jobNameValue = "";
     private String weatherValue = "";
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
-
+    private final FirebaseFirestore store = FirebaseFirestore.getInstance();
 
     @Nullable
     @Override
@@ -185,9 +195,7 @@ public class CreateNewReportFragment extends Fragment {
                     int workersOnSite = Integer.parseInt(workersOnSiteEditText.getText().toString());
                     float hoursPerWorker = Float.parseFloat(hoursWorkedEditText.getText().toString());
 
-                    PdfWriter writer = ReportFactory.initializeWriter(f);
-                    Document document = ReportFactory.initializePdfDocument(writer);
-                    ReportFactory.addJobNameContent(getContext(), document, jobNameValue);
+                    Document document = ReportFactory.initializeDocumentAndHeader(f, getContext(), jobNameValue);
                     ReportFactory.addDateContent(getContext(), document, String.format(Locale.getDefault(), "%d/%d/%d", (dateChooser.getMonth() + 1), dateChooser.getDayOfMonth(), dateChooser.getYear()));
                     ReportFactory.addCreatedByContent(getContext(), document, String.format(Locale.getDefault(), "%s %s", prefs.getString("first_name", "null"), prefs.getString("last_name", "null")));
                     ReportFactory.addWorkersHoursAndTotal(getContext(), document, workersOnSite, hoursPerWorker);
@@ -198,17 +206,18 @@ public class CreateNewReportFragment extends Fragment {
                     // TODO:
                     ReportFactory.uploadPhotosToDoc(getContext(), document, new File[0]);
                     //ReportFactory.UploadPhotosToDoc(getContext(), document, imagesChosen);
-
-                    document.close();
                     try {
-                        writer.close();
+
+                        PdfWriter writer = document.getPdfDocument().getWriter();
+                        ReportFactory.closeDocument(document);
+                        ReportFactory.closeWriter(writer);
                     } catch(IOException ioe) {
                         Log.d("EPOCH-3", "IOException encountered on PdfWriter.close() in file CreateNewReportFragment.java");
                     }
 
                     insertTotalHoursIntoDB(workersOnSite * hoursPerWorker);
-
                     uploadFileToStorageAndClose(Uri.fromFile(f), f.getName());
+                    insertAccidentReportIntoDB(accidentDetails.getText().toString());
                 }).start();
             }
             else {
@@ -251,8 +260,9 @@ public class CreateNewReportFragment extends Fragment {
     }
 
     private void insertTotalHoursIntoDB(final double totalHours) {
-        FirebaseFirestore store = FirebaseFirestore.getInstance();
+        // Updates total hours for project
         final CollectionReference hoursRef = store.collection("hours");
+        // Inserts actual info into DB
         final CollectionReference monthHoursRef = store.collection("hours/" + jobNameValue + "/years/" + dateChooser.getYear() + "/months/" + WorkMonth.determineMonthName(dateChooser.getMonth()).toLowerCase() + "/days");
         final DocumentReference docRef = monthHoursRef.document(String.valueOf(dateChooser.getDayOfMonth()));
 
@@ -327,6 +337,26 @@ public class CreateNewReportFragment extends Fragment {
                 }
             });
         });
+    }
 
+    private void insertAccidentReportIntoDB(String accidentReportLog) {
+        String dayOfAccident = (dateChooser.getMonth() + 1) + "/" + dateChooser.getDayOfMonth() + "/" + dateChooser.getYear();
+        String dayOfAccidentDir = (dateChooser.getMonth() + 1) + "_" + dateChooser.getDayOfMonth() + "_" + dateChooser.getYear();
+        CollectionReference accidentDirectory = store.collection("accidents/" + jobNameValue + "/logs");
+        DocumentReference accidentInsertionInstance = accidentDirectory.document(dayOfAccidentDir);
+        Map<String, Object> accidentInsert = new HashMap<>();
+        accidentInsert.put("accident_log", accidentReportLog);
+        accidentInsert.put("weather_conditions", weatherValue);
+        accidentInsert.put("date_of_accident", dayOfAccident);
+
+        accidentInsertionInstance.set(accidentInsert).addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                Log.d("EPOCH-3", "Accident entry placed successfully");
+            } else {
+                Log.d("EPOCH-3", "Accident entry placement failed. Cause: ");
+                task.getException().printStackTrace();
+                Snackbar.make(jobNameSpinner, R.string.accident_report_not_entered_admin, Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -12,6 +12,44 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- CREATE NEW PROJECT -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:id="@+id/create_new_project_cv"
+                android:layout_margin="15dp"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="5dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/accessibility_create_new_project_icon"
+                    android:src="@drawable/ic_add_project"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:id="@+id/create_new_project_icon"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_new_project_cv_title"
+                    app:layout_constraintStart_toEndOf="@id/create_new_project_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="21sp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="15dp"
+                android:id="@+id/seps_1"
+                android:background="@color/blackTranslucent"
+                />
 
             <!-- REPORTS -->
             <LinearLayout
@@ -90,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginHorizontal="15dp"
-                android:id="@+id/seps_1"
+                android:id="@+id/seps_2"
                 android:background="@color/blackTranslucent"
                 />
 
@@ -172,7 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginHorizontal="15dp"
-                android:id="@+id/seps_2"
+                android:id="@+id/seps_3"
                 android:background="@color/blackTranslucent"
                 />
 
@@ -181,7 +219,6 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
-                app:layout_constraintTop_toTopOf="@id/seps_2"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="15dp"
                 android:id="@+id/generate_yearly_report_card_view"

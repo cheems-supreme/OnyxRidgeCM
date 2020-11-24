@@ -40,6 +40,12 @@
 // - DETAILS:
 //      - Added handling for the project's total hours report
 //        generation `CardView`
+// ------------------------------------------------
+// - 11/24/2020
+// - R.O.
+// - DETAILS:
+//      - Added handling for generating a new accident report
+//        card view and creating a new project
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -47,6 +53,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -68,6 +75,9 @@ public class MainMenuFragment extends Fragment {
 
         manager = getActivity().getSupportFragmentManager();
 
+        MaterialCardView createNewProjectCardView = v.findViewById(R.id.create_new_project_cv);
+        createNewProjectCardView.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateNewProjectFragment()).addToBackStack(null).commit());
+
         MaterialCardView createNewReportCardView = v.findViewById(R.id.create_new_report_card_view);
         createNewReportCardView.setOnClickListener(v1 -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateNewReportFragment()).addToBackStack(null).commit());
 
@@ -83,12 +93,16 @@ public class MainMenuFragment extends Fragment {
         MaterialCardView generateMonthlyTotalsReport = v.findViewById(R.id.generate_monthly_report_card_view);
         generateMonthlyTotalsReport.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateMonthlyReportFragment()).addToBackStack(null).commit());
 
-        MaterialCardView generateYearlyTotalsReport = v.findViewById(R.id.generate_yearly_report_card_view);
-        generateYearlyTotalsReport.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateYearlyReportFragment()).addToBackStack(null).commit());
+        MaterialCardView generateYearlyTotalsReportCardView = v.findViewById(R.id.generate_yearly_report_card_view);
+        generateYearlyTotalsReportCardView.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateYearlyReportFragment()).addToBackStack(null).commit());
 
-        MaterialCardView generateProjectHourlyTotal = v.findViewById(R.id.generate_project_total_report_cv);
-        generateProjectHourlyTotal.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateProjectHoursTotalFragment()).addToBackStack(null).commit());
+        MaterialCardView generateProjectHourlyTotalCardView = v.findViewById(R.id.generate_project_total_report_cv);
+        generateProjectHourlyTotalCardView.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateProjectHoursTotalFragment()).addToBackStack(null).commit());
+
+        MaterialCardView generateAccidentReportCardView = v.findViewById(R.id.generate_report_of_accidents_cv);
+        generateAccidentReportCardView.setOnClickListener(l -> manager.beginTransaction().hide(singleton).add(R.id.main_content_holder, new CreateAccidentReportFragment()). addToBackStack(null). commit());
 
         return v;
     }
+
 }

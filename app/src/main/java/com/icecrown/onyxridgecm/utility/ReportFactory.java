@@ -30,6 +30,17 @@
 //      - Refactored `printYearlyTotal(...)` to handle `null` months
 //      - Refactored method names to lower camel case
 //      - Reformatted comment header
+// ------------------------------------------------
+// - 11/24/2020
+// - R.O.
+// - DETAILS:
+//      - Removed methods initializing certain factors of report
+//        generation and moved them to a single method.
+//      - Added method to handle report generation for accidents
+//      - Added method to make new, temporary file to solidify
+//        project placement in FirebaseStorage
+//      - Add method to initialize both writer and document and print
+//        headers all at once (might change)
 //*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 
@@ -38,6 +49,7 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.icecrown.onyxridgecm.R;
 import com.icecrown.onyxridgecm.workseries.WorkDay;
 import com.icecrown.onyxridgecm.workseries.WorkMonth;
@@ -60,11 +72,27 @@ import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 public class ReportFactory {
+
+    public static File generateStorageAnchorFile(Context context) throws IOException{
+        File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "anchor.txt");
+        if(newFile.exists()) {
+            return newFile;
+        }
+        else {
+            if(newFile.createNewFile()) {
+                return newFile;
+            }
+            else {
+                throw new IOException();
+            }
+        }
+    }
     public static File generateFile(Context context, SharedPreferences prefs) {
         File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
 
@@ -76,22 +104,40 @@ public class ReportFactory {
     }
 
 
-    public static PdfWriter initializeWriter(File fileToWriteTo) {
+    // TODO: POOR PRACTICE, CHANGE
+    public static Document initializeDocumentAndHeader(File f, Context appContext, String projectName) {
         PdfWriter writer = null;
+
         try {
-            writer = new PdfWriter(fileToWriteTo);
-        } catch (FileNotFoundException e) {
+            writer = new PdfWriter(f.getPath());
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return writer;
+
+        Document document = null;
+        if (writer != null) {
+            PdfDocument doc = new PdfDocument(writer);
+            doc.addNewPage(PageSize.A4);
+            document = new Document(doc);
+            document.setFontSize(15);
+
+            addJobNameContent(appContext, document, projectName);
+
+            addLineSeparator(document);
+            return document;
+        }
+        else {
+            return null;
+        }
     }
 
-    public static Document initializePdfDocument(PdfWriter writer) {
-        PdfDocument doc = new PdfDocument(writer);
-        doc.addNewPage(PageSize.A4);
-        return new Document(doc).setFontSize(15);
+    public static void closeDocument(Document d) {
+        d.close();
     }
-
+    public static void closeWriter(PdfWriter writer) throws IOException {
+        writer.close();
+    }
     public static void addJobNameContent(Context context, Document document, String projectName) {
         Text jobNameLabel = new Text(context.getString(R.string.job_name_title));
         jobNameLabel.setBold();
@@ -252,7 +298,7 @@ public class ReportFactory {
     }
 
     public static void uploadPhotosToDoc(Context context, Document document, File[] imagesChosen) {
-        // TODO: HANDLE PICTURES BEING ADDED TO DOC TEMPLETE
+        // TODO: HANDLE PICTURES BEING ADDED TO DOC TEMPLATE
         // if(imagesChosen != null) {
         //  Comparator<File> fileSorter = (o1, o2) -> {
         //                        if (o1.lastModified() < o2.lastModified()) {
@@ -419,31 +465,40 @@ public class ReportFactory {
         return f;
     }
 
+    // TODO: FIX CELL BOTTOM BORDER ISSUE
+    private static Cell[] createAccidentLogEntry(Document document, String date, String accidentLog, String weatherConditions) {
+        Cell dayLine = new Cell();
+        dayLine.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth() / 2);
+        dayLine.add(new Paragraph(date));
+        dayLine.setBorder(Border.NO_BORDER);
+
+        Cell weatherLine = new Cell();
+        weatherLine.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth() / 2);
+        weatherLine.add(new Paragraph(weatherConditions));
+        weatherLine.setBorder(Border.NO_BORDER);
+
+        Cell accidentEntry = new Cell();
+        accidentEntry.add(new Paragraph(accidentLog).setFirstLineIndent(20).setFontSize(12));
+        accidentEntry.setTextAlignment(TextAlignment.RIGHT);
+        accidentEntry.setBorder(Border.NO_BORDER);
+        accidentEntry.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth());
+        accidentEntry.setBorderBottom(new DottedBorder(1));
+
+
+        return new Cell[]{dayLine, weatherLine, accidentEntry};
+    }
     // TODO: ADD CODE TO PRINT A HEADER FOR MONTHS WITHOUT ANY DAYS, FOR BLANK ENTRIES SO ALL
     //       MONTHS ARE PRESENT
     public static File generateYearlyReport(WorkYear year, Context appContext, String projectName) {
-        PdfWriter writer = null;
         File f = null;
+        f = generateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
 
-        try {
-            f = generateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
-            writer = new PdfWriter(f.getPath());
+        Document document = initializeDocumentAndHeader(f, appContext, projectName);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(document == null) {
+            Log.d("EPOCH-3", "Yearly report generation failed.");
         }
-
-        Document document;
-        if (writer != null) {
-            PdfDocument doc = new PdfDocument(writer);
-            doc.addNewPage(PageSize.A4);
-            document = new Document(doc);
-            document.setFontSize(15);
-
-            addJobNameContent(appContext, document, projectName);
-
-            addLineSeparator(document);
-
+        else {
             Table[] records = printYearlyTotal(year, document);
             for(Table record : records) {
                 int count = 0;
@@ -455,14 +510,45 @@ public class ReportFactory {
                 }
             }
 
-            document.close();
-
             try {
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+                PdfWriter writer = document.getPdfDocument().getWriter();
+                closeDocument(document);
+                closeWriter(writer);
+            } catch(IOException e) {
+                Log.d("EPOCH-3", "Exception encountered while closing writer");
             }
         }
+
+
+        return f;
+    }
+
+
+    public static File generateAccidentReport(List<DocumentSnapshot> accidentLogs, Context appContext, String projectName) {
+        File f = generateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
+        Document document = initializeDocumentAndHeader(f, appContext, projectName);
+        if(document != null) {
+            for(DocumentSnapshot entry : accidentLogs) {
+                Cell[] record = createAccidentLogEntry(document, entry.get("date_of_accident").toString(), entry.get("accident_log").toString(), entry.get("weather_conditions").toString());
+                for(Cell cell : record) {
+                    document.add(cell);
+                }
+            }
+
+            try {
+                PdfWriter writer = document.getPdfDocument().getWriter();
+                closeDocument(document);
+                closeWriter(writer);
+
+            } catch (IOException e) {
+                Log.d("EPOCH-3", "IOException encountered in generateAccidentReport(...)");
+                e.printStackTrace();
+            }
+        } else {
+            Log.d("EPOCH-3", "Document creation failed in generateAccidentReport(...)");
+        }
+
 
         return f;
     }

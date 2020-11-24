@@ -14,7 +14,7 @@
         <string name="project_title">Project: </string>
         <string name="filter_content">Filter</string>
         <string name="sort_content">Sort</string>
-        <string name="no_project_chosen">No project chosen.</string>
+
 
         <!-- RECYCLERVIEW CONTENT TEXT -->
         <string name="date_of_content">Date of content: </string>
@@ -23,13 +23,14 @@
         <string name="photo_date_taken_on">Date taken: </string>
 
         <!-- MAIN MENU CARD TEXT -->
-        <string name="generate_project_total_cv_title">Generate Project Overall Totals Report</string>
-        <string name="generate_yearly_report_cv_title">Generate Yearly Report</string>
-        <string name="generate_report_by_month_cv_title">Generate Report by Month</string>
+        <string name="generate_project_total_cv_title">Generate the Project Overall Totals Report</string>
+        <string name="generate_yearly_report_cv_title">Generate a Yearly Report</string>
+        <string name="generate_report_by_month_cv_title">Generate a Report by Month</string>
         <string name="create_new_report_cv_title">Create a New Report</string>
         <string name="upload_existing_report_cv_title">Upload an Existing Report</string>
-        <string name="take_new_photo_cv_title">Take New Photo</string>
-        <string name="generate_report_of_accidents_cv_title">Generate Report of Accidents</string>
+        <string name="take_new_photo_cv_title">Take a New Photo</string>
+        <string name="generate_report_of_accidents_cv_title">Generate a Report of Accidents</string>
+        <string name="create_new_project_cv_title">Create a New Project</string>
 
         <!-- CREATE REPORT TEMPLATE FIELDS -->
         <string name="job_name_title">Job Name: </string>
@@ -57,6 +58,7 @@
         <string name="uploading_in_progress">Uploading…</string>
         <string name="take_new_photo">Take new photo</string>
         <string name="take_new_photo_title">Take and Upload a New Photo</string>
+        <string name="create_new_thing">Create</string>
 
         <!-- HELP AND FAQ TEXT -->
         <string name="frequently_asked_questions_title">Frequently Asked Questions (FAQ)</string>
@@ -88,12 +90,13 @@
         <string name="confirm_sign_out_title">Confirm sign out</string>
         <string name="sign_out_confirmation_desc">This action will sign you out. Continue?</string>
         <string name="confirm_logoff">Logout</string>
-        <string name="confirm_cancel">Cancel</string>
+        <string name="cancel">Cancel</string>
 
         <!-- GENERATE TOTALS TEXT -->
         <string name="create_monthly_total_title">Create Monthly Hourly Report</string>
         <string name="create_yearly_total_title">Create Yearly Hourly Report</string>
         <string name="create_project_total_title">Create Project Hourly Report</string>
+        <string name="create_accident_report_title">Create a Report of Accidents</string>
         <string name="create_monthly_total_button">Create report</string>
 
     <!-- SUCCESS MESSAGES -->
@@ -102,8 +105,12 @@
         <!-- UPLOAD SUCCESS MESSAGES -->
         <string name="report_upload_success">Report uploaded.</string>
         <string name="photo_upload_success">Photo uploaded.</string>
+        <!-- PROJECT CREATION SUCCESS MESSAGES -->
+        <string name="project_creation_success">Project created successfully.</string>
 
     <!-- ERROR MESSAGES -->
+        <!-- GENERAL ERROR MESSAGES -->
+        <string name="no_project_chosen">No project chosen.</string>
         <!-- LOGIN ERROR MESSAGES -->
         <string name="email_not_entered">You must enter an email.</string>
         <string name="email_not_correct">This email is not associated with an account.</string>
@@ -138,7 +145,12 @@
         <string name="no_month_entered">Please enter a month</string>
         <string name="no_year_entered">Please enter a year</string>
         <string name="report_not_made_admin">Report not created; contact administrator</string>
-
+        <string name="accident_report_no_accidents">No accidents exist for this project</string>
+        <!-- ACCIDENT REPORT ERROR MESSAGES -->
+        <string name="accident_report_not_entered_admin">Accident information not entered; contact administrator</string>
+        <!-- CREATE NEW PROJECT ERROR MESSAGES -->
+        <string name="no_new_project_name_entered">No project name entered; you must enter a project name</string>
+        <string name="project_not_made_admin">Project not created; contact administrator</string>
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->
         <string name="login_password_hint">Password</string>
@@ -148,6 +160,8 @@
         <!-- MONTHLY REPORT HINTS -->
         <string name="job_year_hint">Job year (e.g. \'2020\')</string>
         <string name="job_month_hint">Job month (e.g. \'November\'</string>
+        <!-- CREATE NEW PROJECT HINTS -->
+        <string name="new_project_name_hint">Project name</string>
 
 
     <!-- ACCESSIBILITY TEXT -->
@@ -160,4 +174,5 @@
     <string name="accessibility_generate_report_of_accidents">Generate report of accidents photo</string>
     <string name="accessibility_image_instance_thumbnail">Image thumbnail</string>
     <string name="accessibility_project_total_icon">Generate project total report icon</string>
+    <string name="accessibility_create_new_project_icon">Create new project icon</string>
 </resources>
