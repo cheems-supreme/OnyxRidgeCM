@@ -386,3 +386,23 @@
   - Added method to handle report generation for accidents
   - Added method to make new, empty file to establish permanence inside FirebaseStorage
   - Add method to initialize the `PdfWriter`, `Document`, and header text all at once.
+
+# 11/27/2020 Changes
+- Added string resources
+- Edited `ReportFactory.java`
+  - Added two method to print total project reports and yearly headers
+- Edited `GenerateNewReportFragment.java`
+  - Added a method that inserted an 'anchor' inside the year and month directory in Firebase
+    to ensure they can be located by other parts of the program dynamically (like the fragment for
+    generating a project total report).;
+- Edited `AndroidManifest.xml`
+  - Changed `MainContentActivity`'s `windowSoftInputMode` back to `adjustResize`
+- Edited `CreateProjectHoursTotalFragment.java`
+  - Added code to load months into given `WorkYear` instance, then print out and display a project
+    totals report
+- Edited `fragment_create_project_totals.xml`
+  - Removed `View`'s that wouldn't fit in UI (context-wise) and renamed `View`'s `android:id`
+    attributes
+
+### NOTE: Here's hoping this is the final commit for the semester, and that this is the end of the
+work for senior project. Fingers crossed that we pass.

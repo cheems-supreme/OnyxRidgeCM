@@ -47,6 +47,7 @@
         <string name="total_hours_postfix">total hours.</string>
         <string name="no_accident_occurred_text">No accident has occurred.</string>
         <string name="no_pictures_chosen">No Pictures Selected.</string>
+        <string name="year_header_title">Year: </string>
 
         <!-- GENERAL UPLOADING TEXT -->
         <string name="submit_content">Submit</string>
@@ -95,7 +96,7 @@
         <!-- GENERATE TOTALS TEXT -->
         <string name="create_monthly_total_title">Create Monthly Hourly Report</string>
         <string name="create_yearly_total_title">Create Yearly Hourly Report</string>
-        <string name="create_project_total_title">Create Project Hourly Report</string>
+        <string name="create_project_total_title">Create Project Total Hourly Report</string>
         <string name="create_accident_report_title">Create a Report of Accidents</string>
         <string name="create_monthly_total_button">Create report</string>
 

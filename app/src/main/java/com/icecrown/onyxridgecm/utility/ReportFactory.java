@@ -41,6 +41,13 @@
 //        project placement in FirebaseStorage
 //      - Add method to initialize both writer and document and print
 //        headers all at once (might change)
+// ------------------------------------------------
+// - 11/27/2020
+// - R.O.
+// - DETAILS:
+//      - Added method to create a header for years, before the months
+//        belonging to them
+//      - Added a method to print project entire hourly totals
 //*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 
@@ -352,10 +359,30 @@ public class ReportFactory {
         // }
     }
 
-    //
+    public static Table generateYearlyTotalHeader(WorkYear year, Context context, Document document) {
+        Cell yearLine = new Cell();
+        yearLine.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth() / 2);
+        yearLine.add(new Paragraph(String.valueOf(context.getString(R.string.year_header_title))).setFirstLineIndent(10).setFontSize(15));
+        yearLine.setBorder(Border.NO_BORDER);
+        yearLine.setBorderBottom(new DottedBorder(1));
+
+
+        Cell yearValue = new Cell();
+        yearValue.add(new Paragraph(String.valueOf(year.getYear())).setFirstLineIndent(20).setFontSize(15));
+        yearValue.setTextAlignment(TextAlignment.RIGHT);
+        yearValue.setBorder(Border.NO_BORDER);
+        yearValue.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth() / 2);
+        yearValue.setBorderBottom(new DottedBorder(1));
+
+        Table t = new Table(2);
+        t.addCell(yearLine);
+        t.addCell(yearValue);
+
+        return t;
+    }
+
     public static Table[] printYearlyTotal(WorkYear year, Document document) {
         Table[] monthlyRecords = new Table[12];
-
         for (int i = 0; i < 12; i++) {
             if(year.getMonths()[i] == null ) {
                 monthlyRecords[i] = null;
@@ -422,8 +449,6 @@ public class ReportFactory {
         hourValue.setBorder(Border.NO_BORDER);
         hourValue.setWidth(document.getPageEffectiveArea(PageSize.A4).getWidth() / 2);
         hourValue.setBorderBottom(new DottedBorder(1));
-
-
         return new Cell[]{dayLine, hourValue};
     }
 
@@ -549,6 +574,37 @@ public class ReportFactory {
             Log.d("EPOCH-3", "Document creation failed in generateAccidentReport(...)");
         }
 
+
+        return f;
+    }
+
+    public static File generateProjectTotalsReport(WorkYear[] years, Context appContext, String projectName) {
+        File f = generateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
+        Document document = initializeDocumentAndHeader(f, appContext, projectName);
+        if(document != null) {
+            for(WorkYear year : years) {
+                document.add(generateYearlyTotalHeader(year, appContext, document));
+
+                Table[] months = printYearlyTotal(year, document);
+                for(int i = 0; i < months.length; i++) {
+                    if(months[i] == null) {
+                        Log.d("EPOCH-3", "Month " + (i + 1) + " is null");
+                    } else {
+                        document.add(months[i]);
+                    }
+                }
+            }
+            try {
+                PdfWriter writer = document.getPdfDocument().getWriter();
+                closeDocument(document);
+                closeWriter(writer);
+            } catch(IOException ioe) {
+                Log.d("EPOCH-3", "IOException encountered in generateProjectTotalsReport(...)");
+            }
+        }
+        else {
+            Log.d("EPOCH-3", "Document creation failed in generateProjectTotalsReport(...)");
+        }
 
         return f;
     }

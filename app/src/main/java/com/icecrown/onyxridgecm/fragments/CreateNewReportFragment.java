@@ -53,6 +53,13 @@
 //      - Commented two variables to define what they represent
 //        better
 //      - Fixed report generation to stop headers printing twice.
+// ------------------------------------------------
+// - 11/27/2020
+// - R.O.
+// - DETAILS:
+//      - Added method to solidify month and year documents inside
+//        Firebase if they don't already exist.
+//      - Called method in report upload block
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -215,9 +222,12 @@ public class CreateNewReportFragment extends Fragment {
                         Log.d("EPOCH-3", "IOException encountered on PdfWriter.close() in file CreateNewReportFragment.java");
                     }
 
+                    insertAnchorForYearAndMonth();
                     insertTotalHoursIntoDB(workersOnSite * hoursPerWorker);
                     uploadFileToStorageAndClose(Uri.fromFile(f), f.getName());
-                    insertAccidentReportIntoDB(accidentDetails.getText().toString());
+                    if(accidentHappenedCheckBox.isChecked()) {
+                        insertAccidentReportIntoDB(accidentDetails.getText().toString());
+                    }
                 }).start();
             }
             else {
@@ -356,6 +366,44 @@ public class CreateNewReportFragment extends Fragment {
                 Log.d("EPOCH-3", "Accident entry placement failed. Cause: ");
                 task.getException().printStackTrace();
                 Snackbar.make(jobNameSpinner, R.string.accident_report_not_entered_admin, Snackbar.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void insertAnchorForYearAndMonth() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference yearRef = db.collection("hours/" + jobNameValue + "/years").document(String.valueOf(dateChooser.getYear()));
+        DocumentReference monthRef = db.collection("hours/" + jobNameValue + "/years/" + dateChooser.getYear() + "/months").document(WorkMonth.determineMonthName(dateChooser.getMonth()).toLowerCase());
+
+        yearRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                if(!task.getResult().exists()) {
+                    Map<String, String> input = new HashMap<>();
+                    input.put("anchor", "anchor");
+                    yearRef.set(input);
+                }
+                else {
+                    Log.d("EPOCH-3", "Year Document already exists.");
+                }
+            }
+            else {
+                Snackbar.make(jobNameSpinner, R.string.report_not_made_admin, Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        monthRef.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()) {
+                if(!task.getResult().exists()) {
+                    Map<String, String> input = new HashMap<>();
+                    input.put("anchor", "anchor");
+                    monthRef.set(input);
+                }
+                else {
+                    Log.d("EPOCH-3", "Month Document already exists.");
+                }
+            }
+            else {
+                Snackbar.make(jobNameSpinner, R.string.report_not_made_admin, Snackbar.LENGTH_SHORT).show();
             }
         });
     }

@@ -37,20 +37,34 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.icecrown.onyxridgecm.R;
+import com.icecrown.onyxridgecm.utility.ReportFactory;
+import com.icecrown.onyxridgecm.workseries.WorkDay;
+import com.icecrown.onyxridgecm.workseries.WorkMonth;
+import com.icecrown.onyxridgecm.workseries.WorkYear;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CreateProjectHoursTotalFragment extends Fragment {
 
     private PDFView reportView;
     private Spinner jobNameSpinner;
     private String jobNameValue = "";
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private WorkYear[] years;
+
+    private int yearsAddedCount = 0;
+    private int yearsTakenFromDBCount = 0;
 
     @Nullable
     @Override
@@ -93,7 +107,7 @@ public class CreateProjectHoursTotalFragment extends Fragment {
         MaterialButton createMonthlyReportButton = v.findViewById(R.id.create_report_button);
         createMonthlyReportButton.setOnClickListener(l -> {
             if(jobNameValue.equals("") || jobNameValue.equals(getString(R.string.job_name_default_value))) {
-                // TODO: ERROR MESSAGE FOR NO PROJECT SELECTED
+                Snackbar.make(jobNameSpinner, R.string.no_project_chosen, Snackbar.LENGTH_SHORT).show();
             }
             else {
                 generateProjectTotals();
@@ -103,15 +117,72 @@ public class CreateProjectHoursTotalFragment extends Fragment {
     }
 
     private void generateProjectTotals() {
-        CollectionReference projectYearsDir = FirebaseFirestore.getInstance().collection("hours/" + jobNameValue + "/years/");
+        CollectionReference projectYearsDir = db.collection("hours/" + jobNameValue + "/years/");
         projectYearsDir.get().addOnCompleteListener(task -> {
             if(task.isSuccessful()) {
-                Log.d("EPOCH-3", "Number of results from projectYearsDir: " + task.getResult().size());
+                years = new WorkYear[task.getResult().size()];
+                yearsTakenFromDBCount = task.getResult().size();
+                Log.d("EPOCH-3", "" + yearsTakenFromDBCount);
+
+                for(int i = 0; i < task.getResult().size(); i++) {
+                    final int year = Integer.parseInt(task.getResult().getDocuments().get(i).getId());
+                    years[i] = new WorkYear(year);
+                    loadMonthsIntoYear(years[i]);
+
+                }
             }
             else {
                 Log.d("EPOCH-3", "Gathering failed");
                 Snackbar.make(jobNameSpinner, R.string.report_not_made_admin, Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void loadMonthsIntoYear(WorkYear year) {
+        CollectionReference[] yearColl = new CollectionReference[12];
+
+        // Get around 'final' and inner class issue
+        AtomicInteger countOfAdditions = new AtomicInteger();
+
+            for(int i = 0; i < 12; i++) {
+            yearColl[i] = db.collection("hours/" + jobNameValue + "/years/" + year.getYear() + "/months/" + WorkMonth.determineMonthName(i).toLowerCase() + "/days");
+            final int monthOffset = i;
+
+            yearColl[i].get().addOnCompleteListener(task -> {
+                if(task.isSuccessful()) {
+                    List<DocumentSnapshot> days = task.getResult().getDocuments();
+                    Log.d("EPOCH-3", "directory: " + yearColl[monthOffset].getPath());
+                    Log.d("EPOCH-3", "days size: " + days.size());
+                    if(days.size() != 0) {
+                        WorkMonth workMonth = new WorkMonth(year.getYear(), monthOffset);
+                        for(DocumentSnapshot day : days) {
+                            WorkDay workDay = new WorkDay(new GregorianCalendar(year.getYear(), monthOffset, day.getLong("day_of_month").intValue()), day.getDouble("hours_worked"));
+                            workMonth.setDayAtInstance(workDay, day.getLong("day_of_month").intValue() - 1);
+                        }
+                        year.setMonthIndex(monthOffset, workMonth);
+                    }
+                    else {
+                        Log.d("EPOCH-3", "MonthOffset: " + monthOffset + " has zero days in it.");
+                    }
+
+                    countOfAdditions.getAndIncrement();
+
+                    if(countOfAdditions.get() == 11) {
+                        yearsAddedCount++;
+                        determineYearGatheringCompleted();
+                    }
+                }
+                else {
+                    Log.d("EPOCH-3", "No entry found");
+                }
+            });
+        }
+    }
+
+    private void determineYearGatheringCompleted() {
+        if(yearsAddedCount == yearsTakenFromDBCount) {
+            File report = ReportFactory.generateProjectTotalsReport(years, getContext(), jobNameValue);
+            reportView.fromFile(report).load();
+        }
     }
 }
