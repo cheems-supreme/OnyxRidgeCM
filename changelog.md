@@ -406,3 +406,25 @@
 
 ### NOTE: Here's hoping this is the final commit for the semester, and that this is the end of the
 work for senior project. Fingers crossed that we pass.
+
+# 12/1/2020 Changes
+- Edited `PhotosAdapter.java`
+  - Added a method to return the `List` of `Photo`s
+- Added `SortType.java` and `FilterType.java`
+  - Both contain a single enum for sorting and filtering, respectively
+  - Used to sort and filter content based on:
+    - Sort: None, date of content and uploaded by, either ascending or descending
+    - Filter: None, by whether the report contains an accident log
+- Edited `BrowseReportsFragment.java`
+  - Added code to filter and sort the content inside the list (taken from predecessor project)
+- Edited `BrowsePhotosFragment.java`
+  - Added code to handle filtering and sorting
+    - Since there isn't any current filtering for photos, that feature is omitted and displays
+      a message regarding the omission of filtering photos.
+- Edited `fragment_browse_content.xml`
+  - Fixed the filtering and sorting section by adding two `MaterialTextViews` in place of the
+    `NavigationView`
+- Added `menu_filter_options.xml` and `menu_sort_options.xml`
+  - Both menus are used in the filtering and sorting `PopupMenu` instances as the layout for the
+    menu.
+- Added string resources

@@ -27,6 +27,11 @@
 // - R.O.
 // - DETAILS:
 //      - Reformatted comment header
+// ------------------------------------------------
+// - 12/1/2020
+// - R.O.
+// - DETAILS:
+//      - Added method to return current `List` of `Photo`s.
 //*******************************************************************
 package com.icecrown.onyxridgecm.adapters;
 
@@ -103,6 +108,9 @@ public class PhotosAdapter extends RecyclerView.Adapter<PhotosAdapter.PhotoHolde
     {
         this.photos = photos;
         notifyDataSetChanged();
+    }
+    public List<Photo> getPhotos() {
+        return photos;
     }
 
     public interface PhotoAdapterListener {

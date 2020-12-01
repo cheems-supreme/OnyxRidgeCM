@@ -76,6 +76,15 @@
         <string name="browsing_photos_header">Browsing Photos</string>
         <string name="downloading_photos_subheader">Downloading Photos</string>
 
+        <!-- SORT AND FILTER TEXT -->
+        <string name="no_sort">No Sort</string>
+        <string name="sort_by_last_name_asc">By Last Name, Asc.</string>
+        <string name="sort_by_last_name_desc">By Last Name, Desc.</string>
+        <string name="sort_by_date_asc">By Date, Asc.</string>
+        <string name="sort_by_date_desc">By Date, Desc.</string>
+        <string name="no_filter">No Filter</string>
+        <string name="accident_happened">Has Accident</string>
+
         <!-- ARRAY TEXT -->
         <string name="job_name_default_value">Job Name</string>
         <string name="weather_default_value">Weather</string>
@@ -152,6 +161,9 @@
         <!-- CREATE NEW PROJECT ERROR MESSAGES -->
         <string name="no_new_project_name_entered">No project name entered; you must enter a project name</string>
         <string name="project_not_made_admin">Project not created; contact administrator</string>
+        <!-- FILTER AND SORT ERROR MESSAGES -->
+        <string name="filter_option_not_valid">Can\'t use this option to filter</string>
+        <string name="sort_option_not_valid">Can\'t use this option to sort</string>
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->
         <string name="login_password_hint">Password</string>

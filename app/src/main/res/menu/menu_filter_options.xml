@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android = "http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/no_filter"
+        android:title="@string/no_filter"/>
+    <item android:id="@+id/accident_filter"
+        android:title="@string/accident_happened"/>
+</menu>
