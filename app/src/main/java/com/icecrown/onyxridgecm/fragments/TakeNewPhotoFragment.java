@@ -16,6 +16,14 @@
 // - DETAILS:
 //      - Reformatted `import` list
 //      - Refactored method names to lower camel case
+// ------------------------------------------------
+// - 12/2/2020
+// - R.O.
+// - DETAILS:
+//      - Fixed indentation, slightly
+//      - Set the `chosenFile` `Uri` instance to `null` after
+//        the upload completes, since originally it would allow
+//        the user to upload it AGAIN, since it still existed.
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -113,7 +121,7 @@ public class TakeNewPhotoFragment extends Fragment {
             else {
                 uploadFileToStorage(new File(chosenFile.getLastPathSegment()).getName());
             }
-            });
+        });
         return v;
     }
 
@@ -163,6 +171,7 @@ public class TakeNewPhotoFragment extends Fragment {
                 if(task1.isSuccessful()) {
                     Snackbar.make(jobNameSpinner, R.string.photo_upload_success, Snackbar.LENGTH_SHORT).show();
                     imageView.setImageDrawable(null);
+                    chosenFile = null;
                 } else {
                     Snackbar.make(jobNameSpinner, R.string.upload_photo_failed, Snackbar.LENGTH_SHORT).show();
                 }

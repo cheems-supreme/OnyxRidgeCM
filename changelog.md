@@ -428,3 +428,11 @@ work for senior project. Fingers crossed that we pass.
   - Both menus are used in the filtering and sorting `PopupMenu` instances as the layout for the
     menu.
 - Added string resources
+
+# 12/2/2020 Changes
+- Updated 'com.android.tools.buiild:gradle' dependency to version 4.1.1 in `build.gradle (project)`
+- Edited `fragment_create_report_of_accidents.xml`
+  Changed String resource for the title text to display proper page.
+- Edited `TakeNewPhotoFragment.java`
+  - Fixed positioning of a bracket, closed-paren, and semicolon pairing.
+  - Added line to set `chosenFile` to `null` if the upload of an image was successful.
