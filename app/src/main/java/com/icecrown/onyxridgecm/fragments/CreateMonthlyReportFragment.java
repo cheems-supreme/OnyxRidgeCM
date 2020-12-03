@@ -22,6 +22,12 @@
 //        `generateMonthlyReportEnter(...)`
 //      - Reformatted `import` list
 //      - Reformatted spacing
+// ------------------------------------------------
+// - 12/3/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to test whether the project name is chosen
+//        or not (and not query when no project is selected)
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -122,7 +128,12 @@ public class CreateMonthlyReportFragment extends Fragment {
                 }
             }
             else {
-                generateMonthlyReportEnter(monthString, yearString);
+                if(jobNameValue.equals("") || jobNameValue.equals(getString(R.string.job_name_default_value))) {
+                    Snackbar.make(jobNameSpinner, R.string.no_new_project_name_entered, Snackbar.LENGTH_SHORT).show();
+                }
+                else {
+                    generateMonthlyReportEnter(monthString, yearString);
+                }
             }
         });
         return v;

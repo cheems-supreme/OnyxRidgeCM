@@ -43,6 +43,13 @@
 // - DETAILS:
 //      - Added code to filter and sort the content inside
 //        of the list.
+// ------------------------------------------------
+// - 12/3/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to handle what happens when the user tries
+//        to filter and sort when no documents exist in the
+//        document adapter
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -53,6 +60,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 
 import androidx.fragment.app.Fragment;
@@ -108,52 +116,57 @@ public class BrowseReportsFragment extends Fragment {
 
         sortTV = v.findViewById(R.id.sort_text_view);
         sortTV.setOnClickListener(l -> {
-            PopupMenu sortOptions = new PopupMenu(getActivity(), sortTV);
-            sortOptions.getMenuInflater().inflate(R.menu.menu_sort_options, sortOptions.getMenu());
-            sortOptions.setOnMenuItemClickListener(item -> {
-                int itemId = item.getItemId();
-                if(itemId == R.id.no_sort) {
-                    Log.d("EPOCH-3", "No sort entered.");
-                    documentAdapter.setDocs(documentList);
-                }
-                else if(itemId == R.id.last_name_sort_asc) {
-                    Log.d("EPOCH-3", "last name asc sort entered.");
-                    sortDocumentsByOption(documentAdapter.getDocuments(), SortType.LAST_NAME_ASC);
-                }
-                else if(itemId == R.id.last_name_sort_desc) {
-                    Log.d("EPOCH-3", "last name desc sort entered.");
-                    sortDocumentsByOption(documentAdapter.getDocuments(), SortType.LAST_NAME_DESC);
-                }
-                else if(itemId == R.id.date_sort_asc) {
-                    Log.d("EPOCH-3", "date asc sort entered.");
-                    sortDocumentsByOption(documentAdapter.getDocuments(), SortType.DATE_ASC);
-                }
-                else if(itemId == R.id.date_sort_desc) {
-                    Log.d("EPOCH-3", "date desc sort entered.");
-                    sortDocumentsByOption(documentAdapter.getDocuments(), SortType.DATE_DESC);
-                }
-                documentAdapter.notifyDataSetChanged();
-                return true;
-            });
-            sortOptions.show();
+            if (documentAdapter.getDocuments().size() == 0) {
+                Snackbar.make(projectNameTextView, R.string.no_documents_to_sort, Snackbar.LENGTH_SHORT).show();
+            }
+            else {
+                PopupMenu sortOptions = new PopupMenu(getActivity(), sortTV);
+                sortOptions.getMenuInflater().inflate(R.menu.menu_sort_options, sortOptions.getMenu());
+                sortOptions.setOnMenuItemClickListener(item -> {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.no_sort) {
+                        Log.d("EPOCH-3", "No sort entered.");
+                        documentAdapter.setDocs(documentList);
+                    } else if (itemId == R.id.last_name_sort_asc) {
+                        Log.d("EPOCH-3", "last name asc sort entered.");
+                        sortDocumentsByOption(documentAdapter.getDocuments(), SortType.LAST_NAME_ASC);
+                    } else if (itemId == R.id.last_name_sort_desc) {
+                        Log.d("EPOCH-3", "last name desc sort entered.");
+                        sortDocumentsByOption(documentAdapter.getDocuments(), SortType.LAST_NAME_DESC);
+                    } else if (itemId == R.id.date_sort_asc) {
+                        Log.d("EPOCH-3", "date asc sort entered.");
+                        sortDocumentsByOption(documentAdapter.getDocuments(), SortType.DATE_ASC);
+                    } else if (itemId == R.id.date_sort_desc) {
+                        Log.d("EPOCH-3", "date desc sort entered.");
+                        sortDocumentsByOption(documentAdapter.getDocuments(), SortType.DATE_DESC);
+                    }
+                    documentAdapter.notifyDataSetChanged();
+                    return true;
+                });
+                sortOptions.show();
+            }
         });
 
         filterTV = v.findViewById(R.id.filter_text_view);
         filterTV.setOnClickListener(l -> {
-            PopupMenu filterOptions = new PopupMenu(getActivity(), filterTV);
-            filterOptions.getMenuInflater().inflate(R.menu.menu_filter_options, filterOptions.getMenu());
-            filterOptions.setOnMenuItemClickListener(item -> {
-                int itemId = item.getItemId();
-                if (itemId == R.id.no_filter) {
-                    documentAdapter.setDocs(documentList);
-                }
-                else if (itemId == R.id.accident_filter) {
-                    documentAdapter.setDocs(GetListOnFilterOnAdapter(documentList, FilterType.ACCIDENT_HAPPENED));
-                }
-                documentAdapter.notifyDataSetChanged();
-                return true;
-            });
-            filterOptions.show();
+            if(documentAdapter.getDocuments().size() == 0) {
+                Snackbar.make(projectNameTextView, R.string.no_documents_to_filter, Snackbar.LENGTH_SHORT).show();
+            }
+            else {
+                PopupMenu filterOptions = new PopupMenu(getActivity(), filterTV);
+                filterOptions.getMenuInflater().inflate(R.menu.menu_filter_options, filterOptions.getMenu());
+                filterOptions.setOnMenuItemClickListener(item -> {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.no_filter) {
+                        documentAdapter.setDocs(documentList);
+                    } else if (itemId == R.id.accident_filter) {
+                        documentAdapter.setDocs(GetListOnFilterOnAdapter(documentList, FilterType.ACCIDENT_HAPPENED));
+                    }
+                    documentAdapter.notifyDataSetChanged();
+                    return true;
+                });
+                filterOptions.show();
+            }
         });
 
         projectNameTextView = v.findViewById(R.id.project_name);

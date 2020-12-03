@@ -17,6 +17,18 @@
 // - DETAILS:
 //      - Added class-level variables, code to load Spinner, and
 //        entry to generating report total
+// ------------------------------------------------
+// - 12/3/2020
+// - R.O.
+// - DETAILS:
+//      - Added an assignment to the yearsAddedCount to keep
+//        report generation inclusive of all years (see changelog
+//        for more details)
+//      - Added code to handle what happens if there are no reports,
+//        and by extension entries in the hours log, for the selected
+//        project.
+//      - Move the countOfAdditions.getAndIncrement() call to an else
+//        block underneath conditional
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -37,6 +49,7 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -119,19 +132,24 @@ public class CreateProjectHoursTotalFragment extends Fragment {
     private void generateProjectTotals() {
         CollectionReference projectYearsDir = db.collection("hours/" + jobNameValue + "/years/");
         projectYearsDir.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
-                years = new WorkYear[task.getResult().size()];
-                yearsTakenFromDBCount = task.getResult().size();
-                Log.d("EPOCH-3", "" + yearsTakenFromDBCount);
+            if (task.isSuccessful()) {
+                Log.d("EPOCH-3", jobNameValue + " document (year) size: " + task.getResult().getDocuments().size());
+                if(!(task.getResult().getDocuments().size() == 0)) {
+                    years = new WorkYear[task.getResult().size()];
+                    yearsAddedCount = 0;
+                    yearsTakenFromDBCount = task.getResult().size();
+                    Log.d("EPOCH-3", String.valueOf(yearsTakenFromDBCount));
 
-                for(int i = 0; i < task.getResult().size(); i++) {
-                    final int year = Integer.parseInt(task.getResult().getDocuments().get(i).getId());
-                    years[i] = new WorkYear(year);
-                    loadMonthsIntoYear(years[i]);
-
+                    for (int i = 0; i < task.getResult().size(); i++) {
+                        final int year = Integer.parseInt(task.getResult().getDocuments().get(i).getId());
+                        years[i] = new WorkYear(year);
+                        loadMonthsIntoYear(years[i]);
+                    }
                 }
-            }
-            else {
+                else {
+                        Snackbar.make(jobNameSpinner, R.string.no_reports_found_for_project_overall_total, Snackbar.LENGTH_SHORT).show();
+                }
+            } else {
                 Log.d("EPOCH-3", "Gathering failed");
                 Snackbar.make(jobNameSpinner, R.string.report_not_made_admin, Snackbar.LENGTH_SHORT).show();
             }
@@ -165,11 +183,12 @@ public class CreateProjectHoursTotalFragment extends Fragment {
                         Log.d("EPOCH-3", "MonthOffset: " + monthOffset + " has zero days in it.");
                     }
 
-                    countOfAdditions.getAndIncrement();
-
                     if(countOfAdditions.get() == 11) {
                         yearsAddedCount++;
                         determineYearGatheringCompleted();
+                    }
+                    else {
+                        countOfAdditions.getAndIncrement();
                     }
                 }
                 else {

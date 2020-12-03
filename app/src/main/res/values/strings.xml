@@ -156,6 +156,8 @@
         <string name="no_year_entered">Please enter a year</string>
         <string name="report_not_made_admin">Report not created; contact administrator</string>
         <string name="accident_report_no_accidents">No accidents exist for this project</string>
+        <string name="no_year_found_for_project">There are no reports for this project during this year</string>
+        <string name="no_reports_found_for_project_overall_total">No reports were found for this project</string>
         <!-- ACCIDENT REPORT ERROR MESSAGES -->
         <string name="accident_report_not_entered_admin">Accident information not entered; contact administrator</string>
         <!-- CREATE NEW PROJECT ERROR MESSAGES -->
@@ -164,6 +166,10 @@
         <!-- FILTER AND SORT ERROR MESSAGES -->
         <string name="filter_option_not_valid">Can\'t use this option to filter</string>
         <string name="sort_option_not_valid">Can\'t use this option to sort</string>
+        <string name="no_documents_to_sort">There are no documents to sort</string>
+        <string name="no_images_to_sort">There are no photos to sort</string>
+        <string name="no_documents_to_filter">There are no documents to filer</string>
+        <string name="no_images_to_filer">There are no images to filter</string>
     <!-- EDIT TEXT HINTS -->
         <!-- LOGIN HINTS -->
         <string name="login_password_hint">Password</string>

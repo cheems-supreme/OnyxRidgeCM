@@ -48,6 +48,13 @@
 //      - Added method to create a header for years, before the months
 //        belonging to them
 //      - Added a method to print project entire hourly totals
+// ------------------------------------------------
+// - 12/3/2020
+// - R.O.
+// - DETAILS:
+//      - Removed redundant File initialization in
+//        generateYearlyReport(...)
+//      - Added apologetic comment
 //*******************************************************************
 package com.icecrown.onyxridgecm.utility;
 
@@ -86,7 +93,6 @@ import java.util.List;
 public class ReportFactory {
 
     public static File generateStorageAnchorFile(Context context) throws IOException{
-        File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
         File newFile = new File(context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "anchor.txt");
         if(newFile.exists()) {
             return newFile;
@@ -512,11 +518,11 @@ public class ReportFactory {
 
         return new Cell[]{dayLine, weatherLine, accidentEntry};
     }
+
     // TODO: ADD CODE TO PRINT A HEADER FOR MONTHS WITHOUT ANY DAYS, FOR BLANK ENTRIES SO ALL
     //       MONTHS ARE PRESENT
     public static File generateYearlyReport(WorkYear year, Context appContext, String projectName) {
-        File f = null;
-        f = generateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
+        File f = generateFile(appContext, appContext.getSharedPreferences("user_info", Context.MODE_PRIVATE));
 
         Document document = initializeDocumentAndHeader(f, appContext, projectName);
 
@@ -526,7 +532,9 @@ public class ReportFactory {
         else {
             Table[] records = printYearlyTotal(year, document);
             for(Table record : records) {
+                // Sorry...
                 int count = 0;
+
                 if(record == null) {
                     Log.d("EPOCH-3", "record " + ++count + " is null");
                 }

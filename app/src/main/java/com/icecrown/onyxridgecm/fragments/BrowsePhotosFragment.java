@@ -35,6 +35,13 @@
 //      - Added code to handle filtering and sorting
 //        - Since there isn't any filtering type for photos
 //        (yet), filtering for photos is currently disabled.
+// ------------------------------------------------
+// - 12/3/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to handle letting the user know that
+//        filtering and sorting cannot be done, if there are no
+//        photos loaded.
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -104,51 +111,55 @@ public class BrowsePhotosFragment extends Fragment {
 
         sortTV = v.findViewById(R.id.sort_text_view);
         sortTV.setOnClickListener(l -> {
-            PopupMenu sortOptions = new PopupMenu(getActivity(), sortTV);
-            sortOptions.getMenuInflater().inflate(R.menu.menu_sort_options, sortOptions.getMenu());
-            sortOptions.setOnMenuItemClickListener(item -> {
-                int itemId = item.getItemId();
-                if(itemId == R.id.no_sort) {
-                    Log.d("EPOCH-3", "No sort entered.");
-                    photosAdapter.setPhotos(photoList);
-                }
-                else if(itemId == R.id.last_name_sort_asc) {
-                    Log.d("EPOCH-3", "last name asc sort entered.");
-                    sortPhotosByOption(photosAdapter.getPhotos(), SortType.LAST_NAME_ASC);
-                }
-                else if(itemId == R.id.last_name_sort_desc) {
-                    Log.d("EPOCH-3", "last name desc sort entered.");
-                    sortPhotosByOption(photosAdapter.getPhotos(), SortType.LAST_NAME_DESC);
-                }
-                else if(itemId == R.id.date_sort_asc) {
-                    Log.d("EPOCH-3", "date asc sort entered.");
-                    sortPhotosByOption(photosAdapter.getPhotos(), SortType.DATE_ASC);
-                }
-                else if(itemId == R.id.date_sort_desc) {
-                    Log.d("EPOCH-3", "date desc sort entered.");
-                    sortPhotosByOption(photosAdapter.getPhotos(), SortType.DATE_DESC);
-                }
-                photosAdapter.notifyDataSetChanged();
-                return true;
-            });
-            sortOptions.show();
+            if(photosAdapter.getPhotos().size() == 0) {
+                Snackbar.make(projectNameTextView, R.string.no_images_to_sort, Snackbar.LENGTH_SHORT).show();
+            }
+            else {
+                PopupMenu sortOptions = new PopupMenu(getActivity(), sortTV);
+                sortOptions.getMenuInflater().inflate(R.menu.menu_sort_options, sortOptions.getMenu());
+                sortOptions.setOnMenuItemClickListener(item -> {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.no_sort) {
+                        Log.d("EPOCH-3", "No sort entered.");
+                        photosAdapter.setPhotos(photoList);
+                    } else if (itemId == R.id.last_name_sort_asc) {
+                        Log.d("EPOCH-3", "last name asc sort entered.");
+                        sortPhotosByOption(photosAdapter.getPhotos(), SortType.LAST_NAME_ASC);
+                    } else if (itemId == R.id.last_name_sort_desc) {
+                        Log.d("EPOCH-3", "last name desc sort entered.");
+                        sortPhotosByOption(photosAdapter.getPhotos(), SortType.LAST_NAME_DESC);
+                    } else if (itemId == R.id.date_sort_asc) {
+                        Log.d("EPOCH-3", "date asc sort entered.");
+                        sortPhotosByOption(photosAdapter.getPhotos(), SortType.DATE_ASC);
+                    } else if (itemId == R.id.date_sort_desc) {
+                        Log.d("EPOCH-3", "date desc sort entered.");
+                        sortPhotosByOption(photosAdapter.getPhotos(), SortType.DATE_DESC);
+                    }
+                    photosAdapter.notifyDataSetChanged();
+                    return true;
+                });
+                sortOptions.show();
+            }
         });
         filterTV = v.findViewById(R.id.filter_text_view);
         filterTV.setOnClickListener(l -> {
-            PopupMenu filterOptions = new PopupMenu(getActivity(), filterTV);
-            filterOptions.getMenuInflater().inflate(R.menu.menu_filter_options, filterOptions.getMenu());
-            filterOptions.setOnMenuItemClickListener(item -> {
-                int itemId = item.getItemId();
-                if(itemId == R.id.no_filter) {
-                    photosAdapter.setPhotos(photoList);
-                }
-                else if(itemId == R.id.accident_filter) {
-                    Snackbar.make(filterTV, R.string.filter_option_not_valid, Snackbar.LENGTH_SHORT).show();
-                }
-                photosAdapter.notifyDataSetChanged();
-                return true;
-            });
-            filterOptions.show();
+            if(photosAdapter.getPhotos().size() == 0) {
+                Snackbar.make(projectNameTextView, R.string.no_images_to_filer, Snackbar.LENGTH_SHORT).show();
+            } else {
+                PopupMenu filterOptions = new PopupMenu(getActivity(), filterTV);
+                filterOptions.getMenuInflater().inflate(R.menu.menu_filter_options, filterOptions.getMenu());
+                filterOptions.setOnMenuItemClickListener(item -> {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.no_filter) {
+                        photosAdapter.setPhotos(photoList);
+                    } else if (itemId == R.id.accident_filter) {
+                        Snackbar.make(filterTV, R.string.filter_option_not_valid, Snackbar.LENGTH_SHORT).show();
+                    }
+                    photosAdapter.notifyDataSetChanged();
+                    return true;
+                });
+                filterOptions.show();
+            }
         });
 
         projectNameTextView = v.findViewById(R.id.project_name);

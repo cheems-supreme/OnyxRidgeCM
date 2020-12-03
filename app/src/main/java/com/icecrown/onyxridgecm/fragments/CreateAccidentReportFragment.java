@@ -9,6 +9,14 @@
 //
 // Purpose: Used for logic regarding creation and viewing of
 //          accident reports
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 12/3/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to handle what happens when no accident
+//        logs exist for a given project.
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -28,6 +36,7 @@ import com.github.barteksc.pdfviewer.PDFView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -84,7 +93,7 @@ public class CreateAccidentReportFragment extends Fragment {
         MaterialButton generateReportButton = v.findViewById(R.id.create_report_button);
         generateReportButton.setOnClickListener(l -> {
             if(jobNameValue.equals("") || jobNameValue.equals(getString(R.string.job_name_default_value))) {
-                Snackbar.make(jobNameSpinner, R.string.no_project_chosen, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(jobNameSpinner, R.string.no_new_project_name_entered, Snackbar.LENGTH_SHORT).show();
             }
             else {
                 generateAccidentReportEntry();
@@ -96,14 +105,22 @@ public class CreateAccidentReportFragment extends Fragment {
     }
 
     private void generateAccidentReportEntry() {
-        CollectionReference accidentLogCollection = db.collection("accidents/" + jobNameValue + "/logs");
-        accidentLogCollection.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()) {
-                // TODO: SORT BY DATE (OLDEST TO NEWEST)
-                List<DocumentSnapshot> accidentEntries = task.getResult().getDocuments();
-                File f = ReportFactory.generateAccidentReport(accidentEntries, getContext(), jobNameValue);
-                reportView.fromFile(f).load();
-            } else {
+        DocumentReference accidentLogsExist = db.document("accidents/" + jobNameValue);
+        accidentLogsExist.get().addOnCompleteListener(taskDoc -> {
+            if(taskDoc.getResult().exists()) {
+                CollectionReference accidentLogCollection = db.collection("accidents/" + jobNameValue + "/logs");
+                accidentLogCollection.get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // TODO: SORT BY DATE (OLDEST TO NEWEST)
+                        List<DocumentSnapshot> accidentEntries = task.getResult().getDocuments();
+                        File f = ReportFactory.generateAccidentReport(accidentEntries, getContext(), jobNameValue);
+                        reportView.fromFile(f).load();
+                    } else {
+                        Snackbar.make(jobNameSpinner, R.string.accident_report_no_accidents, Snackbar.LENGTH_SHORT).show();
+                    }
+                });
+            }
+            else {
                 Snackbar.make(jobNameSpinner, R.string.accident_report_no_accidents, Snackbar.LENGTH_SHORT).show();
             }
         });

@@ -436,3 +436,38 @@ work for senior project. Fingers crossed that we pass.
 - Edited `TakeNewPhotoFragment.java`
   - Fixed positioning of a bracket, closed-paren, and semicolon pairing.
   - Added line to set `chosenFile` to `null` if the upload of an image was successful.
+
+# 12/3/2020 Changes
+- Edited `BrowsePhotosFragment.java`
+  - Added code to handle what happens when the user tries to sort and filter without any photos
+    in the `photoAdapter`
+- Edited `BrowseReportsFragment.java`
+  - Added code to handle what happens when the user tries to sort and filter without any documents
+    in the `documentAdapter`
+- Edited `CreateAccidentReportFragment.java`
+  - Added code to handle what happens when no accident logs exist for the given project
+- Edited `CreateMonthlyReportFragment.java`
+  - Added code to test if the project is selected
+- Edited `CreateProjectHoursTotalFragment.java`
+  - Added a assignment to the `yearsAddedCount` variable to `0` whenever the user presses the button
+    to create a report and when the project years directory variable, `projectYearsDir` is queried
+    and data is found. At first, it ran anyway and didn't display data if the `yearsTakenFromDBCount`
+    variable was less than the current `yearsAddedCount` varible.
+      -Setting it to `0` at the time the `yearsTakenFromDBCount` variable is set to the value
+       returned from `Task.getResult.size()` method call fixed this issue (could've been put
+       anywhere; put there for cohesion).
+  - Added code to handle what happens if the documents size for years is `0`, meaning no years were
+    found for this project
+  - Moved the `countOfAdditions.getAndIncrement()` to a `else` block after the conditional to test if
+    all months were added to the `WorkYear` variable (`countOfAdditions.get() == 11`).
+- Edited `CreateYearlyReportFragment.java`
+  - Added code to test if the project selected has any entries in its `hours` directory in Firebase
+    - If not, no report is made.
+  - Add code to handle what happens when no entries in the hours log exist for this project
+  - Removed unneeded calls to `Log.d(...)`
+- Edited `ReportFactory.java`
+  - Removed rudundant initialization of the `File` variable that is an anchor for the yearly report
+    - Changed the `File f = null` to `File f = generateFile(...)`
+  - Added an apologetic comment above the `count` variable used to keep track of which value in the
+    `Table` array is null
+- Added string resources
