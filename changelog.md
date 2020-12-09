@@ -471,3 +471,8 @@ work for senior project. Fingers crossed that we pass.
   - Added an apologetic comment above the `count` variable used to keep track of which value in the
     `Table` array is null
 - Added string resources
+
+# 12/8/2020 Changes
+- Added code to handle what happens if the user signed in doesn't have a proper entry inside
+  Firestore
+- Added string resources

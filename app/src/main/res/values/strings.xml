@@ -128,6 +128,7 @@
         <string name="password_not_correct">Your password is not correct.</string>
         <string name="login_failed_creds">Login failed, please check credentials.</string>
         <string name="login_failed_admin">Login failed, contact administration.</string>
+        <string name="user_not_formatted_right">This user\'s information is not accurate or correctly formatted</string>
         <!-- LOADING RESOURCES FROM FIREBASE ERROR MESSAGES -->
         <string name="projects_not_found">No projects found.</string>
         <string name="projects_not_loaded">Projects cannot be loaded.</string>

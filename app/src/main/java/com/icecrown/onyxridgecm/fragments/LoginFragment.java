@@ -37,6 +37,13 @@
 //      - Changed method name to reflect change in
 //        `MainContentActivity.java`
 //      - Reformatted `import` list
+// ------------------------------------------------
+// - 12/8/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to handle what would happen if the Firestore
+//        query returned nothing (from incorrect data formatting
+//        from web app).
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -51,6 +58,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -110,26 +118,40 @@ public class LoginFragment extends Fragment {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                     if(task.isSuccessful()) {
                         alertsMTextView.setText(R.string.login_succeeded);
-
                         db.collection("users").whereEqualTo("email", FirebaseAuth.getInstance().getCurrentUser().getEmail()).get()
                                 .addOnCompleteListener(task1 -> {
                                     if(task1.isSuccessful()) {
-                                        DocumentSnapshot snap = task1.getResult().getDocuments().get(0);
-                                        if(snap.exists()) {
+                                        if (task1.getResult().getDocuments().size() == 0) {
                                             SharedPreferences.Editor editor = prefs.edit();
-                                            String firstName = snap.getString("first_name");
-                                            String lastName = snap.getString("last_name");
-                                            String emailFB = snap.getString("email");
 
-                                            Log.d("EPOCH-3", "First Name: " + firstName + " Last Name: " + lastName + " Email: " + emailFB);
-                                            editor.putString("first_name", firstName);
-                                            editor.putString("last_name", lastName);
-                                            editor.putString("email", emailFB);
+                                            editor.putString("first_name", "Not");
+                                            editor.putString("last_name", "Avail.");
+                                            editor.putString("email", "Not avail.");
                                             // TODO: POTENTIALLY IMPLEMENT SECURITY FEATURES
                                             editor.apply();
-
+                                            alertsMTextView.setText(R.string.user_not_formatted_right);
+                                            // Snackbar.make(alertsMTextView, R.string.user_not_formatted_right, Snackbar.LENGTH_SHORT).show();
                                             startActivity(MainContentActivity.generateIntent(getContext()));
                                             signInButton.setClickable(true);
+                                        }
+                                        else {
+                                            DocumentSnapshot snap = task1.getResult().getDocuments().get(0);
+                                            if (snap.exists()) {
+                                                SharedPreferences.Editor editor = prefs.edit();
+                                                String firstName = snap.getString("first_name");
+                                                String lastName = snap.getString("last_name");
+                                                String emailFB = snap.getString("email");
+
+                                                Log.d("EPOCH-3", "First Name: " + firstName + " Last Name: " + lastName + " Email: " + emailFB);
+                                                editor.putString("first_name", firstName);
+                                                editor.putString("last_name", lastName);
+                                                editor.putString("email", emailFB);
+                                                // TODO: POTENTIALLY IMPLEMENT SECURITY FEATURES
+                                                editor.apply();
+
+                                                startActivity(MainContentActivity.generateIntent(getContext()));
+                                                signInButton.setClickable(true);
+                                            }
                                         }
                                     }
                                     else {
