@@ -50,6 +50,12 @@
 //      - Added code to handle what happens when the user tries
 //        to filter and sort when no documents exist in the
 //        document adapter
+// ------------------------------------------------
+// - 12/14/2020
+// - R.O.
+// - DETAILS:
+//      - Added line to clear reports from RecyclerView when
+//        a new project is chosen.
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -207,6 +213,7 @@ public class BrowseReportsFragment extends Fragment {
     private void loadDocumentsList() {
         if(!documentList.isEmpty()) {
             documentList.clear();
+            documentAdapter.notifyDataSetChanged();
         }
 
         FirebaseStorage.getInstance().getReference(projectNameString + "/documents/").listAll().addOnCompleteListener(task -> {

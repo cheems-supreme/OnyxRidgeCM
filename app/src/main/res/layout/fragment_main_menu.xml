@@ -232,7 +232,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:contentDescription="@string/accessibility_generate_yearly_icon"
+                        android:contentDescription="@string/accessibility_create_yearly_icon"
                         android:src="@drawable/ic_generate_yearly_report"
                         app:layout_constraintStart_toStartOf="parent"
                         android:id="@+id/yearly_report_icon"
@@ -240,7 +240,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/generate_yearly_report_cv_title"
+                        android:text="@string/create_yearly_report_cv_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/yearly_report_icon"
                         app:layout_constraintTop_toTopOf="parent"
@@ -267,14 +267,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:contentDescription="@string/accessibility_generate_monthly_report_icon"
+                    android:contentDescription="@string/accessibility_create_monthly_report_icon"
                     android:src="@drawable/ic_generate_monthly_report"
                     app:layout_constraintStart_toStartOf="parent"
                     android:id="@+id/monthly_report_icon"/>
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/generate_report_by_month_cv_title"
+                    android:text="@string/create_report_by_month_cv_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/monthly_report_icon"
                     app:layout_constraintTop_toTopOf="parent"
@@ -301,7 +301,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:contentDescription="@string/accessibility_generate_report_of_accidents"
+                        android:contentDescription="@string/accessibility_create_report_of_accidents"
                         android:src="@drawable/ic_report_of_accidents"
                         android:padding="5dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -309,7 +309,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/generate_report_of_accidents_cv_title"
+                        android:text="@string/create_report_of_accidents_cv_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/generate_accident_report_icon"
                         app:layout_constraintTop_toTopOf="parent"
@@ -340,7 +340,7 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/generate_project_total_cv_title"
+                        android:text="@string/create_project_total_cv_title"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/generate_project_total_report_icon"
                         app:layout_constraintTop_toTopOf="parent"

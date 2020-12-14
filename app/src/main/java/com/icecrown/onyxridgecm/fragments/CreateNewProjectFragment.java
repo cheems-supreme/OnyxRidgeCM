@@ -10,6 +10,14 @@
 // Purpose: Used for logic regarding creation of new projects.
 //          Does this by inserting an empty text file used as
 //          an 'anchor' to establish permanence inside Storage
+// ------------------------------------------------
+// UPDATES
+// ------------------------------------------------
+// - 12/14/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to ensure the project name is 6 characters
+//        or more.
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -50,6 +58,9 @@ public class CreateNewProjectFragment extends Fragment {
             String newProjectName = projectNameEditText.getText().toString();
             if(newProjectName.equals("")) {
                 projectNameEditText.setError(getString(R.string.no_new_project_name_entered));
+            }
+            else if(newProjectName.length() < 6) {
+                projectNameEditText.setError(getString(R.string.project_name_too_short));
             }
             else {
                 addProjectToStorage(newProjectName);

@@ -60,6 +60,12 @@
 //      - Added method to solidify month and year documents inside
 //        Firebase if they don't already exist.
 //      - Called method in report upload block
+// ------------------------------------------------
+// - 12/14/2020
+// - R.O.
+// - DETAILS:
+//      - Added code to perform a regular expression check on
+//        the input entered from 'Hours Worked'
 //**************************************************************
 package com.icecrown.onyxridgecm.fragments;
 
@@ -252,6 +258,11 @@ public class CreateNewReportFragment extends Fragment {
         }
         if(hoursWorkedEditText.getText().toString().isEmpty()) {
             hoursWorkedEditText.setError(getString(R.string.hours_worked_not_entered));
+            doesAFieldHaveAnError = true;
+        }
+        String hoursWorkedString = hoursWorkedEditText.getText().toString();
+        if((!hoursWorkedString.matches("\\d{1,2}.\\d{1,2}")) && (hoursWorkedString.length() < 3 || hoursWorkedString.length() > 5)) {
+            hoursWorkedEditText.setError(getString(R.string.hours_worked_not_formatted_properly));
             doesAFieldHaveAnError = true;
         }
         if(dailyLogEditText.getText().toString().isEmpty()) {

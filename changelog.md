@@ -476,3 +476,16 @@ work for senior project. Fingers crossed that we pass.
 - Added code to handle what happens if the user signed in doesn't have a proper entry inside
   Firestore
 - Added string resources
+
+# 12/14/2020 Changes
+- Edited `BrowseReportsFragment.java`
+  - Added a line to clear reports from the RecyclerView when a new project is selected.
+- Edited `CreateNewProjectFragment.java`
+  - Added code to perform a length check on the project name
+- Edited `CreateNewReportFragment.java`
+  - Added code to perform regular expression check on input received from 'Hours Worked' textbox
+- Edited `fragment_main_menu.xml`
+  - Changed string resource names to match new naming counterpart in `strings.xml`
+- Edited `strings.xml`
+  - Added new string resources
+  - Changed names from 'generate' to 'create' and 'job' to 'project'

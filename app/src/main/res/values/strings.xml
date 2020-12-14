@@ -23,17 +23,17 @@
         <string name="photo_date_taken_on">Date taken: </string>
 
         <!-- MAIN MENU CARD TEXT -->
-        <string name="generate_project_total_cv_title">Generate the Project Overall Totals Report</string>
-        <string name="generate_yearly_report_cv_title">Generate a Yearly Report</string>
-        <string name="generate_report_by_month_cv_title">Generate a Report by Month</string>
+        <string name="create_project_total_cv_title">Create the Project Overall Totals Report</string>
+        <string name="create_yearly_report_cv_title">Create a Yearly Report</string>
+        <string name="create_report_by_month_cv_title">Create a Report by Month</string>
         <string name="create_new_report_cv_title">Create a New Report</string>
         <string name="upload_existing_report_cv_title">Upload an Existing Report</string>
         <string name="take_new_photo_cv_title">Take a New Photo</string>
-        <string name="generate_report_of_accidents_cv_title">Generate a Report of Accidents</string>
+        <string name="create_report_of_accidents_cv_title">Create a Report of Accidents</string>
         <string name="create_new_project_cv_title">Create a New Project</string>
 
         <!-- CREATE REPORT TEMPLATE FIELDS -->
-        <string name="job_name_title">Job Name: </string>
+        <string name="job_name_title">Project Name: </string>
         <string name="date_title">Date: </string>
         <string name="workers_title">Workers: </string>
         <string name="hours_per_worker_title">Hours Worked Per Worker: </string>
@@ -86,7 +86,7 @@
         <string name="accident_happened">Has Accident</string>
 
         <!-- ARRAY TEXT -->
-        <string name="job_name_default_value">Job Name</string>
+        <string name="job_name_default_value">Project Name</string>
         <string name="weather_default_value">Weather</string>
         <string-array name="weather_values">
             <item>Weather</item>
@@ -102,7 +102,7 @@
         <string name="confirm_logoff">Logout</string>
         <string name="cancel">Cancel</string>
 
-        <!-- GENERATE TOTALS TEXT -->
+        <!-- create TOTALS TEXT -->
         <string name="create_monthly_total_title">Create Monthly Hourly Report</string>
         <string name="create_yearly_total_title">Create Yearly Hourly Report</string>
         <string name="create_project_total_title">Create Project Total Hourly Report</string>
@@ -137,13 +137,14 @@
         <string name="no_photos_admin">Cannot display photos; contact administrator</string>
         <string name="no_photos_to_show">No photos to show.</string>
         <string name="photo_cannot_be_loaded">Photo cannot be loaded; contact administrator</string>
-        <!-- GENERATE REPORT ERROR MESSAGES -->
-        <string name="job_name_not_chosen">A job name must be selected.</string>
+        <!-- CREATE REPORT ERROR MESSAGES -->
+        <string name="job_name_not_chosen">A project name must be selected.</string>
         <string name="workers_on_site_not_entered">\'Workers on Site\' must be entered.</string>
         <string name="hours_worked_not_entered">\'Hours Worked\' must be entered.</string>
         <string name="daily_log_not_entered">\'Daily Log\' must be filled.</string>
         <string name="weather_not_chosen">A weather type must be chosen.</string>
         <string name="accident_happened_not_entered">If an accident occurred, a description must be entered.</string>
+        <string name="hours_worked_not_formatted_properly">\'Hours worked\' must be entered in the format: XX.XX</string>
         <!-- UPLOAD ERROR MESSAGES -->
         <string name="upload_report_failed">Report upload failed.</string>
         <string name="upload_photo_failed">Photo upload failed.</string>
@@ -164,6 +165,7 @@
         <!-- CREATE NEW PROJECT ERROR MESSAGES -->
         <string name="no_new_project_name_entered">No project name entered; you must enter a project name</string>
         <string name="project_not_made_admin">Project not created; contact administrator</string>
+        <string name="project_name_too_short">The project name must be six (6) characters or longer</string>
         <!-- FILTER AND SORT ERROR MESSAGES -->
         <string name="filter_option_not_valid">Can\'t use this option to filter</string>
         <string name="sort_option_not_valid">Can\'t use this option to sort</string>
@@ -178,21 +180,21 @@
         <string name="workers_number_hint">Number of workers</string>
         <string name="hours_worked_per_worker_hint">Hours worked</string>
         <!-- MONTHLY REPORT HINTS -->
-        <string name="job_year_hint">Job year (e.g. \'2020\')</string>
-        <string name="job_month_hint">Job month (e.g. \'November\'</string>
+        <string name="job_year_hint">Year (ex. \'2020\')</string>
+        <string name="job_month_hint">Month (ex. \'November\')</string>
         <!-- CREATE NEW PROJECT HINTS -->
         <string name="new_project_name_hint">Project name</string>
 
 
     <!-- ACCESSIBILITY TEXT -->
-    <string name="accessibility_generate_yearly_icon">Generate yearly report icon</string>
-    <string name="accessibility_generate_monthly_report_icon">Generate monthly report icon</string>
+    <string name="accessibility_create_yearly_icon">Create yearly report icon</string>
+    <string name="accessibility_create_monthly_report_icon">Create monthly report icon</string>
     <string name="accessibility_create_new_report_icon">Create new report</string>
     <string name="accessibility_upload_existing_report_icon">Upload existing report</string>
     <string name="accessibility_take_new_photo_icon">Take new photo</string>
     <string name="accessibility_upload_existing_photo_icon">Upload existing photo</string>
-    <string name="accessibility_generate_report_of_accidents">Generate report of accidents photo</string>
+    <string name="accessibility_create_report_of_accidents">Create report of accidents photo</string>
     <string name="accessibility_image_instance_thumbnail">Image thumbnail</string>
-    <string name="accessibility_project_total_icon">Generate project total report icon</string>
+    <string name="accessibility_project_total_icon">Create project total report icon</string>
     <string name="accessibility_create_new_project_icon">Create new project icon</string>
 </resources>
