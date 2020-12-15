@@ -489,3 +489,8 @@ work for senior project. Fingers crossed that we pass.
 - Edited `strings.xml`
   - Added new string resources
   - Changed names from 'generate' to 'create' and 'job' to 'project'
+
+# 12/15/2020 Changes
+- Edited `fragment_take_new_photo.xml`
+  - Changed the height for the ImageView to preview images taken with the camera to fit it on the
+    screen for smaller phones.
